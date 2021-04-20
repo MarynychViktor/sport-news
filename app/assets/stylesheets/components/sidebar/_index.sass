@@ -1,0 +1,55 @@
+.sidebar
+  padding: 0 0 0 52px
+  width: 252px
+
+  &-links
+    list-style-type: none
+    margin: 0
+    padding: 0
+
+  &-link
+    font-size: 14px
+    font-weight: 700
+    color: #B2B2B2
+    text-decoration: none
+
+    &-wrapper
+      position: relative
+
+      &:not(:first-child)
+        margin-top: 17px
+
+      &:hover,
+      &.active
+        a
+          color: #C63638
+          text-decoration: none
+
+      &.active
+        &:before
+          content: '•'
+          position: absolute
+          left: -10px
+          color: #C63638
+  &-follow
+    margin-top: 70px
+
+    &__title
+      color: #B2B2B2
+
+    &__group
+      display: flex
+      margin-top: 24px
+
+    &__link
+      width: 20px
+      height: 20px
+      display: flex
+      align-items: center
+      justify-content: center
+
+      &:not(:first-child)
+        margin-left: 25px
+
+    &__icon
+      width: 100%

@@ -3,6 +3,9 @@
   border-bottom: 1px solid #EDEDED
   padding-right: 50px
 
+  > *:not(:first-child):not(:last-child)
+    border-left: 1px solid #EDEDED
+
   &__hero
     display: flex
     align-items: center
@@ -18,6 +21,25 @@
 
   &-search
     flex: 1
+    display: flex
+    align-items: center
+    padding-left: 38px
+
+    &__input
+      border: none
+      font-size: 16px
+      font-weight: 400
+
+      &:hover,
+      &:focus
+        border: none
+
+      &-wrapper
+        flex: 1
+
+    &__icon
+      height: 24px
+
 
   &-share
     padding: 0 69px
@@ -42,6 +64,7 @@
   &-profile
     display: flex
     align-items: center
+    padding-left: 109px
 
     &__avatar
       width: 100%

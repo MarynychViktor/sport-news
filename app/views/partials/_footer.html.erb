@@ -1,0 +1,53 @@
+<footer class="app-footer">
+  <div class="app-footer-content">
+    <div class="app-footer-column">
+      <div class="app-footer-column__title">
+        COMPANY INFO
+      </div>
+      <ul class="app-footer-column__links">
+        <%
+          links = ['About Sports Hub', 'News / In the Press', 'Advertising / Sports Blogger Ad Network', 'Events', 'Contact Us']
+        %>
+        <% links.each do |link| %>
+          <li class="app-footer-column__link-wrapper">
+            <a class="app-footer-column__link" href="#"><%= link %></a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="app-footer-column">
+      <div class="app-footer-column__title">
+        CONTRIBUTORS
+      </div>
+      <ul class="app-footer-column__links">
+        <%
+          links = ['Featured Writers Program', 'Featured Team Writers Program', 'Internship Program']
+        %>
+        <% links.each do |link| %>
+          <li class="app-footer-column__link-wrapper">
+            <a class="app-footer-column__link" href="#"><%= link %></a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="app-footer-column">
+      <div class="app-footer-column__title">
+        NEWSLETTER
+      </div>
+      <div class="app-footer-column__links">
+        <div class="app-footer-column__link" href="#">Sign up to receive the latest sports news</div>
+        <div class="app-footer-newsletter">
+          <input type="text" placeholder="Your email address">
+          <button class="button">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="app-footer-additional">
+    <div class="app-footer__app-name">Sports Hub</div>
+    <div>
+      <div class="app-footer-copyrights">Copyright ©2019 Sports Hub</div>
+      <div class="app-footer-terms">Privacy / Terms</div>
+    </div>
+  </div>
+</footer>
