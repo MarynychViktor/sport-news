@@ -1,0 +1,42 @@
+.button
+  width: 137px
+  height: 32px
+  display: flex
+  align-items: center
+  justify-content: center
+  outline: none
+  border: none
+  background: $primary
+  box-sizing: border-box
+  color: $text-light
+  text-decoration: none
+  cursor: pointer
+
+  &:hover
+    background: $primary-light
+
+  &:active, &:focus
+    background: $primary-dark
+
+  &:disabled
+    background: $primary-thin
+
+
+  &-outline
+    @extend .button
+    color: $primary
+    background: $base-light
+    border: 1px solid $primary
+
+    &:hover,  &:active, &:focus
+      color: $text-light
+
+    &:disabled
+      color: $primary-thin
+      background: $base-light
+      border: 1px solid $primary-thin
+
+  &-large
+    @extend .button
+    width: 130px
+    height: 42px

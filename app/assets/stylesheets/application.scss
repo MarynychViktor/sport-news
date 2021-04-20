@@ -10,6 +10,17 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
  */
+@import "bootstrap/scss/bootstrap.scss";
+@import "selectize/dist/css/selectize";
+@import "selectize/dist/css/selectize.default";
+
+@import "variables";
+@import "elements/index";
+@import "components/index";
+
+body {
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+}
+

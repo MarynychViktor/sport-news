@@ -1,0 +1,317 @@
+@import "slick-carousel/slick/slick"
+@import "variables"
+
+$columns-gap: 34
+
+.nav-arrow
+  position: absolute
+  bottom: 0
+  right: 12px
+  color: #C63638
+  visibility: hidden
+
+/** Hero section **/
+.hero
+  &-wrapper
+    position: relative
+
+  &__logo
+    height: 100%
+    width: 100%
+    object-fit: cover
+    object-position: center
+
+    &-wrapper
+      height: 460px
+      overflow: hidden
+
+
+  &-info
+    width: 421px
+    background: #F6F6F6
+    padding: 50px 10px 0 0
+
+    &-list
+      box-shadow: $shadow
+
+      &-wrapper
+        position: absolute
+        right: -247px
+        bottom: 83px
+        width: 421px
+
+    &__published,
+    &__title,
+    &__text
+      padding-left: 33px
+
+    &__published
+      font-size: 14px
+      color: #7F7B7B
+
+    &__title
+      font-weight: 600
+      margin-top: 19px
+      color: #C63638
+
+    &__text
+      font-size: 22px
+      font-weight: 700
+      line-height: 30px
+      margin-top: 10px
+
+    &__action
+      margin-top: 41px
+      width: 175px
+
+
+  &-nav
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    margin-top: 30px
+
+    &__before,
+    &__next
+      border: 1px solid #979797
+      border-radius: 50%
+      width: 27px
+      height: 27px
+      display: flex
+      justify-content: center
+      align-items: center
+
+      &:hover
+        color: #C63638
+        border-color: #C63638
+
+    &__before,
+    &__next,
+    &__page
+      cursor: pointer
+      user-select: none
+
+    &__pages,
+    &__next
+      margin-left: 21px
+
+    &__pages
+      display: flex
+
+    &__page
+      font-weight: 700
+      color: #B2B2B2
+
+      &:not(:last-child)
+        margin-right: 10px
+
+      &.active
+        color: #C63638
+
+
+  &-articles-preview
+    display: flex
+    margin-top: 32px
+
+  &-article-preview
+    padding: 12px 12px 58px
+    position: relative
+
+    &:hover
+      box-shadow: $shadow
+
+      .hero-article-preview__nav
+        visibility: visible
+
+    &:not(:last-child)
+      margin-right: 10px
+
+    &__logo
+      width: 100%
+      height: 100%
+      object-fit: cover
+
+      &-wrapper
+        height: 128px
+        overflow: hidden
+
+    &__title
+      margin-top: 14px
+      font-weight: 700
+
+    &__text
+      font-size: 14px
+      color: #7F7B7B
+      margin-top: 4px
+
+    &__nav
+      @extend .nav-arrow
+
+
+/** Breakdown section **/
+.breakdown
+  margin-top: 41px
+
+  &-divider
+    margin-top: 50px
+
+  &-row
+    display: flex
+    justify-content: space-between
+
+    &:not(:first-child)
+      margin-top: 49px
+
+    > *
+      width: calc(50% - #{$columns-gap / 2}px)
+
+.news-preview
+  position: relative
+  border: 1px solid #EDEDED
+  cursor: pointer
+
+  &:hover
+    box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.110932)
+
+    .news-preview__footer-arrow
+      visibility: visible
+
+  &__logo
+    height: 100%
+    width: 100%
+    object-fit: cover
+
+    &-wrapper
+      height: 196px
+      overflow: hidden
+
+  &__footer
+    height: 99px
+    padding: 12px 15px 25px
+
+    &-text
+      font-size: 22px
+      font-weight: 700
+
+    &-arrow
+      @extend .nav-arrow
+
+.block
+  &-group
+    border: 1px solid #EDEDED
+
+  &-item
+    width: 100%
+    display: flex
+    position: relative
+    cursor: pointer
+
+    &:not(:last-child)
+      border-bottom:  1px solid #EDEDED
+
+    &:hover
+      box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.110932)
+
+      .block-item__nav
+        visibility: visible
+
+    &__logo
+      height: 100%
+      width: 100%
+      object-fit: cover
+
+      &-wrapper
+        max-height: 100%
+        width: 150px
+        overflow: hidden
+
+    &__content
+      padding: 16px 18px
+      flex: 1
+
+    &__title
+      font-weight: 700
+
+    &__text
+      font-size: 14px
+
+    &__nav
+      @extend .nav-arrow
+
+/** Photo of the day section **/
+.pod
+  &-divider
+    margin: 71px 0 59px
+
+  &-container
+    position: relative
+
+  &-sign
+    position: absolute
+    left: 5px
+    top: 11px
+    z-index: 2
+    color: white
+
+    &-decoration
+      position: relative
+      top: -29px
+      left: -5px
+      z-index: -1
+
+      &:before
+        content: ''
+        position: absolute
+        border-left: 169px solid #D72130
+        border-right: 169px solid transparent
+        border-top: 61px solid transparent
+        border-bottom: 61px solid transparent
+        z-index: 0
+        left: -13px
+
+
+  &__logo
+    height: 100%
+    width: 100%
+    object-fit: cover
+
+    &-wrapper
+      height: 577px
+      overflow: hidden
+
+  &-description
+    padding: 69px 25px 30px
+    position: absolute
+    left: 0
+    bottom: 0
+    color: white
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, #000000 100%)
+    padding-right: 256px
+
+    &__title
+      font-size: 22px
+      font-weight: bold
+
+    &__text
+      margin-top: 12px
+      font-size: 14px
+
+    &__source
+      font-size: 14px
+      font-weight: 600
+      font-style: italic
+
+/** Top data section **/
+.top-data
+  display: flex
+  justify-content: space-between
+  margin-top: 60px
+
+  > div
+    width: calc(50% - #{$columns-gap / 2}px)
+
+  &-col
+    margin-top: 34px
+
+  .block-item__logo-wrapper
+    width: 178px

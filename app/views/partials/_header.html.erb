@@ -1,0 +1,57 @@
+<header class="app-header d-flex">
+  <div class="app-header__hero">
+    Sport Store
+  </div>
+  <div class="app-header-search">
+
+  </div>
+  <div class="app-header-share">
+    <div class="app-header-share__title">
+      Share
+    </div>
+    <div class="app-header-share__icons">
+      <a href="#" class="app-header-share__link">
+        <%= image_tag 'social/facebook.svg', alt: 'facebook icon', class: 'app-header-share__icon' %>
+      </a>
+      <a href="#" class="app-header-share__link">
+        <%= image_tag 'social/twitter.svg', alt: 'twitter icon', class: 'app-header-share__icon' %>
+      </a>
+      <a href="#" class="app-header-share__link">
+        <%= image_tag 'social/google-plus.svg', alt: 'google plus icon', class: 'app-header-share__icon' %>
+      </a>
+    </div>
+  </div>
+
+  <div class="app-header-profile">
+    <div class="app-header-profile__avatar-wrapper">
+      <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" alt="profile"  class="app-header-profile__avatar">
+    </div>
+
+    <div class="app-header-profile-menu">
+      <div class="app-header-profile-menu__toggle" id="header-profile-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Ivan Baloh <span class="material-icons">arrow_drop_down</span>
+      </div>
+
+      <div class="app-dropdown-menu dropdown-menu dropdown-menu-right" aria-labelledby="header-profile-dropdown">
+        <a class="app-dropdown-item dropdown-item" href="#">View Profile</a>
+        <a class="app-dropdown-item dropdown-item" href="#">Change Password</a>
+        <a class="app-dropdown-item dropdown-item" href="#">My surveys</a>
+        <a class="app-dropdown-item dropdown-item" href="#">Team hub</a>
+        <div class="dropdown-divider"></div>
+        <a class="app-dropdown-item dropdown-item" href="#">Log out</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-header-lang-wrapper">
+    <div class="app-header-lang btn-group">
+      <div class="app-header-lang__toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        EN <span class="app-header-lang__toggle-icon material-icons">arrow_drop_down</span>
+      </div>
+      <div class="app-dropdown-menu app-header-lang__select dropdown-menu">
+        <a class="app-header-lang__item dropdown-item" href="#">UA</a>
+        <a class="app-header-lang__item dropdown-item" href="#">DE</a>
+      </div>
+    </div>
+  </div>
+</header>
