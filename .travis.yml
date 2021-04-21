@@ -4,4 +4,7 @@ rbenv:
 branches:
   only:
     - develop
-script: rails test
+jobs:
+  include:
+    -stage: testing
+    script: ./bin/rails test
