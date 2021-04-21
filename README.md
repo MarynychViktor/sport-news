@@ -1,7 +1,8 @@
 ## Sport News
+[![Build Status](https://travis-ci.com/MarinichViktor/sport-news.svg?token=JqofupwQsLqw17Vqyoye&branch=master)](https://travis-ci.com/MarinichViktor/sport-news)
 
 ---
-####Specification
+#### Specification
 >https://github.com/dark-side/lanthanum/tree/master/products/sport_news_portal
 
 #### Preview 
