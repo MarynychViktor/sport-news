@@ -4,8 +4,14 @@
     height: rem(83px)
     border-bottom: 1px solid #EDEDED
     background: white
-    position: relative
-    z-index: 1
+    position: fixed
+    left: 0
+    top: 0
+    right: 0
+    max-width: $container-width
+    width: 100%
+    margin: 0 auto
+    z-index: 5
 
   &-hero
     @extend .flex-center
@@ -14,16 +20,11 @@
     width: 253px
     background: $primary
 
-  //&-search,
-  //&-share,
-  //&-profile
-  //  border-left: 1px solid $border-color
-
   /** Search widget **/
   &-search
     @extend .flex-y-center
     flex-grow: 1
-    padding-left: 38px
+    padding-left: 34px
 
     &__input
       +font-size(16px)
@@ -70,7 +71,7 @@
     &-wrapper
       @extend .flex-center
       justify-content: flex-end
-      flex-basis: 19%
+      flex-basis: 18.25%
       padding-right: rem(20px)
 
     button:last-child
@@ -141,7 +142,7 @@
 
     &-wrapper
       @extend .flex-center
-      margin-right: rem(60px)
+      margin-right: rem(55px)
 
     &.show
       .app-header-lang__toggle-icon

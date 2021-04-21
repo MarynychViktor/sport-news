@@ -14,14 +14,14 @@
     <%= yield :styles %>
   </head>
   <body>
-    <div class="user-layout-wrapper">
+    <div class="app-wrapper">
       <%= render 'partials/header' %>
 
-      <div class="user-layout-container">
-        <div class="user-layout-container__sidebar">
+      <div class="app-container">
+        <div class="app-container__sidebar">
           <%= render 'partials/sidebar' %>
         </div>
-        <div class="user-layout-container__content">
+        <div class="app-container__content">
           <%= yield %>
         </div>
       </div>

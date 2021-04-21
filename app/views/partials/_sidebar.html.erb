@@ -17,7 +17,7 @@
   ]
 %>
 <div class="sidebar">
-  <ul class="sidebar-links">
+  <ul class="sidebar-links"  data-simplebar data-simplebar-direction='rtl'>
     <% links.each.with_index do |l, i| %>
       <li class="sidebar-link-wrapper <%= i == 0 ? 'active' : '' %>">
         <a href="#" class="sidebar-link"><%= l %></a>

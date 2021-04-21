@@ -16,4 +16,5 @@ window.$ = require("jquery")
 require("popper.js")
 require("bootstrap")
 require("slick-carousel")
+require('simplebar')
 

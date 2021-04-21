@@ -17,7 +17,8 @@
 </head>
 <body>
 <div class="admin-layout-wrapper">
-  <%= render 'partials/header', has_switch: true %>
+  <% @admin_panel = true %>
+  <%= render 'partials/header' %>
   <%= render 'admin/partials/menu' %>
 
   <div class="admin-layout-container">

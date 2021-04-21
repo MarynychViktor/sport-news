@@ -30,9 +30,9 @@
         </div>
 
         <div class="admin-submenu__links" id="admin-menu">
-          <% home.each do |x| %>
+          <% home.each.with_index do |x, i| %>
             <div class="admin-submenu__link-wrapper">
-              <a href="#" class="admin-submenu__link"><%= x %></a>
+              <a href="#" class="admin-submenu__link <%= i == 0 ? 'is-active' : '' %>"><%= x %></a>
             </div>
           <% end %>
         </div>

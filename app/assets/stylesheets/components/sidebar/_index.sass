@@ -1,11 +1,21 @@
 .sidebar
-  padding: 0 0 0 52px
   width: 100%
+  position: fixed
+  top: rem(103px)
+  height: calc(100vh - 300px)
+  z-index: 5
+  width: 252px
+  padding-top: 53px
+  overflow: hidden
+
+  &-links,
+  &-follow
+    padding-left: 52px
 
   &-links
     list-style-type: none
     margin: 0
-    padding: 0
+    max-height: calc(100% - 182px)
 
   &-link
     +font-size(14px)
@@ -17,7 +27,7 @@
       position: relative
 
       &:not(:first-child)
-        margin-top: 17px
+        margin-top: 12px
 
       &:hover,
       &.active

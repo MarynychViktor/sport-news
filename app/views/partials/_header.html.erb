@@ -1,45 +1,48 @@
 <header class="h-header d-flex">
   <a href="/" class="h-hero link">
-    Sport Store
+    Sports Hub
   </a>
-
-<!--  Search widget-->
-  <div class="h-search">
-    <div class="h-search__icon">
-      <span class="material-icons">
-        search
-      </span>
+  <% if not @admin_panel %>
+    <!--  Search widget-->
+    <div class="h-search">
+      <div class="h-search__icon">
+        <span class="material-icons">
+          search
+        </span>
+      </div>
+      <div class="h-search__input-wrapper">
+        <input type="text" class="h-search__input app-input" placeholder="Search by">
+      </div>
     </div>
-    <div class="h-search__input-wrapper">
-      <input type="text" class="h-search__input app-input" placeholder="Search by">
-    </div>
-  </div>
 
 <!--  Share widget-->
-  <div class="vertical-divider"></div>
-  <div class="h-share-wrapper">
-    <div class="h-share">
-      <div class="h-share__title">
-        Share
-      </div>
-      <div class="h-share__icons">
-        <a href="#" class="h-share__link">
-          <%= image_tag 'social/facebook.svg', alt: 'facebook icon', class: 'h-share__icon' %>
-        </a>
-        <a href="#" class="h-share__link">
-          <%= image_tag 'social/twitter.svg', alt: 'twitter icon', class: 'h-share__icon' %>
-        </a>
-        <a href="#" class="h-share__link">
-          <%= image_tag 'social/google-plus.svg', alt: 'google plus icon', class: 'h-share__icon' %>
-        </a>
+    <div class="vertical-divider"></div>
+    <div class="h-share-wrapper">
+      <div class="h-share">
+        <div class="h-share__title">
+          Share
+        </div>
+        <div class="h-share__icons">
+          <a href="#" class="h-share__link">
+            <%= image_tag 'social/facebook.svg', alt: 'facebook icon', class: 'h-share__icon' %>
+          </a>
+          <a href="#" class="h-share__link">
+            <%= image_tag 'social/twitter.svg', alt: 'twitter icon', class: 'h-share__icon' %>
+          </a>
+          <a href="#" class="h-share__link">
+            <%= image_tag 'social/google-plus.svg', alt: 'google plus icon', class: 'h-share__icon' %>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
+  <% else %>
+    <div class="flex-grow-1"></div>
+  <% end %>
   <div class="vertical-divider"></div>
 
 
   <% if @current_user %>
-    <div class="h-profile-wrapper <%= (defined? has_switch) ? 'has-switch' : '' %>">
+    <div class="h-profile-wrapper <%= @admin_panel ? 'has-switch' : '' %>">
       <div class="h-profile">
 
         <div class="h-switch">

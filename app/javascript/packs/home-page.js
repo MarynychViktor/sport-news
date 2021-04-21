@@ -23,8 +23,8 @@ $(document).ready(() => {
         arrows: false,
         fade: true,
         asNavFor: '#hero-info-carousel',
-        // autoplay: true,
-        // autoplaySpeed: 2000,
+        autoplay: true,
+        autoplaySpeed: 2000,
     })
     $('#hero-info-carousel').slick({
         slidesToShow: 1,
