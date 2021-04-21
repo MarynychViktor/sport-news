@@ -40,5 +40,28 @@
 
   &-large
     @extend .button
+    +font-size(14px)
+    +line-height(19px)
     width: 130px
     height: 42px
+
+  &-plain
+    @extend .button
+    +font-size(12px)
+    +line-height(17px)
+    color: $primary
+    width: unset
+    height: unset
+    background: none
+
+    &:hover
+      color: $primary-light
+      background: none
+
+    &:active, &:focus
+      color: $primary-dark
+      background: none
+
+    &:disabled
+      color: $primary-thin
+      background: none

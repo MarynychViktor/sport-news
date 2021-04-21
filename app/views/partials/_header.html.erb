@@ -1,68 +1,93 @@
-<header class="app-header d-flex">
-  <div class="app-header__hero">
+<header class="h-header d-flex">
+  <a href="/" class="h-hero link">
     Sport Store
-  </div>
-  <div class="app-header-search">
-    <div class="app-header-search__icon">
+  </a>
+
+<!--  Search widget-->
+  <div class="h-search">
+    <div class="h-search__icon">
       <span class="material-icons">
         search
       </span>
     </div>
-    <div class="app-header-search__input-wrapper">
-      <input type="text" class="app-header-search__input app-input" placeholder="Search by">
-    </div>
-  </div>
-  <div class="app-header-share">
-    <div class="app-header-share__title">
-      Share
-    </div>
-    <div class="app-header-share__icons">
-      <a href="#" class="app-header-share__link">
-        <%= image_tag 'social/facebook.svg', alt: 'facebook icon', class: 'app-header-share__icon' %>
-      </a>
-      <a href="#" class="app-header-share__link">
-        <%= image_tag 'social/twitter.svg', alt: 'twitter icon', class: 'app-header-share__icon' %>
-      </a>
-      <a href="#" class="app-header-share__link">
-        <%= image_tag 'social/google-plus.svg', alt: 'google plus icon', class: 'app-header-share__icon' %>
-      </a>
+    <div class="h-search__input-wrapper">
+      <input type="text" class="h-search__input app-input" placeholder="Search by">
     </div>
   </div>
 
-  <div class="app-header-profile">
-    <div class="app-header-profile__avatar-wrapper">
-      <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" alt="profile"  class="app-header-profile__avatar">
-    </div>
-
-    <div class="app-header-profile-menu">
-      <div class="app-header-profile-menu__toggle" id="header-profile-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Ivan Baloh <span class="material-icons">arrow_drop_down</span>
+<!--  Share widget-->
+  <div class="vertical-divider"></div>
+  <div class="h-share-wrapper">
+    <div class="h-share">
+      <div class="h-share__title">
+        Share
       </div>
+      <div class="h-share__icons">
+        <a href="#" class="h-share__link">
+          <%= image_tag 'social/facebook.svg', alt: 'facebook icon', class: 'h-share__icon' %>
+        </a>
+        <a href="#" class="h-share__link">
+          <%= image_tag 'social/twitter.svg', alt: 'twitter icon', class: 'h-share__icon' %>
+        </a>
+        <a href="#" class="h-share__link">
+          <%= image_tag 'social/google-plus.svg', alt: 'google plus icon', class: 'h-share__icon' %>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="vertical-divider"></div>
 
-      <div class="app-dropdown-menu dropdown-menu dropdown-menu-right" aria-labelledby="header-profile-dropdown">
-        <div class="app-header-profile-menu__user">
-          <div class="app-header-profile-menu__user-name">Ivan Baloh</div>
-          <div class="app-header-profile-menu__user-email">ivanbaloh@gmail.com</div>
+
+  <% if @current_user %>
+    <div class="h-profile-wrapper <%= (defined? has_switch) ? 'has-switch' : '' %>">
+      <div class="h-profile">
+
+        <div class="h-switch">
+          <%= inline_svg_tag 'admin/switch.svg', class: "h-switch__icon" %>
         </div>
-        <div class="dropdown-divider"></div>
-        <a class="app-dropdown-item dropdown-item" href="#">View Profile</a>
-        <a class="app-dropdown-item dropdown-item" href="#">Change Password</a>
-        <a class="app-dropdown-item dropdown-item" href="#">My surveys</a>
-        <a class="app-dropdown-item dropdown-item" href="#">Team hub</a>
-        <div class="dropdown-divider"></div>
-        <a class="app-dropdown-item dropdown-item" href="#">Log out</a>
+
+        <div class="h-profile__avatar-wrapper">
+          <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" alt="profile"  class="h-profile__avatar">
+        </div>
+
+        <div class="h-profile-menu">
+          <div class="h-profile-menu__toggle" id="header-profile-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Ivan Baloh <span class="material-icons">arrow_drop_down</span>
+          </div>
+
+          <div class="app-dropdown-menu dropdown-menu dropdown-menu-right" aria-labelledby="header-profile-dropdown">
+            <div class="h-profile-menu__user">
+              <div class="h-profile-menu__user-name">Ivan Baloh</div>
+              <div class="h-profile-menu__user-email">ivanbaloh@gmail.com</div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a class="app-dropdown-item dropdown-item" href="#">View Profile</a>
+            <a class="app-dropdown-item dropdown-item" href="#">Change Password</a>
+            <a class="app-dropdown-item dropdown-item" href="#">My surveys</a>
+            <a class="app-dropdown-item dropdown-item" href="#">Team hub</a>
+            <div class="dropdown-divider"></div>
+            <a class="app-dropdown-item dropdown-item" href="#">Log out</a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="app-header-lang-wrapper">
-    <div class="app-header-lang btn-group">
-      <div class="app-header-lang__toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        EN <span class="app-header-lang__toggle-icon material-icons">arrow_drop_down</span>
+  <% else %>
+    <div class="h-signup-wrapper">
+      <div class="h-signup">
+        <button class="button-plain">Sign up</button>
+        <button class="button-outline" onclick="window.location.href = '/admin'">Log in</button>
       </div>
-      <div class="app-dropdown-menu app-header-lang__select dropdown-menu">
-        <a class="app-header-lang__item dropdown-item" href="#">UA</a>
-        <a class="app-header-lang__item dropdown-item" href="#">DE</a>
+    </div>
+  <% end %>
+
+  <div class="h-lang-wrapper">
+    <div class="h-lang btn-group">
+      <div class="h-lang__toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        EN <span class="h-lang__toggle-icon material-icons">arrow_drop_down</span>
+      </div>
+      <div class="app-dropdown-menu h-lang__select dropdown-menu">
+        <a class="h-lang__item dropdown-item" href="#">UA</a>
+        <a class="h-lang__item dropdown-item" href="#">DE</a>
       </div>
     </div>
   </div>

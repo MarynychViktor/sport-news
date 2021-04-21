@@ -1,33 +1,28 @@
-.app-header
-  +font-size(16px)
-  height: rem(83px)
-  border-bottom: 1px solid #EDEDED
-  padding-right: 3.4%
-  background: white
-  position: relative
-  z-index: 1
+.h
+  &-header
+    +font-size(16px)
+    height: rem(83px)
+    border-bottom: 1px solid #EDEDED
+    background: white
+    position: relative
+    z-index: 1
 
-  > *:not(:first-child):not(:last-child)
-    border-left: 1px solid #EDEDED
-
-  &__hero
+  &-hero
+    @extend .flex-center
     +font-size(22px)
     +line-height(28px)
-    display: flex
-    align-items: center
-    justify-content: center
-    font-weight: 600
-    height: 100%
     width: 253px
-    color: $white
     background: $primary
 
+  //&-search,
+  //&-share,
+  //&-profile
+  //  border-left: 1px solid $border-color
 
+  /** Search widget **/
   &-search
-    flex: 1
-    flex-basis: 31.7%
-    display: flex
-    align-items: center
+    @extend .flex-y-center
+    flex-grow: 1
     padding-left: 38px
 
     &__input
@@ -45,13 +40,13 @@
     &__icon
       height: 24px
 
-
+  /** Share widget **/
   &-share
-    padding: 0 10px
-    display: flex
-    align-items: center
-    justify-content: center
-    flex-basis: 22%
+    @extend .flex-center
+
+    &-wrapper
+      @extend .flex-center
+      flex-basis: 22%
 
     &__title
       +font-size(14px)
@@ -68,12 +63,42 @@
     &__icon
       height: 18px
 
+  /** Signup widget **/
+  &-signup
+    @extend .flex-center
+
+    &-wrapper
+      @extend .flex-center
+      justify-content: flex-end
+      flex-basis: 19%
+      padding-right: rem(20px)
+
+    button:last-child
+      margin-left: 35px
+
+  /** Switch widget **/
+  &-switch
+    margin-right: 30px
+    display: none
+    cursor: pointer
+
+  /** Profile widget **/
   &-profile
-    flex-basis: 15.625%
-    display: flex
-    align-items: center
-    justify-content: flex-end
-    padding: 0 10px
+    @extend .flex-center
+
+    &-wrapper
+      @extend .flex-center
+      padding-left: rem(30px)
+
+      &.has-switch
+        flex-basis: unset
+        padding: 0 rem(24px) 0 rem(32px)
+
+        .h-switch
+          display: block
+
+      &:not(.has-switch)
+        flex-basis: 21%
 
     &__avatar
       width: 100%
@@ -86,20 +111,15 @@
         border-radius: 50%
         overflow: hidden
 
-
     &-menu
+      @extend .flex-center
       cursor: pointer
-      display: flex
-      align-items: center
-      justify-content: center
       margin-left: 10px
 
       &__toggle
+        @extend .flex-center
         +font-size(12px)
         font-weight: 600
-        display: flex
-        align-items: center
-        justify-content: center
 
       &__user
         padding: 15px 25px 12px 26px
@@ -112,21 +132,20 @@
           font-size: 12px
           color: #7F7B7B
 
+  /** Lang widget **/
   &-lang
     min-width: 56px
     padding: 0
     border-radius: 0
     border: none
 
+    &-wrapper
+      @extend .flex-center
+      margin-right: rem(60px)
+
     &.show
       .app-header-lang__toggle-icon
         transform: rotate(180deg)
-
-    &-wrapper
-      display: flex
-      align-items: center
-      justify-content: flex-end
-      flex-basis: 7.5%
 
     &__select
       min-width: 56px
@@ -141,8 +160,7 @@
       cursor: pointer
 
     &__toggle
-      display: flex
-      align-items: center
+      @extend .flex-y-center
       padding-left: 8px
 
 

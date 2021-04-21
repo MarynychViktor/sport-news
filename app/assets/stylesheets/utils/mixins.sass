@@ -3,3 +3,25 @@
 
 @mixin line-height($px)
   line-height: rem($px)
+
+@mixin link($color: #fff, $hover: #fff, $decoration: none)
+  font-weight: 600
+  color: $color
+
+  &:hover,
+  &:visited,
+  &.is-disabled
+    text-decoration: $decoration
+
+  &:hover
+    color: $hover
+
+@mixin link-visited($color: #fff, $decoration: none)
+  &:visited
+    text-decoration: $decoration
+    color: $color
+
+@mixin link-disabled($color: #fff, $decoration: none)
+  &.is-disabled
+    text-decoration: $decoration
+    color: $color

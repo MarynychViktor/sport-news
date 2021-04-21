@@ -1,6 +1,13 @@
-class Admin::HomeController < ApplicationController
-  layout 'admin'
+# frozen_string_literal: true
 
-  def index
+# Admin controller
+module Admin
+  # Home controller
+  class HomeController < ApplicationController
+    layout 'admin'
+
+    def index
+      @current_user = 'John Smith'
+    end
   end
 end
