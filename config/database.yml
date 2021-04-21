@@ -27,7 +27,4 @@ test:
 
 production:
   <<: *default
-  database: sport_news_prod
-# TODO: review this
-  username: admin
-  password: secret
+  url: <%= ENV.fetch("DATABASE_URL") %>
