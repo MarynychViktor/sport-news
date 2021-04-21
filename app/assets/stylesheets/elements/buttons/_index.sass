@@ -1,4 +1,6 @@
 .button
+  +font-size(12px)
+  +line-height(16px)
   width: 137px
   height: 32px
   display: flex
@@ -11,6 +13,7 @@
   color: $text-light
   text-decoration: none
   cursor: pointer
+  font-weight: 600
 
   &:hover
     background: $primary-light
@@ -20,7 +23,6 @@
 
   &:disabled
     background: $primary-thin
-
 
   &-outline
     @extend .button

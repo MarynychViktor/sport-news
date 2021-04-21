@@ -22,7 +22,9 @@
     </div>
     <div class="hero-info-list-wrapper">
       <div class="hero-info-list" id="hero-info-carousel">
+
         <% @heroes.each do |hero| %>
+
           <div class="hero-info">
             <div class="hero-info__published">
               Published / <%= hero[:published] %>
@@ -33,17 +35,14 @@
             <div class="hero-info__text">
               <%= hero[:text].truncate(75) %>
             </div>
-            <button class="hero-info__action button-large">
-              More
-            </button>
+            <button class="hero-info__action button-large">More</button>
           </div>
+
         <% end %>
       </div>
       <div class="hero-nav">
         <div class="hero-nav__before">
-          <span class="material-icons">
-            navigate_before
-          </span>
+          <span class="material-icons">navigate_before</span>
         </div>
         <div class="hero-nav__pages">
           <% @heroes.length.times do |t| %>
@@ -51,9 +50,7 @@
           <% end %>
         </div>
         <div class="hero-nav__next">
-          <span class="material-icons">
-            navigate_next
-          </span>
+          <span class="material-icons">navigate_next</span>
         </div>
       </div>
     </div>

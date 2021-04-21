@@ -12,10 +12,11 @@
  *
  */
 @import "bootstrap/scss/bootstrap.scss";
+@import "slick-carousel/slick/slick";
 
 @import "utils/index";
 
-@import "variables";
+@import "utils/variables";
 @import "elements/index";
 @import "components/index";
 
@@ -24,23 +25,56 @@ html, body {
   font-family: 'Open Sans', sans-serif;
 }
 
-.app-container {
-  margin-top: 79px;
-  display: flex;
+.base-layout {
   width: 100%;
   max-width: 1440px;
+  margin: 0 auto;
+  background: white;
+}
 
-  &__sidebar {
-    width: $sidebar-width;
+.user-layout {
+  $user-sidebar-width: 252px;
+
+  &-wrapper {
+    @extend .base-layout
   }
 
-  &__content {
-    width: calc(100% - #{$sidebar-width} - #{$aside-width});
+  &-container {
+    margin-top: 79px;
+    display: flex;
+    width: 100%;
+    max-width: 1440px;
+
+    &__sidebar {
+      width: $user-sidebar-width;
+    }
+
+    &__content {
+      width: calc(100% - #{$user-sidebar-width} - #{$aside-width});
+    }
   }
 }
 
-.app-wrapper {
-  width: 100%;
-  max-width: 1440px;
-  margin: 0 auto
+.admin-layout {
+  $sidebar-width: 87px;
+
+  &-wrapper {
+    @extend .base-layout
+  }
+
+  &-container {
+    display: flex;
+    width: 100%;
+    max-width: 1440px;
+
+    &__sidebar {
+      width: $sidebar-width;
+    }
+
+    &__content {
+      width: 60.16%;
+      margin-top: rem(42px);
+      margin-left: 16.7%;
+    }
+  }
 }

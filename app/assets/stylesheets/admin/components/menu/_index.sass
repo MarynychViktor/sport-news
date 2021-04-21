@@ -1,0 +1,62 @@
+.admin
+  &-menu
+    background: #FFFFFF
+    box-shadow: 0px 0px 37px rgba(0, 0, 0, 0.09)
+
+  &-page-menu
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding: 22px 101px 12px
+    border-bottom: 1px solid #EDEDED
+
+    &__name
+      +font-size(30px)
+      +line-height(41px)
+      font-weight: 700
+
+  &-submenu
+    position: relative
+    padding: 0 87px
+    height: 34px
+    display: flex
+    align-items: center
+
+    &-wrapper
+      padding: 10px 0
+
+    &__link
+      +font-size(14px)
+      +line-height(19px)
+      font-weight: 700
+      color: #B2B2B2
+      user-select: none
+
+      &.is-active
+        color: #D72130
+
+      &-wrapper
+        margin-right: 60px
+
+    &__nav
+      width: 87px
+      height: 34px
+      background: white
+      position: absolute
+      z-index: 1
+      top: 0
+      cursor: pointer
+      display: flex
+      align-items: center
+      justify-content: center
+      user-select: none
+      color: #C63638
+
+      &.slick-disabled
+        color: #C4C4C4
+
+      &.is-prev
+        left: 0
+
+      &.is-next
+        right: 0
