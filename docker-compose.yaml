@@ -1,0 +1,10 @@
+version: '3'
+services:
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=sport_news_dev
+    ports:
+      - 5432:5432
