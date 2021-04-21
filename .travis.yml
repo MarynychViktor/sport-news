@@ -1,3 +1,7 @@
 language: ruby
 rbenv:
   - 2.7.2
+branches:
+  only:
+    - develop
+script: rails test
