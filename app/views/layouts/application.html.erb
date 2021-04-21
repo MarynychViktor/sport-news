@@ -14,12 +14,16 @@
     <%= yield :styles %>
   </head>
   <body>
-    <div style="max-width: 1440px; margin: 0 auto">
+    <div class="app-wrapper">
       <%= render 'partials/header' %>
 
-      <div class="app-wrapper">
-        <%= render 'partials/sidebar' %>
-        <%= yield %>
+      <div class="app-container">
+        <div class="app-container__sidebar">
+          <%= render 'partials/sidebar' %>
+        </div>
+        <div class="app-container__content">
+          <%= yield %>
+        </div>
       </div>
       <%= render 'partials/footer' %>
     </div>

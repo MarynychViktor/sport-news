@@ -12,19 +12,35 @@
  *
  */
 @import "bootstrap/scss/bootstrap.scss";
-@import "selectize/dist/css/selectize";
-@import "selectize/dist/css/selectize.default";
+
+@import "utils/index";
 
 @import "variables";
 @import "elements/index";
 @import "components/index";
 
-body {
-  font-size: 16px;
+html, body {
+  font-size: $base-font-size;
   font-family: 'Open Sans', sans-serif;
 }
 
-.app-wrapper {
+.app-container {
   margin-top: 79px;
   display: flex;
+  width: 100%;
+  max-width: 1440px;
+
+  &__sidebar {
+    width: $sidebar-width;
+  }
+
+  &__content {
+    width: calc(100% - #{$sidebar-width} - #{$aside-width});
+  }
+}
+
+.app-wrapper {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto
 }

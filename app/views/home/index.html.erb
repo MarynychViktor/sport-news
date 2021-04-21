@@ -5,78 +5,39 @@
   <%= javascript_pack_tag 'home-page' %>
 <% end %>
 
-<div style="max-width: 800px; width: 100%">
-  <div class="hero-wrapper">
+<div>
+    <div class="hero-wrapper">
     <div class="hero-list" id="hero-carousel">
-      <div class="hero">
-        <div class="category-name">
-          NBA
+      <% @heroes.each do |hero| %>
+        <div class="hero">
+          <div class="category-name">
+            <%= hero[:group] %>
+          </div>
+          <div class="hero__logo-wrapper">
+            <img class="hero__logo" src="<%= hero[:logo] %>" alt="">
+          </div>
         </div>
-        <div class="hero__logo-wrapper">
-          <img class="hero__logo" src="https://cdn.vox-cdn.com/thumbor/d496diNPEv7MHo3lpPAF8Fi-LT4=/0x0:5795x3863/1200x800/filters:focal(2435x1469:3361x2395)/cdn.vox-cdn.com/uploads/chorus_image/image/68950320/1231534728.0.jpg" alt="">
-        </div>
-      </div>
-      <div class="hero">
-        <div class="category-name">
-          NSA
-        </div>
-        <div class="hero__logo-wrapper">
-          <img class="hero__logo" src="https://cdn.vox-cdn.com/thumbor/d496diNPEv7MHo3lpPAF8Fi-LT4=/0x0:5795x3863/1200x800/filters:focal(2435x1469:3361x2395)/cdn.vox-cdn.com/uploads/chorus_image/image/68950320/1231534728.0.jpg" alt="">
-        </div>
-      </div>
-      <div class="hero">
-        <div class="category-name">
-          NFA
-        </div>
-        <div class="hero__logo-wrapper">
-          <img class="hero__logo" src="https://cdn.vox-cdn.com/thumbor/d496diNPEv7MHo3lpPAF8Fi-LT4=/0x0:5795x3863/1200x800/filters:focal(2435x1469:3361x2395)/cdn.vox-cdn.com/uploads/chorus_image/image/68950320/1231534728.0.jpg" alt="">
-        </div>
-      </div>
+      <% end %>
+
     </div>
     <div class="hero-info-list-wrapper">
       <div class="hero-info-list" id="hero-info-carousel">
-        <div class="hero-info">
-          <div class="hero-info__published">
-            Published / 20.09.2019
+        <% @heroes.each do |hero| %>
+          <div class="hero-info">
+            <div class="hero-info__published">
+              Published / <%= hero[:published] %>
+            </div>
+            <div class="hero-info__title">
+              <%= hero[:title].truncate(30) %>
+            </div>
+            <div class="hero-info__text">
+              <%= hero[:text].truncate(75) %>
+            </div>
+            <button class="hero-info__action button-large">
+              More
+            </button>
           </div>
-          <div class="hero-info__title">
-            London Games return in 2019
-          </div>
-          <div class="hero-info__text">
-            111111Register to receive the latest news on ticket sales for the four NFL London Games in 2019!
-          </div>
-          <button class="hero-info__action button-large">
-            More
-          </button>
-        </div>
-        <div class="hero-info">
-          <div class="hero-info__published">
-            Published / 20.09.2019
-          </div>
-          <div class="hero-info__title">
-            London Games return in 2019
-          </div>
-          <div class="hero-info__text">
-            2222Register to receive the latest news on ticket sales for the four NFL London Games in 2019!
-          </div>
-          <button class="hero-info__action button-large">
-            More
-          </button>
-        </div>
-        <div class="hero-info">
-          <div class="hero-info__published">
-            Published / 20.09.2019
-          </div>
-          <div class="hero-info__title">
-            London Games return in 2019
-          </div>
-          <div class="hero-info__text">
-            3333Register to receive the latest news on ticket sales for the four NFL London Games in 2019!
-          </div>
-          <button class="hero-info__action button-large">
-            More
-          </button>
-        </div>
+        <% end %>
       </div>
       <div class="hero-nav">
         <div class="hero-nav__before">
@@ -85,9 +46,9 @@
           </span>
         </div>
         <div class="hero-nav__pages">
-          <div class="hero-nav__page" data-slide="0">01</div>
-          <div class="hero-nav__page" data-slide="1">02</div>
-          <div class="hero-nav__page" data-slide="2">03</div>
+          <% @heroes.length.times do |t| %>
+            <div class="hero-nav__page" data-slide="0">0<%= t + 1%></div>
+          <% end %>
         </div>
         <div class="hero-nav__next">
           <span class="material-icons">
@@ -96,7 +57,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 
   <div class="hero-articles-preview">
     <div class="hero-article-preview">
@@ -253,7 +214,6 @@
       </div>
     </div>
   </div>
-
 
 </div>
 
