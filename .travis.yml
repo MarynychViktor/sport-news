@@ -4,11 +4,15 @@ rbenv:
 branches:
   only:
     - master
+stages:
+  - test
+  - name: deploy
+    if: branch = master
 jobs:
   include:
-    -stage: testing
+    -stage: test
     script: ./bin/rails test
-    -stage: delpoying to heroku
+    -stage: deploy
     script: skip
     deploy: &heroku
       provider: heroku
