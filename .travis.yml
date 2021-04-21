@@ -3,8 +3,14 @@ rbenv:
   - 2.7.2
 branches:
   only:
-    - develop
+    - master
 jobs:
   include:
     -stage: testing
     script: ./bin/rails test
+    -stage: delpoying to heroku
+    script: skip
+    deploy: &heroku
+      provider: heroku
+      app: $HEROKU_APP_NAME
+      api_key: $HEROKU_API_KEY
