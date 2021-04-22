@@ -6,15 +6,22 @@
   {name: 'TEAM HUB', subcategories: [ {name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]},\
   {name: 'LIFESTYLE', subcategories: [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'}, ]\
 }]
-
+// TODO: finish with submenu dropdown
 .sidebar
   .sidebar-content
-    ul.sidebar-links data-simplebar="" data-simplebar-direction="rtl"
+    ul.sidebar-menu
+      - #data-simplebar="" data-simplebar-direction="rtl"
+      - categories.each do |category|
+        li.sidebar-menu-item
+          a.sidebar-menu-item__link
+            = category[:name]
 
-    - categories.each do |c|
-      li.sidebar-link-wrapper
-        a.sidebar-link
-          = c[:name]
+          - if category[:subcategories]
+            ul.sidebar-sub-menu
+              - category[:subcategories].each do |subcategory|
+                li.sidebar-menu-item
+                  a.sidebar-menu-item__link
+                    = subcategory[:name]
 
     .sidebar-follow
       .sidebar-follow__title

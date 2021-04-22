@@ -1,39 +1,23 @@
 .sidebar
-  width: 100%
   position: fixed
   height: calc(100vh - 300px)
   top: rem(83px)
   z-index: 5
   width: 252px
   padding-top: 53px
-  overflow-y: hidden
+  //overflow-y: hidden
 
-  &-content
-    position: relative
-    height: 100%
-
-  &-categories
-    position: absolute
-    top: 0
-    left: 100%
-
-  &-link,
+  &-menu-item__link,
   &-follow
     padding-left: 52px
 
-  &-links
+  &-menu
     list-style-type: none
     margin: 0
     padding: 0
     max-height: calc(100% - 182px)
 
-  &-link
-    +font-size(14px)
-    font-weight: 700
-    color: #B2B2B2
-    text-decoration: none
-
-    &-wrapper
+    &-item
       @extend .flex-y-center
       position: relative
       height: 41px
@@ -44,12 +28,30 @@
           color: #C63638
           text-decoration: none
 
+      &:hover
+        .sidebar-sub-menu
+          //display: block
+
       &.active
         &:before
           content: '•'
           position: absolute
           left: 31px
           color: #C63638
+
+      &__link
+        +font-size(14px)
+        font-weight: 700
+        color: #B2B2B2
+        text-decoration: none
+
+  &-sub-menu
+    display: none
+    width: 100%
+    position: absolute
+    top: 0
+    left: 100%
+    background: #fff
 
   &-follow
     margin-top: 70px
