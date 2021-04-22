@@ -1,0 +1,30 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+category1:
+  name: Test1
+  hidden: true
+# column: value
+#
+category2:
+  name: Test2
+  hidden: false
+
+subcategory1:
+  name: Subcategory1
+  hidden: false
+  parent: category1
+
+subcategory2:
+  name: Subcategory2
+  hidden: true
+  parent: category1
+
+subcategory3:
+  name: Subcategory3
+  hidden: true
+  parent: category2
+# column: value

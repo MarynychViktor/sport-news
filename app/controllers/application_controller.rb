@@ -4,4 +4,10 @@ class ApplicationController < ActionController::Base
   def check_user
     @current_user = nil
   end
+
+  private
+
+  def build_request(type)
+    type.new(request.params)
+  end
 end
