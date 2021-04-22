@@ -1,0 +1,31 @@
+footer.app-footer
+  .app-footer-content
+    .app-footer-column
+      .app-footer-column__title
+        | COMPANY INFO
+      ul.app-footer-column__links
+        - links = ['About Sports Hub', 'News / In the Press', 'Advertising / Sports Blogger Ad Network', 'Events', 'Contact Us']
+        - links.each do |link|
+          li.app-footer-column__link-wrapper
+            a.app-footer-column__link href="#" = link
+    .app-footer-column
+      .app-footer-column__title
+        | CONTRIBUTORS
+      ul.app-footer-column__links
+        - links = ['Featured Writers Program', 'Featured Team Writers Program', 'Internship Program']
+        - links.each do |link|
+          li.app-footer-column__link-wrapper
+            a.app-footer-column__link href="#" = link
+    .app-footer-column
+      .app-footer-column__title
+        | NEWSLETTER
+      .app-footer-column__links
+        .app-footer-column__link href="#"  Sign up to receive the latest sports news
+        .app-footer-newsletter
+          input.app-input placeholder=("Your email address") type="text" /
+          button.button Subscribe
+  .app-footer-additional
+    .app-footer__app-name Sports Hub
+    div
+      .app-footer-copyrights Copyright ©2019 Sports Hub
+      .app-footer-terms Privacy / Terms

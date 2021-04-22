@@ -1,0 +1,63 @@
+body
+  header.h-header.d-flex
+    a.h-hero.link href="/" 
+      | Sports Hub
+    - if not @admin_panel
+      /! Search widget
+      .h-search
+        .h-search__icon
+          span.material-icons
+            | search
+        .h-search__input-wrapper
+          input.h-search__input.app-input placeholder=("Search by") type="text" /
+      /! Share widget
+      .vertical-divider
+      .h-share-wrapper
+        .h-share
+          .h-share__title
+            | Share
+          .h-share__icons
+            a.h-share__link href="#" 
+              = image_tag 'social/facebook.svg', alt: 'facebook icon', class: 'h-share__icon'
+            a.h-share__link href="#" 
+              = image_tag 'social/twitter.svg', alt: 'twitter icon', class: 'h-share__icon'
+            a.h-share__link href="#" 
+              = image_tag 'social/google-plus.svg', alt: 'google plus icon', class: 'h-share__icon'
+    - else
+      .flex-grow-1
+    .vertical-divider
+    - if @current_user
+      div class=("h-profile-wrapper #{@admin_panel ? 'has-switch' : ''}")
+        .h-profile
+          .h-switch
+            = inline_svg_tag 'admin/switch.svg', class: "h-switch__icon"
+          .h-profile__avatar-wrapper
+            img.h-profile__avatar alt="profile" src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" /
+          .h-profile-menu
+            #header-profile-dropdown.h-profile-menu__toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" 
+              | Ivan Baloh
+              span.material-icons arrow_drop_down
+            .app-dropdown-menu.dropdown-menu.dropdown-menu-right aria-labelledby="header-profile-dropdown" 
+              .h-profile-menu__user
+                .h-profile-menu__user-name Ivan Baloh
+                .h-profile-menu__user-email ivanbaloh@gmail.com
+              .dropdown-divider
+              a.app-dropdown-item.dropdown-item href="#"  View Profile
+              a.app-dropdown-item.dropdown-item href="#"  Change Password
+              a.app-dropdown-item.dropdown-item href="#"  My surveys
+              a.app-dropdown-item.dropdown-item href="#"  Team hub
+              .dropdown-divider
+              a.app-dropdown-item.dropdown-item href="#"  Log out
+    - else
+      .h-signup-wrapper
+        .h-signup
+          button.button-plain Sign up
+          button.button-outline onclick=("window.location.href = '/admin'")  Log in
+    .h-lang-wrapper
+      .h-lang.btn-group
+        .h-lang__toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" 
+          | EN
+          span.h-lang__toggle-icon.material-icons arrow_drop_down
+        .app-dropdown-menu.h-lang__select.dropdown-menu
+          a.h-lang__item.dropdown-item href="#"  UA
+          a.h-lang__item.dropdown-item href="#"  DE

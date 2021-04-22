@@ -1,0 +1,31 @@
+
+- categories = [\
+  {name: 'HOME'},\
+  {name: 'NBA', subcategories: [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]},\
+  {name: 'SOCCER', subcategories: [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]},\
+  {name: 'TEAM HUB', subcategories: [ {name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]},\
+  {name: 'LIFESTYLE', subcategories: [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'}, ]\
+}]
+
+.sidebar
+  .sidebar-content
+    ul.sidebar-links data-simplebar="" data-simplebar-direction="rtl"
+
+    - categories.each do |c|
+      li.sidebar-link-wrapper
+        a.sidebar-link
+          = c[:name]
+
+    .sidebar-follow
+      .sidebar-follow__title
+        | Follow
+      .sidebar-follow__group
+        a.sidebar-follow__link href="#"
+          = image_tag 'social/facebook.svg', alt: 'facebook icon', class: 'sidebar-follow__icon'
+        a.sidebar-follow__link href="#"
+          = image_tag 'social/twitter.svg', alt: 'twitter icon', class: 'sidebar-follow__icon'
+      .sidebar-follow__group
+        a.sidebar-follow__link href="#"
+          = image_tag 'social/google.svg', alt: 'google icon', class: 'sidebar-follow__icon'
+        a.sidebar-follow__link href="#"
+          = image_tag 'social/youtube.svg', alt: 'youtube icon', class: 'sidebar-follow__icon'
