@@ -29,7 +29,7 @@ div
         .hero-nav__before
           span.material-icons navigate_before
         .hero-nav__pages
-          - @heroes.length.times do |t|
+          - @heroes.count.times do |t|
             .hero-nav__page data-slide="0" 
               | 0#{t + 1}
 
