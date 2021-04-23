@@ -1,5 +1,5 @@
 class Team < ApplicationRecord
   include Hideable
 
-  belongs_to :category
+  belongs_to :subcategory
 end

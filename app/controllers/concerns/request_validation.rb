@@ -3,8 +3,11 @@ module RequestValidation
 
   included do
     before_action :validate_request_schema
+    extend ClassMethods
+  end
 
-    def self.validate_request(schema, method:)
+  module ClassMethods
+    def validate_request(schema, method:)
       # NOTE: class object instance variable!
       @request_schemas ||= {}
       methods = method.is_a?(Array) ? method : [method]

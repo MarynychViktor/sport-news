@@ -1,31 +1,35 @@
 class TeamsController < ApplicationController
-  include SportNews::Deps[:teams_service]
-
-  validate_request TeamRequest::Create, method: :create
-  validate_request TeamRequest::Update, method: :update
-
   def index
-    @teams = teams_service.list req[:category_id]
+    @teams = Team.all
     render json: @teams
   end
 
   def create
-    @team = teams_service.create(category_id: req[:category_id], name: req[:name])
+    @team = Team.create(create_params)
     render json: @team
   end
 
-  def update
-    if req[:hidden]
-      teams_service.mark_hidden(req[:id])
-    else
-      teams_service.mark_visible(req[:id])
-    end
+  def mark_visible
+    @team = Team.find(params[:id])
+    @team.mark_visible!
+    render json: @team
+  end
 
-    render json: nil
+  def mark_hidden
+    @team = Team.find(params[:id])
+    @team.mark_hidden!
+    render json: @team
   end
 
   def destroy
-    teams_service.destroy(req[:id])
+    @team = Team.find(params[:id])
+    @team.destroy(req[:id])
     render json: nil
+  end
+
+  private
+
+  def create_params
+    params.require(:team).permit(:id, :category_id)
   end
 end
