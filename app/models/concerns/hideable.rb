@@ -3,7 +3,7 @@ module Hideable
 
   included do
     scope :visible, -> { where(hidden: false) }
-    scope :not_visible, -> { where(hidden: true) }
+    scope :hidden, -> { where(hidden: true) }
   end
 
   def mark_hidden!

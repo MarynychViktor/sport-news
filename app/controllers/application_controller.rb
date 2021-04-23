@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include RequestValidation
+
   before_action :check_user
 
   def check_user

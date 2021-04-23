@@ -67,7 +67,7 @@ describe TeamsController do
     let(:team1) { teams(:team1) }
     let(:team2) { teams(:team2) }
 
-    it 'with hidden true makes team hidden' do
+    it 'makes team hidden with hidden true' do
       expect(fetch_team.call(team1.id).hidden).to be(false)
 
       patch :update, params: { id: team1.id, category_id: category.id, hidden: true }
@@ -75,7 +75,7 @@ describe TeamsController do
       expect(fetch_team.call(team1.id).reload.hidden).to be(true)
     end
 
-    it 'with hidden false makes team visible' do
+    it 'makes team visible with hidden false' do
       expect(fetch_team.call(team2.id).hidden).to be(true)
 
       patch :update, params: { id: team2.id, category_id: category.id, hidden: false }
