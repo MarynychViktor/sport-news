@@ -1,0 +1,3 @@
+| $('.ia-subcategories').html("#{j render('cms/subcategories/partials/column')}")
+  $('.ia-categories .resource-item.is-active').removeClass('is-active')
+  $('.ia-categories .resource-item[data-id=#{@category.id}]').addClass('is-active')

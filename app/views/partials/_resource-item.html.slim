@@ -1,0 +1,10 @@
+div class="resource-item #{resource.hidden? ? 'is-hidden' : ''}"
+  .resource-item__hidden-label
+    | hidden
+  .resource-item__container
+    .resource-item__drag
+      = inline_svg_tag 'common/drag-n-drop.svg', class: 'resource-button__action-left'
+    .resource-item__content
+      = resource.name
+    .resource-item__more.more-action
+      = inline_svg_tag 'common/more.svg', class: 'resource-button__action-right'

@@ -1,0 +1,33 @@
+.ia-layout
+  .ia-items
+    .ia-categories
+      .ia-resource__action-wrapper
+        = link_to '+ Add category', new_cms_category_path, class: 'resource-action-button link', remote: true
+
+      .ia-categories__list#categories-list
+        / = render 'cms/categories/partials/column'
+        - @categories.each do |category|
+          .ia-resource__wrapper
+            = render 'cms/categories/partials/category-item', category: category
+
+    .ia-subcategories
+    .ia-teams
+
+#modal.modal.fade aria-hidden="true" aria-labelledby="modal" role="dialog" tabindex="-1"
+  .modal-dialog role="document"
+    .modal-content.app-modal-content#modal-content
+
+javascript:
+    function onCategoryAdded(htmlString) {
+        const el = $(document.createElement('div'))
+          .addClass('ia-resource__wrapper')
+          .html(htmlString)
+        $('.ia-categories__list').prepend(el)
+    }
+
+    function onSubcategoryAdded(htmlString) {
+        const el = $(document.createElement('div'))
+            .addClass('ia-resource__wrapper')
+            .html(htmlString)
+        $('.ia-subcategories__list').prepend(el)
+    }

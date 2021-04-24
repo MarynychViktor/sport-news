@@ -1,0 +1,9 @@
+.ia-resource__action-wrapper
+  = form_with(url: new_cms_category_subcategory_path(@category), method: :get, local: false) do |form|
+    button.resource-action-button type="submit"
+      | + Add subcategory
+
+.ia-subcategories__list
+  - @category.subcategories.each do |category|
+    .ia-resource__wrapper
+      = render 'partials/resource-item', resource: category

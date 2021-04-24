@@ -1,0 +1,114 @@
+.resource-action-button
+  +font-size(12px)
+  +line-height(17px)
+  font-weight: 600
+  width: 100%
+  height: 32px
+  border: 0.5px dashed #B2B2B2
+  color: #B2B2B2
+  background: white
+  display: flex
+  align-items: center
+  justify-content: center
+
+  &:hover
+    color: #B2B2B2
+
+.resource-item
+  +font-size(14px)
+  +line-height(19px)
+  height: 36px
+  width: 100%
+  background: white
+  border: 0.5px solid #D4D9E2
+  color: #B2B2B2
+  position: relative
+  cursor: pointer
+
+  &__container
+    @extend .flex-center
+    justify-content: space-between
+    width: 100%
+    height: 100%
+
+  &__content
+    @extend .flex-center
+    +font-size(14px)
+    +line-height(19px)
+    font-weight: 700
+    flex-grow: 1
+    max-width: calc(100% - 50px)
+    overflow: hidden
+    text-overflow: ellipsis
+    height: 100%
+
+  &__more,
+  &__drag
+    visibility: hidden
+    width: 25px
+    min-width: 25px
+    height: 100%
+
+  &__drag
+    padding: 7px 0 0 9px
+
+  &__more
+    padding-top: 8px
+
+  &__hidden-label
+    +font-size(8px)
+    padding: 1px 9px
+    border-radius: 50px
+    display: none
+    color: #B2B2B2
+    position: absolute
+    right: 85%
+    top: -10px
+    background: #e8e8e8
+
+    &:hover
+      color: #B2B2B2
+
+  &.is-hidden
+    .resource-item
+      &__hidden-label
+        display: block
+
+
+  &:hover
+    box-shadow: 3px 2px 14px rgba(0, 0, 0, 0.09)
+    border-color: transparent
+    color: #D72130
+
+    .resource-item
+      &__more,
+      &__drag
+        visibility: visible
+
+  &.is-active
+    color: #D72130
+
+.ia
+  &-layout
+    padding: 58px 78px
+  &-items
+    display: flex
+
+  &-categories,
+  &-subcategories
+    width: 160px
+
+    &:not(:first-child)
+      margin-left: 60px
+
+  &-categories,
+  &-subcategories
+    &__list
+      margin-top: 24px
+
+  &-resource
+    &__wrapper
+      width: 100%
+
+      &:not(:first-child)
+        margin-top: 24px
