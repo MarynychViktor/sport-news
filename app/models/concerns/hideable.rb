@@ -6,12 +6,12 @@ module Hideable
     scope :hidden, -> { where(hidden: true) }
   end
 
-  def mark_hidden!
+  def hide!
     self.hidden = true
     save!
   end
 
-  def mark_visible!
+  def appear!
     self.hidden = false
     save!
   end

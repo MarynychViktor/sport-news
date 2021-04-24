@@ -4,7 +4,6 @@ module CMS
 
     def index
       @categories = Category.all
-      render json: @categories
     end
 
     def new
