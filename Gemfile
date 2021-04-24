@@ -31,6 +31,7 @@ gem 'slim', '~> 4.1.0'
 gem "rspec-rails", group: [:development, :test]
 gem 'dry-rails', '~> 0.3.0'
 gem 'pry-rails', :group => :development
+gem 'simple_form', '~> 5.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

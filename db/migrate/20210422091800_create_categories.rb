@@ -4,6 +4,8 @@ class CreateCategories < ActiveRecord::Migration[6.1]
       t.string :name, null: false
       t.index :name, unique: true
       t.boolean :hidden, default: false
+      t.integer :priority, null: false
+      t.index :priority, unique: true
       t.timestamps
     end
   end

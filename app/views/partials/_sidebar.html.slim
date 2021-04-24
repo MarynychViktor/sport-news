@@ -9,6 +9,7 @@
 // TODO: finish with submenu dropdown
 .sidebar
   .sidebar-content
+    div#some-menu
     ul.sidebar-menu
       - #data-simplebar="" data-simplebar-direction="rtl"
       - categories.each do |category|
@@ -36,3 +37,26 @@
           = image_tag 'social/google.svg', alt: 'google icon', class: 'sidebar-follow__icon'
         a.sidebar-follow__link href="#"
           = image_tag 'social/youtube.svg', alt: 'youtube icon', class: 'sidebar-follow__icon'
+//javascript:
+//    const links = [
+//        {name: 'HOME'},
+//        {
+//            name: 'NBA',
+//            items: [{
+//                name: 'Test1',
+//                items: [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]
+//            }, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]
+//        },
+//        {name: 'SOCCER', items: [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]},
+//        {
+//            name: 'TEAM HUB',
+//            items: [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]
+//        },
+//        {
+//            name: 'LIFESTYLE',
+//            items: [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]
+//        }
+//    ]
+//    $(document).ready(() => {
+//        $('#some-menu').createMenu(links)
+//    })

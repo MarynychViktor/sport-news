@@ -18,14 +18,17 @@ ActiveRecord::Schema.define(version: 2021_04_23_115705) do
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.boolean "hidden", default: false
+    t.integer "priority", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
+    t.index ["priority"], name: "index_categories_on_priority", unique: true
   end
 
   create_table "subcategories", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "category_id", null: false
+    t.integer "priority", null: false
     t.boolean "hidden", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -36,6 +39,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_115705) do
   create_table "teams", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "subcategory_id", null: false
+    t.integer "priority", null: false
     t.boolean "hidden", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -3,6 +3,7 @@ class CreateTeams < ActiveRecord::Migration[6.1]
     create_table :teams do |t|
       t.string :name, null: false
       t.references :subcategory, null: false, foreign_key: true
+      t.integer :priority, null: false, unique: true
       t.boolean :hidden, default: false
       t.timestamps
 
