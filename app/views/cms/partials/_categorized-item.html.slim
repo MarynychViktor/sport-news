@@ -16,16 +16,16 @@
   .categorized-item-menu
     .categorized-item-menu__preview
       = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
-
-    - if defined? move_to_template
-      = move_to_template
-
-    .categorized-item-menu__link-wrapper
-      - if resource.hidden?
-        = link_to 'SHOW', paths[:appear], class: 'categorized-item-menu__link link-plain', method: :post, remote: true
-      - else
-        = link_to 'HIDE', paths[:hide], class: 'categorized-item-menu__link link-plain', method: :post, remote: true
-    .categorized-item-menu__link-wrapper
-      = link_to 'DELETE', paths[:delete], class: 'categorized-item-menu__link link-plain', method: :delete, remote: true
-    .categorized-item-menu__link-wrapper
-      = link_to 'EDIT', paths[:edit], class: 'categorized-item-menu__link link-plain',  remote: true
+  /
+  /   - if defined? move_to_template
+  /     = move_to_template
+  /
+  /   .categorized-item-menu__link-wrapper
+  /     - if resource.hidden?
+  /       = link_to 'SHOW', paths[:appear], class: 'categorized-item-menu__link link-plain', method: :post, remote: true
+  /     - else
+  /       = link_to 'HIDE', paths[:hide], class: 'categorized-item-menu__link link-plain', method: :post, remote: true
+  /   .categorized-item-menu__link-wrapper
+  /     = link_to 'DELETE', paths[:delete], class: 'categorized-item-menu__link link-plain', method: :delete, remote: true
+  /   .categorized-item-menu__link-wrapper
+  /     = link_to 'EDIT', paths[:edit], class: 'categorized-item-menu__link link-plain',  remote: true

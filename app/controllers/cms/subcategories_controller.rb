@@ -66,7 +66,6 @@ module CMS
     private
 
     def draw_column
-      @categories = Category.all
       render 'column'
     end
 
@@ -77,7 +76,6 @@ module CMS
     def find_category
       @category = Category.find(params[:category_id])
       @subcategory = Subcategory.find(params[:id]) if params.key? :id
-      @categories = Category.all
     end
   end
 end

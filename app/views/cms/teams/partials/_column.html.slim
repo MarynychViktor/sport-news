@@ -5,6 +5,21 @@
 
 .ia-subcategories__list
   - @subcategory.teams.each do |team|
-    - @team = team
-    - move_to_template = render 'cms/teams/partials/move_to'
-    = render 'cms/partials/categorized-item', resource: team, paths: teams_path(@subcategory, team), move_to_template: move_to_template
+    .categorized-item-wrapper*{data: {id: team.id, type: team.class, 'subcategory-id': @subcategory.id}}
+      .categorized-item__drag
+        = inline_svg_tag 'common/drag-n-drop.svg', class: 'categorized-item__action-left'
+
+      = link_to(teams_path(@subcategory, team), class: 'link', remote: true) do
+        div class="categorized-item #{team.hidden? ? 'is-hidden' : ''}"
+          .categorized-item__hidden-label
+            | hidden
+          .categorized-item__container
+            .categorized-item__content
+              = team.name
+
+      .categorized-item__more.more-action
+        = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
+
+      .categorized-item-menu
+        .categorized-item-menu__preview
+          = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'

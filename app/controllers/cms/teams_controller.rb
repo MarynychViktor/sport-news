@@ -1,6 +1,6 @@
 module CMS
   class TeamsController < ApplicationController
-    before_action :find_category
+    before_action :find_resource
 
     def new
       @team = Team.new
@@ -66,7 +66,6 @@ module CMS
     private
 
     def draw_column
-      @categories = Category.all
       render 'column'
     end
 
@@ -74,7 +73,7 @@ module CMS
       params.require(:team).permit(:name, :subcategory_id)
     end
 
-    def find_category
+    def find_resource
       @subcategory = Subcategory.find(params[:subcategory_id])
       @categories = Category.all
       @team = Team.find(params[:id]) if params[:id]

@@ -1,2 +1,19 @@
 - @categories.each do |category|
-  = render 'cms/partials/categorized-item', resource: category, click_link: cms_category_subcategories_path(category), paths: category_paths(category)
+  .categorized-item-wrapper*{ data: { id: category.id, type: category.class } }
+    .categorized-item__drag
+      = inline_svg_tag 'common/drag-n-drop.svg', class: 'categorized-item__action-left'
+
+    = link_to(cms_category_subcategories_path(category), class: 'link', remote: true) do
+      div class="categorized-item #{category.hidden? ? 'is-hidden' : ''}"
+        .categorized-item__hidden-label
+          | hidden
+        .categorized-item__container
+          .categorized-item__content
+            = category.name
+
+    .categorized-item__more.more-action
+      = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
+
+    .categorized-item-menu
+      .categorized-item-menu__preview
+        = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
