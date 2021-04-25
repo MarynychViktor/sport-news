@@ -1,0 +1,2 @@
+- @categories.each do |category|
+  = render 'cms/partials/categorized-item', resource: category, click_link: cms_category_subcategories_path(category), paths: category_paths(category)

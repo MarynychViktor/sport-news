@@ -1,7 +1,0 @@
-- if @category.valid?
-  |  $('#modal-content').empty()
-     $('#modal').modal('hide')
-     onCategoryAdded("#{j render 'cms/categories/partials/category-item', category: @category }")
-- else
-  | $('#modal-content').html("#{j render('cms/categories/partials/form')}")
-

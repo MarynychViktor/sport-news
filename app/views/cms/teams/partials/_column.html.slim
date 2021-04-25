@@ -1,0 +1,10 @@
+.ia-resource__action-wrapper
+  = form_with(url: new_cms_subcategory_team_path(@subcategory), method: :get, local: false) do |form|
+    button.resource-action-button type="submit"
+      | + Add team
+
+.ia-subcategories__list
+  - @subcategory.teams.each do |team|
+    - @team = team
+    - move_to_template = render 'cms/teams/partials/move_to'
+    = render 'cms/partials/categorized-item', resource: team, paths: teams_path(@subcategory, team), move_to_template: move_to_template

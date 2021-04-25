@@ -1,16 +1,16 @@
 module CMS
-  class SubcategoriesController < ApplicationController
+  class TeamsController < ApplicationController
     before_action :find_category
 
     def new
-      @subcategory = Subcategory.new
+      @team = Team.new
       render 'form'
     end
 
     def create
-      @subcategory = Subcategory.create(subcategory_params)
+      @team = Team.create(team_params)
 
-      if @subcategory.valid?
+      if @team.valid?
         draw_column
       else
         render 'form'
@@ -18,12 +18,12 @@ module CMS
     end
 
     def appear
-      @subcategory.appear!
+      @team.appear!
       draw_column
     end
 
     def hide
-      @subcategory.hide!
+      @team.hide!
       draw_column
     end
 
@@ -32,9 +32,9 @@ module CMS
     end
 
     def update
-      @subcategory.update(subcategory_params)
+      @team.update(team_params)
 
-      if @subcategory.valid?
+      if @team.valid?
         draw_column
       else
         render 'form'
@@ -48,10 +48,10 @@ module CMS
     end
 
     def update_category
-      @new_category = Category.find(params[:new_category_id])
+      @new_subcategory = Subcategory.find(params[:new_subcategory_id])
 
-      if @subcategory.category_id != @new_category.id
-        @subcategory.update!(category_id: @new_category.id)
+      if @team.subcategory_id != @new_subcategory.id
+        @team.update!(subcategory_id: @new_subcategory.id)
         draw_column
       else
         head status: 403
@@ -59,7 +59,7 @@ module CMS
     end
 
     def destroy
-      @subcategory.destroy!
+      @team.destroy!
       draw_column
     end
 
@@ -70,14 +70,14 @@ module CMS
       render 'column'
     end
 
-    def subcategory_params
-      params.require(:subcategory).permit(:name, :category_id)
+    def team_params
+      params.require(:team).permit(:name, :subcategory_id)
     end
 
     def find_category
-      @category = Category.find(params[:category_id])
-      @subcategory = Subcategory.find(params[:id]) if params.key? :id
+      @subcategory = Subcategory.find(params[:subcategory_id])
       @categories = Category.all
+      @team = Team.find(params[:id]) if params[:id]
     end
   end
 end

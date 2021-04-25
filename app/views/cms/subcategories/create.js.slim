@@ -1,9 +1,0 @@
-- if @subcategory.valid?
-  |  $('#modal-content').empty()
-     $('#modal').modal('hide')
-     onSubcategoryAdded("#{j render('partials/resource-item', resource: @subcategory)}")
-- else
-  | $('#modal-content').html("#{j render('cms/subcategories/partials/form')}")
-
-
-

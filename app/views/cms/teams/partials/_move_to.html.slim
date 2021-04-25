@@ -1,0 +1,16 @@
+.categorized-item-menu__link-wrapper.has-select
+  div.categorized-item-menu__link.link-plain
+    | MOVE TO
+
+  .move-to-select
+    -  @categories.each do |c|
+      - if @category != c
+        .categorized-item-menu__link-wrapper
+          .categorized-item-menu__link
+            = c.name
+
+          .move-to-select
+            -  c.subcategories.each do |subcategory|
+              - if @subcategory.id != subcategory.id
+                .categorized-item-menu__link-wrapper
+                  = link_to subcategory.name, update_category_cms_subcategory_team_path(subcategory, @team, params: {new_subcategory_id: subcategory.id}), class: 'categorized-item-menu__link', method: :post, remote: true

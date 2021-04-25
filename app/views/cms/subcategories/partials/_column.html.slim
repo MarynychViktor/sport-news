@@ -4,6 +4,7 @@
       | + Add subcategory
 
 .ia-subcategories__list
-  - @category.subcategories.each do |category|
-    .ia-resource__wrapper
-      = render 'partials/resource-item', resource: category
+  - @category.subcategories.each do |subcategory|
+    - @subcategory = subcategory
+    - move_to_template = render 'cms/subcategories/partials/move_to'
+    = render 'cms/partials/categorized-item', resource: subcategory, click_link: cms_subcategory_teams_path(subcategory), paths: subcategory_paths(@category, subcategory), move_to_template: move_to_template

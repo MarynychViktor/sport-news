@@ -1,0 +1,31 @@
+.categorized-item-wrapper*{data: {id: resource.id, type: resource.class}}
+  .categorized-item__drag
+    = inline_svg_tag 'common/drag-n-drop.svg', class: 'categorized-item__action-left'
+
+  = link_to(defined?(click_link) ? click_link : '', class: 'link', remote: true) do
+    div class="categorized-item #{resource.hidden? ? 'is-hidden' : ''}"
+      .categorized-item__hidden-label
+        | hidden
+      .categorized-item__container
+        .categorized-item__content
+          = resource.name
+
+  .categorized-item__more.more-action
+    = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
+
+  .categorized-item-menu
+    .categorized-item-menu__preview
+      = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
+
+    - if defined? move_to_template
+      = move_to_template
+
+    .categorized-item-menu__link-wrapper
+      - if resource.hidden?
+        = link_to 'SHOW', paths[:appear], class: 'categorized-item-menu__link link-plain', method: :post, remote: true
+      - else
+        = link_to 'HIDE', paths[:hide], class: 'categorized-item-menu__link link-plain', method: :post, remote: true
+    .categorized-item-menu__link-wrapper
+      = link_to 'DELETE', paths[:delete], class: 'categorized-item-menu__link link-plain', method: :delete, remote: true
+    .categorized-item-menu__link-wrapper
+      = link_to 'EDIT', paths[:edit], class: 'categorized-item-menu__link link-plain',  remote: true

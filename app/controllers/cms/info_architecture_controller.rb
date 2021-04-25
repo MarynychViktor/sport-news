@@ -3,7 +3,7 @@ module CMS
     layout 'admin'
 
     def show
-      @categories = Category.order(priority: :desc)
+      @categories = Category.all
     end
   end
 end
