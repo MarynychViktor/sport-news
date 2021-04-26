@@ -64,6 +64,7 @@ module CMS
     end
 
     def change_position
+      puts  "Upcated position #{@team.id} #{params[:position]}----------------"
       @team.update_position! params[:position]
       head :ok
     end

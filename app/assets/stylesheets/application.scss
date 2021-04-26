@@ -106,3 +106,27 @@ body {
     flex-shrink: 0;
   }
 }
+
+#admin-container {
+  width: 100%;
+  margin: 0 auto;
+
+  .wrapper {
+    display: flex;
+    height: 100%;
+  }
+
+  .column {
+    &-left {
+      width: 100px;
+      flex-shrink: 0;
+      top: 215px;
+      position: sticky
+    }
+
+    &-right {
+      flex-grow: 1;
+      min-width: 0;
+    }
+  }
+}

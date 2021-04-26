@@ -15,15 +15,31 @@ html
     = javascript_pack_tag 'admin', media: 'all', 'data-turbolinks-track': 'reload'
     = yield :styles
   body
-    .admin-layout-wrapper
+    / .admin-layout-wrapper
+    /   - @admin_panel = true
+    /   = render 'partials/header'
+    /   = render 'admin/partials/menu'
+    /   .admin-layout-container
+    /     .admin-layout-container__sidebar data-simplebar="true"
+    /       = render 'admin/partials/sidebar'
+    /     .admin-layout-container__content data-simplebar="true"
+    /       = yield
+    /
+    / = yield :body_append
+    / = yield :scripts
+
+    #admin-container
       - @admin_panel = true
       = render 'partials/header'
       = render 'admin/partials/menu'
-      .admin-layout-container
-        .admin-layout-container__sidebar data-simplebar="true"
+
+      .wrapper
+        .column-left
           = render 'admin/partials/sidebar'
-        .admin-layout-container__content data-simplebar="true"
-          = yield
+
+        .column-right
+          #main
+            = yield
 
     = yield :body_append
     = yield :scripts
