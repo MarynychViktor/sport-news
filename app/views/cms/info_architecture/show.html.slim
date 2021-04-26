@@ -27,20 +27,18 @@ javascript:
 
         if (type !== 'Category') {
             wrapper.find('.categorized-item-menu .move-to-link').remove();
-        }
 
-        if (type === 'Subcategory') {
-            console.log('subcategory')
-            const categoryId = wrapper.attr('data-category-id');
-            fetch(`/cms/categories/${categoryId}/subcategories/${id}/select_category`)
-              .then(res => res.text())
-              .then(html => wrapper.find('.categorized-item-menu .categorized-item-menu__preview').after(html))
-        } else if (type === 'Team') {
-            const subcategoryId = wrapper.attr('data-subcategory-id');
-            fetch(`/cms/subcategories/${subcategoryId}/teams/${id}/select_category`)
+            let link;
+            if (type === 'Subcategory') {
+                link = `/cms/categories/${wrapper.attr('data-category-id')}/subcategories/${id}/select_category`;
+            } else {
+                link = `/cms/subcategories/${wrapper.attr('data-subcategory-id')}/teams/${id}/select_category`
+            }
+            fetch(link)
                 .then(res => res.text())
                 .then(html => wrapper.find('.categorized-item-menu .categorized-item-menu__preview').after(html))
         }
+
     });
 
     $(document).on('click', '.categorized-item-menu__preview', function (event) {

@@ -1,6 +1,6 @@
 module CMS
   class CategoriesController < ApplicationController
-    before_action :find_category, only: %i[edit update appear hide destroy]
+    before_action :set_category, only: %i[edit update appear hide destroy]
 
     def index
       @categories = Category.all
@@ -15,7 +15,6 @@ module CMS
       @category = Category.create(category_params)
 
       if @category.valid?
-        @categories = Category.all
         draw_column
       else
         render 'form'
@@ -48,11 +47,19 @@ module CMS
     end
 
     def destroy
-      @category.destroy!
-      draw_column
+      if !@category.static?
+        @category.destroy!
+        draw_column
+      else
+        head status: 403
+      end
     end
 
     private
+
+    def set_category
+      @category = Category.find(params[:id])
+    end
 
     def draw_column
       @categories = Category.all
@@ -61,10 +68,6 @@ module CMS
 
     def category_params
       params.require(:category).permit(:name)
-    end
-
-    def find_category
-      @category = Category.find(params[:id])
     end
   end
 end

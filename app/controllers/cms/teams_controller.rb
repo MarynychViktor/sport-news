@@ -1,6 +1,6 @@
 module CMS
   class TeamsController < ApplicationController
-    before_action :find_resource
+    before_action :set_resources
 
     def new
       @team = Team.new
@@ -11,7 +11,7 @@ module CMS
       @team = Team.create(team_params)
 
       if @team.valid?
-        draw_column
+        render 'column'
       else
         render 'form'
       end
@@ -19,12 +19,12 @@ module CMS
 
     def appear
       @team.appear!
-      draw_column
+      render 'column'
     end
 
     def hide
       @team.hide!
-      draw_column
+      render 'column'
     end
 
     def edit
@@ -35,7 +35,7 @@ module CMS
       @team.update(team_params)
 
       if @team.valid?
-        draw_column
+        render 'column'
       else
         render 'form'
       end
@@ -52,7 +52,7 @@ module CMS
 
       if @team.subcategory_id != @new_subcategory.id
         @team.update!(subcategory_id: @new_subcategory.id)
-        draw_column
+        render 'column'
       else
         head status: 403
       end
@@ -60,23 +60,19 @@ module CMS
 
     def destroy
       @team.destroy!
-      draw_column
+      render 'column'
     end
 
     private
 
-    def draw_column
-      render 'column'
+    def set_resources
+      @subcategory = Subcategory.find(params[:subcategory_id])
+      @categories = Category.all
+      @team = Team.find(params[:id]) if params[:id]
     end
 
     def team_params
       params.require(:team).permit(:name, :subcategory_id)
-    end
-
-    def find_resource
-      @subcategory = Subcategory.find(params[:subcategory_id])
-      @categories = Category.all
-      @team = Team.find(params[:id]) if params[:id]
     end
   end
 end

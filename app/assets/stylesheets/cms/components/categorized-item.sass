@@ -32,7 +32,6 @@
     height: 100%
 
   &__content
-    @extend .flex-center
     +font-size(14px)
     +line-height(19px)
     font-weight: 700
@@ -40,8 +39,11 @@
     max-width: calc(100% - 50px)
     overflow: hidden
     text-overflow: ellipsis
+    white-space: nowrap
     height: 100%
     margin-left: 25px
+    padding: 8px 0
+    text-align: center
 
   &__more,
   &__drag

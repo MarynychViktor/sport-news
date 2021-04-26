@@ -4,35 +4,13 @@
       | + Add team
 
 .ia-subcategories__list
-  - @subcategory.teams.each do |team|
-    .categorized-item-wrapper*{data: {id: team.id, type: team.class, 'subcategory-id': @subcategory.id}}
-      .categorized-item__drag
-        = inline_svg_tag 'common/drag-n-drop.svg', class: 'categorized-item__action-left'
-
-      = link_to(teams_path(@subcategory, team), class: 'link', remote: true) do
-        div class="categorized-item #{team.hidden? ? 'is-hidden' : ''}"
-          .categorized-item__hidden-label
-            | hidden
-          .categorized-item__container
-            .categorized-item__content
-              = team.name
-
-      .categorized-item__more.more-action
-        = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
-
-      .categorized-item-menu
-        .categorized-item-menu__preview
-          = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
-
-        - if team.hidden?
-          .categorized-item-menu__link-wrapper
-            = link_to 'SHOW', appear_cms_subcategory_team_path(@subcategory, team), class: 'categorized-item-menu__link', method: :post, remote: true
-        - else
-          .categorized-item-menu__link-wrapper
-            = link_to 'HIDE', hide_cms_subcategory_team_path(@subcategory, team), class: 'categorized-item-menu__link', method: :post, remote: true
-
-        .categorized-item-menu__link-wrapper
-          = link_to 'EDIT', edit_cms_subcategory_team_path(@subcategory, team), class: 'categorized-item-menu__link', remote: true
-
-        .categorized-item-menu__link-wrapper
-          = link_to 'DELETE', cms_subcategory_team_path(@subcategory, team), class: 'categorized-item-menu__link', method: :delete, remote: true
+  = render('cms/partials/categorized-item',
+      resources: @subcategory.teams,\
+      data: ->(team) { {id: team.id, type: team.class, 'subcategory-id': @subcategory.id} },\
+      paths: {\
+        show: ->(team) { appear_cms_subcategory_team_path(@subcategory, team) },\
+        hide: ->(team) { hide_cms_subcategory_team_path(@subcategory, team) },\
+        edit: ->(team) { edit_cms_subcategory_team_path(@subcategory, team) },\
+        delete: ->(team) { cms_subcategory_team_path(@subcategory, team) },\
+      },\
+    )

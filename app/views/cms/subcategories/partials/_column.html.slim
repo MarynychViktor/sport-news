@@ -4,35 +4,14 @@
       | + Add subcategory
 
 .ia-subcategories__list
-  - @category.subcategories.each do |subcategory|
-    .categorized-item-wrapper*{ data: { id: subcategory.id, type: subcategory.class, 'category-id': @category.id} }
-      .categorized-item__drag
-        = inline_svg_tag 'common/drag-n-drop.svg', class: 'categorized-item__action-left'
-
-      = link_to(cms_subcategory_teams_path(subcategory), class: 'link', remote: true) do
-        div class="categorized-item #{subcategory.hidden? ? 'is-hidden' : ''}"
-          .categorized-item__hidden-label
-            | hidden
-          .categorized-item__container
-            .categorized-item__content
-              = subcategory.name
-
-      .categorized-item__more.more-action
-        = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
-
-      .categorized-item-menu
-        .categorized-item-menu__preview
-          = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
-
-        - if subcategory.hidden?
-          .categorized-item-menu__link-wrapper
-            = link_to 'SHOW', appear_cms_category_subcategory_path(@category, subcategory), class: 'categorized-item-menu__link', method: :post, remote: true
-        - else
-          .categorized-item-menu__link-wrapper
-            = link_to 'HIDE', hide_cms_category_subcategory_path(@category, subcategory), class: 'categorized-item-menu__link', method: :post, remote: true
-
-        .categorized-item-menu__link-wrapper
-          = link_to 'EDIT', edit_cms_category_subcategory_path(@category, subcategory), class: 'categorized-item-menu__link', remote: true
-
-        .categorized-item-menu__link-wrapper
-          = link_to 'DELETE', cms_category_subcategory_path(@category, subcategory), class: 'categorized-item-menu__link', method: :delete, remote: true
+  = render('cms/partials/categorized-item',
+      resources: @category.subcategories,\
+      data: ->(subcategory) { { id: subcategory.id, type: subcategory.class, 'category-id': @category.id} }, \
+      paths: { \
+        show: ->(subcategory) { appear_cms_category_subcategory_path(@category, subcategory) }, \
+        hide: ->(subcategory) { hide_cms_category_subcategory_path(@category, subcategory) }, \
+        edit: ->(subcategory) { edit_cms_category_subcategory_path(@category, subcategory) }, \
+        delete: ->(subcategory) { cms_category_subcategory_path(@category, subcategory) }, \
+        child: -> (subcategory) { cms_subcategory_teams_path(subcategory) },\
+       },\
+    )
