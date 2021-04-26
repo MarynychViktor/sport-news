@@ -1,6 +1,6 @@
 module CMS
   class SubcategoriesController < ApplicationController
-    before_action :set_resources
+    before_action :set_resource
 
     def new
       @subcategory = Subcategory.new
@@ -70,13 +70,13 @@ module CMS
 
     private
 
-    def set_resources
-      @category = Category.find(params[:category_id])
-      @subcategory = Subcategory.find(params[:id]) if params.key? :id
-    end
-
     def subcategory_params
       params.require(:subcategory).permit(:name, :category_id)
+    end
+
+    def set_resource
+      @category = Category.find(params[:category_id])
+      @subcategory = Subcategory.find(params[:id]) if params.key? :id
     end
   end
 end

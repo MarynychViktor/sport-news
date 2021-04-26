@@ -1,6 +1,6 @@
 module CMS
   class TeamsController < ApplicationController
-    before_action :set_resources
+    before_action :set_resource
 
     def new
       @team = Team.new
@@ -58,26 +58,26 @@ module CMS
       end
     end
 
-    def change_position
-      @team.update_position! params[:position]
-      head :ok
-    end
-
     def destroy
       @team.destroy!
       render 'column'
     end
 
-    private
-
-    def set_resources
-      @subcategory = Subcategory.find(params[:subcategory_id])
-      @categories = Category.all
-      @team = Team.find(params[:id]) if params[:id]
+    def change_position
+      @team.update_position! params[:position]
+      head :ok
     end
+
+    private
 
     def team_params
       params.require(:team).permit(:name, :subcategory_id)
+    end
+
+    def set_resource
+      @subcategory = Subcategory.find(params[:subcategory_id])
+      @categories = Category.all
+      @team = Team.find(params[:id]) if params[:id]
     end
   end
 end

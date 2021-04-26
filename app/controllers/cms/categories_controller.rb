@@ -1,5 +1,5 @@
 module CMS
-  class CategoriesController < ApplicationController
+  class CategoriesController < ResourceBaseController
     before_action :set_category, only: %i[edit update appear hide destroy change_position]
 
     def index
@@ -15,14 +15,10 @@ module CMS
       @category = Category.create(category_params)
 
       if @category.valid?
-        draw_column
+        render_column
       else
         render 'form'
       end
-    end
-
-    def edit
-      render 'form'
     end
 
     def update
@@ -30,7 +26,7 @@ module CMS
 
       if @category.valid?
         @categories = Category.all
-        draw_column
+        render_column
       else
         render 'form'
       end
@@ -49,7 +45,7 @@ module CMS
     def destroy
       if !@category.static?
         @category.destroy!
-        draw_column
+        render_column
       else
         head status: 403
       end
@@ -66,7 +62,7 @@ module CMS
       @category = Category.find(params[:id])
     end
 
-    def draw_column
+    def render_column
       @categories = Category.all
       render 'column'
     end

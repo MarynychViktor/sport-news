@@ -9,10 +9,10 @@
 
     .ia-subcategories#subcategories-list
     .ia-teams#teams-list
-
-#modal.modal.fade aria-hidden="true" aria-labelledby="modal" role="dialog" tabindex="-1"
-  .modal-dialog role="document"
-    .modal-content.app-modal-content#modal-content
+= content_for :body_append
+  #modal.modal.fade aria-hidden="true" aria-labelledby="modal" role="dialog" tabindex="-1"
+    .modal-dialog.modal-dialog-centered  role="document"
+      .modal-content.app-modal-content#modal-content
 
 javascript:
     $(document).on('click', '.more-action', function (event) {

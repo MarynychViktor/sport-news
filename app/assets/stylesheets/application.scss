@@ -24,7 +24,6 @@
 html, body {
   font-size: $base-font-size;
   font-family: 'Open Sans', sans-serif;
-  background: #f9f9f9;
 }
 
 .base-layout {
@@ -63,14 +62,16 @@ html, body {
 
   &-wrapper {
     @extend .base-layout;
-    margin-top: 83px;
+    padding-top: 83px;
+    height: 100vh;
+    overflow: hidden
   }
 
   &-container {
     display: flex;
     width: 100%;
     max-width: 1440px;
-    height: calc(100vh - 230px);
+    height: calc(100vh - 213px);
 
     &__sidebar {
       width: $sidebar-width;
@@ -82,7 +83,7 @@ html, body {
       //margin-top: rem(42px);
       //margin-left: 16.7%;
       width: 100%;
-      overflow: auto;
+      //overflow: auto;
     }
   }
 }
