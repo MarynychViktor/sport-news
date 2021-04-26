@@ -1,5 +1,5 @@
 module CMS
-  class CategoriesController < ResourceBaseController
+  class CategoriesController < ApplicationController
     before_action :set_category, only: %i[edit update appear hide destroy change_position]
 
     def index
