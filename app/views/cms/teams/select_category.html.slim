@@ -1,4 +1,15 @@
--  @categories.each do |c|
-  .categorized-item-menu__link-wrapper
-    = link_to c.name, update_category_cms_category_subcategory_path(@category, @subcategory, params: {new_category_id: c.id}),\
-      class: 'categorized-item-menu__link', method: :post, remote: true
+.categorized-item-menu__link-wrapper.move-to-link.has-submenu
+  .categorized-item-menu__link
+    | MOVE TO
+
+  .categorized-item-menu__submenu
+    -  @categories.each do |category|
+      - unless category.subcategories.select {|s| s != @subcategory}.empty?
+        .categorized-item-menu__link-wrapper.has-submenu
+          .categorized-item-menu__link
+            = category.name
+
+          .categorized-item-menu__submenu
+            - category.subcategories.select {|s| s != @subcategory}.each do |subcategory|
+              .categorized-item-menu__link-wrapper
+                = link_to subcategory.name, update_category_cms_subcategory_team_path(@subcategory, @team, params: { new_subcategory_id: subcategory.id }), class: 'categorized-item-menu__link', method: :post, remote: true

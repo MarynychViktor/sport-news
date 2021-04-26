@@ -1,4 +1,9 @@
--  @categories.each do |c|
-  .categorized-item-menu__link-wrapper
-    = link_to c.name, update_category_cms_category_subcategory_path(@category, @subcategory, params: {new_category_id: c.id}),\
-      class: 'categorized-item-menu__link', method: :post, remote: true
+.categorized-item-menu__link-wrapper.has-submenu.move-to-link
+  .categorized-item-menu__link
+    | MOVE TO
+
+  .categorized-item-menu__submenu
+    -  @categories.each do |c|
+      .categorized-item-menu__link-wrapper
+        = link_to c.name, update_category_cms_category_subcategory_path(@category, @subcategory, params: {new_category_id: c.id}),\
+          class: 'categorized-item-menu__link', method: :post, remote: true

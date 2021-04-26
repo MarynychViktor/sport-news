@@ -19,34 +19,28 @@
     .modal-content.app-modal-content#modal-content
 
 javascript:
-    function onCategoryAdded(htmlString) {
-        const el = $(document.createElement('div'))
-          .addClass('ia-resource__wrapper')
-          .html(htmlString)
-        $('.ia-categories__list').prepend(el)
-    }
-
-    function onSubcategoryAdded(htmlString) {
-        const el = $(document.createElement('div'))
-            .addClass('ia-resource__wrapper')
-            .html(htmlString)
-        $('.ia-subcategories__list').prepend(el)
-    }
-
     $(document).on('click', '.more-action', function (event) {
         const wrapper = $(event.target).closest('.categorized-item-wrapper');
         const id = wrapper.attr('data-id');
         const type = wrapper.attr('data-type');
         wrapper.find('.categorized-item-menu').addClass('is-open');
 
-        function hideMenu(event) {
-            if (!$(event.target).closest(`.categorized-item-wrapper[data-id=${id}]`).length) {
-                $(`.categorized-item-wrapper[data-id=${id}] .categorized-item-menu`).removeClass('is-open')
-                $(document).off('click', hideMenu)
-            }
+        if (type !== 'Category') {
+            wrapper.find('.categorized-item-menu .move-to-link').remove();
         }
 
-        $(document).off('click', hideMenu);
+        if (type === 'Subcategory') {
+            console.log('subcategory')
+            const categoryId = wrapper.attr('data-category-id');
+            fetch(`/cms/categories/${categoryId}/subcategories/${id}/select_category`)
+              .then(res => res.text())
+              .then(html => wrapper.find('.categorized-item-menu .categorized-item-menu__preview').after(html))
+        } else if (type === 'Team') {
+            const subcategoryId = wrapper.attr('data-subcategory-id');
+            fetch(`/cms/subcategories/${subcategoryId}/teams/${id}/select_category`)
+                .then(res => res.text())
+                .then(html => wrapper.find('.categorized-item-menu .categorized-item-menu__preview').after(html))
+        }
     });
 
     $(document).on('click', '.categorized-item-menu__preview', function (event) {

@@ -1,4 +1,4 @@
 | $('.ia-subcategories').html("#{j render('cms/subcategories/partials/column')}")
   $('#teams-list').empty();
-  $('.ia-subcategories .resource-item.is-active').removeClass('is-active')
-  $('.ia-subcategories .resource-item[data-id=#{@category.id}]').addClass('is-active')
+  $('#categories-list .categorized-item.is-active').removeClass('is-active')
+  $('#categories-list .categorized-item-wrapper[data-id=#{@category.id}] .categorized-item').addClass('is-active')

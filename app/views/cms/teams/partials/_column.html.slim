@@ -23,3 +23,16 @@
       .categorized-item-menu
         .categorized-item-menu__preview
           = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
+
+        - if team.hidden?
+          .categorized-item-menu__link-wrapper
+            = link_to 'SHOW', appear_cms_subcategory_team_path(@subcategory, team), class: 'categorized-item-menu__link', method: :post, remote: true
+        - else
+          .categorized-item-menu__link-wrapper
+            = link_to 'HIDE', hide_cms_subcategory_team_path(@subcategory, team), class: 'categorized-item-menu__link', method: :post, remote: true
+
+        .categorized-item-menu__link-wrapper
+          = link_to 'EDIT', edit_cms_subcategory_team_path(@subcategory, team), class: 'categorized-item-menu__link', remote: true
+
+        .categorized-item-menu__link-wrapper
+          = link_to 'DELETE', cms_subcategory_team_path(@subcategory, team), class: 'categorized-item-menu__link', method: :delete, remote: true
