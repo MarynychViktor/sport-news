@@ -58,6 +58,11 @@ module CMS
       end
     end
 
+    def change_position
+      @team.update_position! params[:position]
+      head :ok
+    end
+
     def destroy
       @team.destroy!
       render 'column'

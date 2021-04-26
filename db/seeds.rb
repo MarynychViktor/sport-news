@@ -6,10 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-['Lifestyle', 'Dealbook', 'Video', 'Team hub'].each do |name|
-  Category.create!(name: name, static: true)
-end
-
 categories = [
   {
     category: 'NBA',
@@ -84,4 +80,8 @@ categories.each do |c|
       subcategory.teams.create!(name: team[:name])
     end
   end
+end
+
+['Lifestyle', 'Dealbook', 'Video', 'Team hub'].each do |name|
+  Category.create!(name: name, static: true)
 end

@@ -3,7 +3,7 @@
     button.resource-action-button type="submit"
       | + Add team
 
-.ia-subcategories__list
+.ia-teams__list
   = render('cms/partials/categorized-item',
       resources: @subcategory.teams,\
       data: ->(team) { {id: team.id, type: team.class, 'subcategory-id': @subcategory.id} },\

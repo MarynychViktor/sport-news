@@ -1,6 +1,6 @@
 module CMS
   class CategoriesController < ApplicationController
-    before_action :set_category, only: %i[edit update appear hide destroy]
+    before_action :set_category, only: %i[edit update appear hide destroy change_position]
 
     def index
       @categories = Category.all
@@ -53,6 +53,11 @@ module CMS
       else
         head status: 403
       end
+    end
+
+    def change_position
+      @category.update_position! params[:position]
+      head :ok
     end
 
     private

@@ -11,12 +11,14 @@ Rails.application.routes.draw do
       member do
         post 'hide', to: 'categories#hide'
         post 'appear', to: 'categories#appear'
+        post 'position', to: 'categories#change_position'
       end
 
       resources :subcategories, only: %i[index new create edit update destroy] do
         member do
           post 'hide', to: 'subcategories#hide'
           post 'appear', to: 'subcategories#appear'
+          post 'position', to: 'subcategories#change_position'
           get 'select_category', to: 'subcategories#select_category'
           post 'update_category', to: 'subcategories#update_category'
         end
@@ -28,6 +30,7 @@ Rails.application.routes.draw do
         member do
           post 'hide', to: 'teams#hide'
           post 'appear', to: 'teams#appear'
+          post 'position', to: 'teams#change_position'
           get 'select_category', to: 'teams#select_category'
           post 'update_category', to: 'teams#update_category'
         end

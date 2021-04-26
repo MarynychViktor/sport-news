@@ -58,6 +58,11 @@ module CMS
       end
     end
 
+    def change_position
+      @subcategory.update_position! params[:position]
+      head :ok
+    end
+
     def destroy
       @subcategory.destroy!
       render 'column'

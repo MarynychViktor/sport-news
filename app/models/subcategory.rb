@@ -1,8 +1,6 @@
 class Subcategory < ApplicationRecord
   include Hideable
-  include Prioritizable
-
-  default_scope { order(priority: :desc) }
+  include Ranked
 
   belongs_to :category
   has_many :teams, dependent: :destroy

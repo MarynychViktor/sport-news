@@ -18,35 +18,32 @@ ActiveRecord::Schema.define(version: 2021_04_23_115705) do
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.boolean "hidden", default: false
-    t.integer "priority", null: false
+    t.integer "row_order"
     t.boolean "static", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
-    t.index ["priority"], name: "index_categories_on_priority", unique: true
   end
 
   create_table "subcategories", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "category_id", null: false
-    t.integer "priority", null: false
+    t.integer "row_order"
     t.boolean "hidden", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_subcategories_on_category_id"
     t.index ["name", "category_id"], name: "index_subcategories_on_name_and_category_id", unique: true
-    t.index ["priority", "category_id"], name: "index_subcategories_on_priority_and_category_id", unique: true
   end
 
   create_table "teams", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "subcategory_id", null: false
-    t.integer "priority", null: false
+    t.integer "row_order"
     t.boolean "hidden", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name", "subcategory_id"], name: "index_teams_on_name_and_subcategory_id", unique: true
-    t.index ["priority", "subcategory_id"], name: "index_teams_on_priority_and_subcategory_id", unique: true
     t.index ["subcategory_id"], name: "index_teams_on_subcategory_id"
   end
 
