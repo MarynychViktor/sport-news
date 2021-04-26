@@ -4,14 +4,11 @@
     height: rem(83px)
     border-bottom: 1px solid #EDEDED
     background: white
-    position: fixed
-    left: 0
-    top: 0
-    right: 0
-    max-width: $container-width
     width: 100%
     margin: 0 auto
     z-index: 5
+    position: sticky
+    top: 0
 
   &-hero
     @extend .flex-center
@@ -19,6 +16,11 @@
     +line-height(28px)
     width: 253px
     background: $primary
+    color: white
+
+    &:hover
+      color: white
+      text-decoration: none
 
   /** Search widget **/
   &-search

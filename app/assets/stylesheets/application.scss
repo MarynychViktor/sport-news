@@ -33,30 +33,6 @@ html, body {
   background: white;
 }
 
-.app {
-  $user-sidebar-width: 252px;
-
-  &-wrapper {
-    @extend .base-layout
-  }
-
-  &-container {
-    padding-top: 83px;
-    display: flex;
-    width: 100%;
-    //max-width: 1440px;
-
-    &__sidebar {
-      width: $user-sidebar-width;
-    }
-
-    &__content {
-      width: calc(100% - #{$user-sidebar-width} - #{$aside-width});
-      padding-top: 82px;
-    }
-  }
-}
-
 .admin-layout {
   $sidebar-width: 87px;
 
@@ -85,5 +61,48 @@ html, body {
       width: 100%;
       //overflow: auto;
     }
+  }
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+#app-container {
+  max-width: 1440px;
+  margin: 0 auto;
+
+  .wrapper {
+    display: flex;
+  }
+
+  .column {
+    &-left {
+      width: 252px;
+      flex-shrink: 0;
+      z-index: 5;
+    }
+
+    &-right {
+      flex-grow: 1;
+      flex-basis: 0;
+      min-width: 0;
+      display: flex;
+    }
+  }
+
+  #main {
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: 0;
+  }
+
+  .aside {
+    width: 371px;
+    flex-shrink: 0;
   }
 }

@@ -1,34 +1,23 @@
-
-/ - categories = [\
-/   {name: 'HOME'},\
-/   {name: 'NBA', subcategories: [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]},\
-/   {name: 'SOCCER', subcategories: [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]},\
-/   {name: 'TEAM HUB', subcategories: [ {name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]},\
-/   {name: 'LIFESTYLE', subcategories: [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'}, ]\
-/ }]
-// TODO: finish with submenu dropdown
 .sidebar
   .sidebar-content
-    div#some-menu
     ul.sidebar-menu
-      - #data-simplebar="" data-simplebar-direction="rtl"
       - @_categories.each do |category|
         li.sidebar-menu-item
-          a.sidebar-menu-item__link
+          a.sidebar-menu-item__link.link
             = category.name
 
           - unless category.subcategories.empty?
             ul.sidebar-sub-menu
               - category.subcategories.each do |subcategory|
-                li.sidebar-menu-item
-                  a.sidebar-menu-item__link
+                li.sidebar-sub-menu-item
+                  a.sidebar-sub-menu-item__link.link
                     = subcategory.name
 
                   - unless subcategory.teams.empty?
                     ul.sidebar-sub-menu
                       - subcategory.teams.each do |team|
-                        li.sidebar-menu-item
-                          a.sidebar-menu-item__link
+                        li.sidebar-sub-menu-item
+                          a.sidebar-sub-menu-item__link.link
                             = team.name
     .sidebar-follow
       .sidebar-follow__title
@@ -43,26 +32,4 @@
           = image_tag 'social/google.svg', alt: 'google icon', class: 'sidebar-follow__icon'
         a.sidebar-follow__link href="#"
           = image_tag 'social/youtube.svg', alt: 'youtube icon', class: 'sidebar-follow__icon'
-//javascript:
-//    const links = [
-//        {name: 'HOME'},
-//        {
-//            name: 'NBA',
-//            items: [{
-//                name: 'Test1',
-//                items: [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]
-//            }, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]
-//        },
-//        {name: 'SOCCER', items: [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]},
-//        {
-//            name: 'TEAM HUB',
-//            items: [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]
-//        },
-//        {
-//            name: 'LIFESTYLE',
-//            items: [{name: 'Test1'}, {name: 'Test2'}, {name: 'Test3'}, {name: 'Test4'}, {name: 'Test5'},]
-//        }
-//    ]
-//    $(document).ready(() => {
-//        $('#some-menu').createMenu(links)
-//    })
+

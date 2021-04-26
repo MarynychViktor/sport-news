@@ -13,12 +13,16 @@ html
     = javascript_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = yield :styles
   body
-    .app-wrapper
+    #app-container
       = render 'partials/header'
-      .app-container
-        .app-container__sidebar
+
+      .wrapper
+        .column-left
           = render 'partials/sidebar'
-        .app-container__content
-          = yield
-      = render 'partials/footer'
+
+        .column-right
+          #main
+            = yield
+          .aside
+
     = yield :scripts
