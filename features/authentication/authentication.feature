@@ -3,7 +3,7 @@ Feature: Allow users to sign up on the portal using an email
     Given I go to "/" page
     Then I see the Sign up button in the page header
 
-  Scenario Outline:
+  Scenario Outline: Error messages displayed on invalid input
     Given I go to "/users/sign_up" page
     When on the sign-up page I entered <Value> for <Field>
     And I click Sign up
@@ -16,7 +16,7 @@ Feature: Allow users to sign up on the portal using an email
       |           | password   | Password is required                                              |
       | testtest  | password   | Password must contain at least 8 characters (letters and numbers) |
 
-  Scenario:
+  Scenario: Redirected to home page on signup
     Given I go to "/users/sign_up" page
     When I complete the sign-up form with valid data
     And I click Sign up
