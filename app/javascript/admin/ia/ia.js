@@ -25,6 +25,9 @@ $(document).ready(function () {
         },
     });
 
+    $('#modal').on('hidden.bs.modal', function () {
+        $('#modal-content').empty();
+    })
 });
 
 (function () {
@@ -63,6 +66,3 @@ $(document).ready(function () {
     };
 })()
 
-window.initSort = function initSort() {
-    console.log('init sort')
-}

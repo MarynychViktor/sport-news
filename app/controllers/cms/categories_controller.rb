@@ -34,12 +34,12 @@ module CMS
 
     def appear
       @category.appear!
-      draw_column
+      render_column
     end
 
     def hide
       @category.hide!
-      draw_column
+      render_column
     end
 
     def destroy

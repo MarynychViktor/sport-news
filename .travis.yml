@@ -16,9 +16,11 @@ stages:
     if: branch = master
 jobs:
   include:
-    -stage: test
+    stage: test
     script: ./bin/rails spec
-    -stage: deploy
+    stage: test
+    script: ./script/cucumber --strict
+    stage: deploy
     script: skip
     deploy: &heroku
       provider: heroku
