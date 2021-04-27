@@ -20,3 +20,14 @@ Then(/I see popover with title ([\w\s]+) is closed/) do |title|
   page.find('#modal', visible: :hidden)
   expect(page.has_content?(title)).to be(false)
 end
+
+Then(/^I see the ([\w\s]+) button in the page header$/) do |name|
+  within('header') do
+    expect(page.has_content?(name)).to be(true)
+  end
+end
+
+Then(/^I redirected to "(.*)' page/) do |path|
+  expect(page.current_path).to eq(path)
+end
+
