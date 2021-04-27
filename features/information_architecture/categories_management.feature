@@ -1,3 +1,4 @@
+@ia
 Feature: An admin user creates the navigation menu categories
   Background:
     Given I go to "/cms/information_architecture" page
