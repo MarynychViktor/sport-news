@@ -28,19 +28,18 @@ gem 'inline_svg'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'slim', '~> 4.1.0'
-gem "rspec-rails", group: [:development, :test]
-gem 'dry-rails', '~> 0.3.0'
-gem 'pry-rails', :group => :development
 gem 'simple_form', '~> 5.0'
 gem 'ranked-model', '~> 0.4.0'
 gem 'devise', '~> 4.2'
 gem 'rolify', '~> 6.0'
 gem 'carrierwave', '~> 2.0'
+gem 'view_component', '~> 2.9'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'dotenv-rails'
+  gem "rspec-rails"
 end
 
 group :development do
@@ -52,6 +51,7 @@ group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'pry-rails'
 end
 
 group :test do

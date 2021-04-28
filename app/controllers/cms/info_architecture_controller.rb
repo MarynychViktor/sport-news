@@ -1,6 +1,6 @@
 module CMS
   class InfoArchitectureController < ApplicationController
-    layout 'admin'
+    layout :admin
 
     def show
       @categories = Category.all

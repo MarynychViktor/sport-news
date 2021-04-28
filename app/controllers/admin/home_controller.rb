@@ -4,10 +4,6 @@
 module Admin
   # Home controller
   class HomeController < ApplicationController
-    layout 'admin'
-
-    def index
-      @current_user = 'John Smith'
-    end
+    layout :admin
   end
 end
