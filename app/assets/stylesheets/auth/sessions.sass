@@ -1,0 +1,55 @@
+.auth
+  &-wrapper
+    @extend .flex-center
+    min-height: 100%
+    padding: 100px 0
+
+  &-form
+    &-container
+      width: 100%
+      max-width: rem(390px)
+      flex-shrink: 0
+
+    &__title
+      +font-size(24px)
+      +line-height(33px)
+      font-weight: 600
+
+    &__inputs
+      margin-top: 20px
+
+    &__error
+      +font-size(10px)
+      +line-height(13px)
+      color: #D72130
+      margin-top: 20px
+
+      + .auth-form__inputs
+        margin-top: 15px
+
+    &__group
+      &:not(:first-child)
+        margin-top: 19px
+
+      &--multi-group
+        @extend .auth-form__group
+        display: flex
+
+        > :not(:first-child)
+          margin-left: 34px
+
+    &__password-group
+      position: relative
+
+    &__forgot-password
+      +font-size(10px)
+      +line-height(13px)
+      text-align: right
+      position: absolute
+      right: 0
+      top: 0
+
+    &__submit
+      height: 42px
+      width: 100%
+      margin-top: 34px

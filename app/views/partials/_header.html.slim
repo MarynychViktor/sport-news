@@ -1,7 +1,6 @@
 body
   header.h-header.d-flex
-    a.h-hero href="/"
-      | Sports Hub
+    = render 'partials/app-hero'
 
     - if not @admin_panel
       /! Search widget

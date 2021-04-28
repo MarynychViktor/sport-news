@@ -1,0 +1,6 @@
+header.auth-header
+  = render 'partials/app-hero'
+
+  .auth-header__actions
+    = link_to 'Don’t have an account?', new_user_registration_path, class: 'button-plain', method: :get
+    = link_to 'Get Started', new_user_session_path, class: 'button-outline', method: :get
