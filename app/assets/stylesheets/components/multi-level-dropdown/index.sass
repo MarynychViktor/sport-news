@@ -1,0 +1,27 @@
+.app-ml
+  &-menu
+    padding: 0
+    margin: 0
+    list-style-type: none
+    position: relative
+
+    &-item
+      border: 1px solid #000
+
+      &-link
+        display: block
+        width: 100%
+        position: relative
+
+        &:hover
+          > .app-ml-submenu
+            display: block
+
+  &-submenu
+    position: absolute
+    padding: 0
+    margin: 0
+    list-style-type: none
+    left: 100%
+    top: 0
+    display: none

@@ -1,0 +1,39 @@
+- resources.each do |resource|
+  .categorized-item-wrapper*{ data: data.(resource) }
+    .categorized-item__drag
+      = inline_svg_tag 'common/drag-n-drop.svg', class: 'categorized-item__action-left'
+
+    - item = capture do
+      div class="categorized-item #{resource.hidden? ? 'is-hidden' : ''}"
+        .categorized-item__hidden-label
+          | hidden
+        .categorized-item__container
+          .categorized-item__content
+            = resource.name
+
+    - if paths.key?(:child)
+      = link_to(paths[:child].(resource), class: 'link', remote: true) do
+        = item
+    - else
+      .link
+        = item
+
+    .categorized-item__more.more-action
+      = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
+
+    .categorized-item-menu
+      .categorized-item-menu__preview
+        = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
+
+      - if resource.hidden?
+        .categorized-item-menu__link-wrapper
+          = link_to 'SHOW', paths[:show].(resource), class: 'categorized-item-menu__link', method: :post, remote: true
+      - else
+        .categorized-item-menu__link-wrapper
+          = link_to 'HIDE', paths[:hide].(resource), class: 'categorized-item-menu__link', method: :post, remote: true
+
+      .categorized-item-menu__link-wrapper
+        = link_to 'EDIT', paths[:edit].(resource), class: 'categorized-item-menu__link', remote: true
+
+      .categorized-item-menu__link-wrapper
+        = link_to 'DELETE', paths[:delete].(resource), class: 'categorized-item-menu__link', method: :delete, remote: true

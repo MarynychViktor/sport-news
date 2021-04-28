@@ -1,15 +1,3 @@
-- home = ['HOME',
-        'NBA',
-        'NFL',
-        'MLB',
-        'NHL',
-        'CBB',
-        'NASCAR',
-        'GOLF',
-        'SOCCER',
-        'VIDEO',
-        'LIFESTYLE']
-
 .admin-menu-wrapper
   .admin-menu
     .admin-page-menu
@@ -22,8 +10,9 @@
         #admin-menu-prev.admin-submenu__nav.is-prev
           span.material-icons west
         #admin-menu.admin-submenu__links
-          - home.each.with_index do |x, i|
+          - @_categories.each.with_index do |category, i|
             .admin-submenu__link-wrapper
-              a class=("admin-submenu__link #{i == 0 ? 'is-active' : ''}") href="#" = x
+              a class=("admin-submenu__link #{i == 0 ? 'is-active' : ''}") href="#"
+                = category.name
         #admin-menu-next.admin-submenu__nav.is-next
           span.material-icons east

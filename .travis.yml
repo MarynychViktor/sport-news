@@ -1,18 +1,27 @@
 language: ruby
 rbenv:
   - 2.7.2
+services:
+  - postgresql
 branches:
   only:
     - master
+    - develop
+before_script:
+  - psql -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'sport_news_test'" | grep -q 1 || psql -U postgres -c "CREATE DATABASE sport_news_test"
+  - cp config/database.yml.travis config/database.yml
+  - npm install
 stages:
   - test
   - name: deploy
     if: branch = master
 jobs:
   include:
-    -stage: test
-    script: ./bin/rails test
-    -stage: deploy
+    stage: test
+    script: ./bin/rails spec
+    stage: cucumber-tests
+    script: ./script/cucumber --strict
+    stage: deploy
     script: skip
     deploy: &heroku
       provider: heroku

@@ -4,14 +4,11 @@
     height: rem(83px)
     border-bottom: 1px solid #EDEDED
     background: white
-    position: fixed
-    left: 0
-    top: 0
-    right: 0
-    max-width: $container-width
     width: 100%
     margin: 0 auto
     z-index: 5
+    position: sticky
+    top: 0
 
   &-hero
     @extend .flex-center
@@ -19,6 +16,11 @@
     +line-height(28px)
     width: 253px
     background: $primary
+    color: white
+
+    &:hover
+      color: white
+      text-decoration: none
 
   /** Search widget **/
   &-search
@@ -74,7 +76,7 @@
       flex-basis: 18.25%
       padding-right: rem(20px)
 
-    button:last-child
+    > :last-child
       margin-left: 35px
 
   /** Switch widget **/
@@ -121,17 +123,26 @@
         @extend .flex-center
         +font-size(12px)
         font-weight: 600
+        min-width: 0
+        padding-bottom: 5px
+
+        &-name
+          max-width: 100px
+          @extend .overflow-ellipsis
 
       &__user
         padding: 15px 25px 12px 26px
+        max-width: 225px
 
         &-name
           +font-size(12px)
           font-weight: 600
+          @extend .overflow-ellipsis
 
         &-email
           font-size: 12px
           color: #7F7B7B
+          @extend .overflow-ellipsis
 
   /** Lang widget **/
   &-lang

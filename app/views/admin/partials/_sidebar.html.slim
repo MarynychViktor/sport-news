@@ -25,7 +25,7 @@
         .admin-sidebar__link-icon-wrapper
           = inline_svg_tag 'admin/sidebar/users.svg', class: "admin-sidebar__link-icon"
     li.admin-sidebar__link-wrapper
-      a.admin-sidebar__link href="#"
+      = link_to cms_information_architecture_path, class: "admin-sidebar__link"
         .admin-sidebar__link-icon-wrapper
           = inline_svg_tag 'admin/sidebar/ia.svg', class: "admin-sidebar__link-icon"
     li.admin-sidebar__link-wrapper

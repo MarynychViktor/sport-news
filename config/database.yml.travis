@@ -1,0 +1,4 @@
+test:
+  adapter: postgresql
+  database: sport_news_test
+  user: postgres

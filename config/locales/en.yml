@@ -31,3 +31,24 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            first_name:
+              blank: "First Name is required"
+              too_short: "First name must contain at least %{count} characters"
+              too_long: "First name must not contain more than %{count} characters"
+            last_name:
+              blank: "Last Name is required"
+              too_short: "Last name must contain at least %{count} characters"
+              too_long: "Last name must not contain more than %{count} characters"
+            email:
+              blank: "Email is required"
+              invalid: "Please enter valid email"
+            password:
+              blank: "Password is required"
+              confirmation: "does not match"
+              too_short: "Password must contain at least 8 characters (letters and numbers)"
+              invalid: "Password must contain at least 8 characters (letters and numbers)"

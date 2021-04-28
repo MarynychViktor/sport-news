@@ -1,8 +1,15 @@
 .link
-  +link()
-  +link-disabled(#F7D3D6)
   +font-size(12px)
   +line-height(17px)
+  text-decoration: none
+  color: inherit
+
+  &:hover,
+  &:focus,
+  &:active
+    text-decoration: none
+    color: inherit
+
 
   &-regular
     +link(#D72130, #E02232, underline)
@@ -15,4 +22,3 @@
     +link-disabled(#C6CCD7)
     +font-size(10px)
     +line-height(13px)
-

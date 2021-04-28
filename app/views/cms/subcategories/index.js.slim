@@ -1,0 +1,6 @@
+|
+  $('.ia-subcategories').html("#{j render('cms/subcategories/partials/column')}");
+  $.fn.iaRefreshSubcategoriesSortable();
+  $('#teams-list').empty();
+  $('#categories-list .categorized-item.is-active').removeClass('is-active')
+  $('#categories-list .categorized-item-wrapper[data-id=#{@category.id}] .categorized-item').addClass('is-active')

@@ -1,0 +1,16 @@
+.ia-resource__action-wrapper
+  = form_with(url: new_cms_subcategory_team_path(@subcategory), method: :get, local: false) do |form|
+    button.resource-action-button type="submit"
+      | + Add team
+
+.ia-teams__list
+  = render('cms/partials/categorized-item',
+      resources: @subcategory.teams,\
+      data: ->(team) { {id: team.id, type: team.class, 'subcategory-id': @subcategory.id} },\
+      paths: {\
+        show: ->(team) { appear_cms_subcategory_team_path(@subcategory, team) },\
+        hide: ->(team) { hide_cms_subcategory_team_path(@subcategory, team) },\
+        edit: ->(team) { edit_cms_subcategory_team_path(@subcategory, team) },\
+        delete: ->(team) { cms_subcategory_team_path(@subcategory, team) },\
+      },\
+    )

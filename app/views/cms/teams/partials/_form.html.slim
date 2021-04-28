@@ -1,0 +1,11 @@
+.app-modal-title
+  = @team.persisted? ? 'Edit team' : 'Add new team'
+
+.app-modal-form
+  = simple_form_for [:cms, @subcategory, @team], remote: true do |form|
+    = form.input :subcategory_id, :as => :hidden, :input_html => { :value => @subcategory.id }
+    = form.input :name, label_html: { :class => "app-label" }, input_html: {class: 'app-input'}, error_html: { class: 'app-input-error' }
+    .app-modal-actions
+      button.button-plain data-dismiss="modal" type="button"
+        | Cancel
+      = form.button :submit, 'Add', class: 'button'

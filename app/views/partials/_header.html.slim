@@ -1,7 +1,8 @@
 body
   header.h-header.d-flex
-    a.h-hero.link href="/" 
+    a.h-hero href="/"
       | Sports Hub
+
     - if not @admin_panel
       /! Search widget
       .h-search
@@ -10,6 +11,7 @@ body
             | search
         .h-search__input-wrapper
           input.h-search__input.app-input placeholder=("Search by") type="text" /
+
       /! Share widget
       .vertical-divider
       .h-share-wrapper
@@ -25,34 +27,43 @@ body
               = image_tag 'social/google-plus.svg', alt: 'google plus icon', class: 'h-share__icon'
     - else
       .flex-grow-1
+
     .vertical-divider
-    - if @current_user
+
+    - if user_signed_in?
       div class=("h-profile-wrapper #{@admin_panel ? 'has-switch' : ''}")
         .h-profile
           .h-switch
             = inline_svg_tag 'admin/switch.svg', class: "h-switch__icon"
+
           .h-profile__avatar-wrapper
-            img.h-profile__avatar alt="profile" src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" /
+            img.h-profile__avatar alt="profile" src="#{current_user.photo.url}" /
+
           .h-profile-menu
-            #header-profile-dropdown.h-profile-menu__toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" 
-              | Ivan Baloh
+            #header-profile-dropdown.h-profile-menu__toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+              .h-profile-menu__toggle-name
+                = current_user.full_name
               span.material-icons arrow_drop_down
             .app-dropdown-menu.dropdown-menu.dropdown-menu-right aria-labelledby="header-profile-dropdown" 
               .h-profile-menu__user
-                .h-profile-menu__user-name Ivan Baloh
-                .h-profile-menu__user-email ivanbaloh@gmail.com
+                .h-profile-menu__user-name
+                  = current_user.full_name
+                .h-profile-menu__user-email
+                  = current_user.email
               .dropdown-divider
               a.app-dropdown-item.dropdown-item href="#"  View Profile
               a.app-dropdown-item.dropdown-item href="#"  Change Password
               a.app-dropdown-item.dropdown-item href="#"  My surveys
               a.app-dropdown-item.dropdown-item href="#"  Team hub
               .dropdown-divider
-              a.app-dropdown-item.dropdown-item href="#"  Log out
+              = link_to 'Log out', destroy_user_session_path, class: 'app-dropdown-item dropdown-item', method: :delete
     - else
       .h-signup-wrapper
         .h-signup
-          button.button-plain Sign up
-          button.button-outline onclick=("window.location.href = '/admin'")  Log in
+          = link_to 'Sign up', new_user_registration_path, class: 'button-plain', method: :get
+          = link_to 'Log in', new_user_session_path, class: 'button-outline', method: :get
+          / button.button-outline onclick=("window.location.href = '/admin'")  Log in
+
     .h-lang-wrapper
       .h-lang.btn-group
         .h-lang__toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" 

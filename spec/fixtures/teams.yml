@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+team1:
+  name: Team1
+  category: category1
+  hidden: false
+
+team2:
+  name: Team2
+  category: category1
+  hidden: true
+
+team3:
+  name: Team3
+  category: category2

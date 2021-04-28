@@ -1,0 +1,28 @@
+@import "components/categorized-item"
+
+.ia
+  &-layout
+    padding: 58px 78px
+  &-items
+    display: flex
+
+  &-categories,
+  &-subcategories,
+  &-teams
+    width: 160px
+
+    &:not(:first-child)
+      margin-left: 60px
+
+  &-categories,
+  &-subcategories,
+  &-teams
+    &__list
+      margin-top: 24px
+
+  &-resource
+    &__wrapper
+      width: 100%
+
+      &:not(:first-child)
+        margin-top: 24px

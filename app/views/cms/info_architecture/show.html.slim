@@ -1,0 +1,42 @@
+.ia-layout
+  .ia-items
+    .ia-categories
+      .ia-resource__action-wrapper
+        = link_to '+ Add category', new_cms_category_path, class: 'resource-action-button link', remote: true
+
+      .ia-categories__list#categories-list
+        = render 'cms/categories/partials/column'
+
+    .ia-subcategories#subcategories-list
+    .ia-teams#teams-list
+= content_for :body_append
+  #modal.modal.fade aria-hidden="true" aria-labelledby="modal" role="dialog" tabindex="-1"
+    .modal-dialog.modal-dialog-centered  role="document"
+      .modal-content.app-modal-content#modal-content
+
+javascript:
+    $(document).on('click', '.more-action', function (event) {
+        const wrapper = $(event.target).closest('.categorized-item-wrapper');
+        const id = wrapper.attr('data-id');
+        const type = wrapper.attr('data-type');
+        wrapper.find('.categorized-item-menu').addClass('is-open');
+
+        if (type !== 'Category') {
+            wrapper.find('.categorized-item-menu .move-to-link').remove();
+
+            let link;
+            if (type === 'Subcategory') {
+                link = `/cms/categories/${wrapper.attr('data-category-id')}/subcategories/${id}/select_category`;
+            } else {
+                link = `/cms/subcategories/${wrapper.attr('data-subcategory-id')}/teams/${id}/select_category`
+            }
+            fetch(link)
+                .then(res => res.text())
+                .then(html => wrapper.find('.categorized-item-menu .categorized-item-menu__preview').after(html))
+        }
+
+    });
+
+    $(document).on('click', '.categorized-item-menu__preview', function (event) {
+        $(event.target).closest('.categorized-item-menu').removeClass('is-open');
+    });
