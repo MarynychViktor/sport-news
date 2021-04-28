@@ -46,7 +46,15 @@ Rails.application.configure do
 
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
-  config.action_mailer.default_url_options = { :host => 'localhost' }
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    user_name: ENV['SMTP_USER_NAME'],
+    password: ENV['SMTP_PASSWORD'],
+    address: ENV['SMTP_ADDRESS'],
+    domain: ENV['SMTP_DOMAIN'],
+    port: ENV['SMTP_PORT']
+  }
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load

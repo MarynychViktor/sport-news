@@ -2,9 +2,9 @@
   h2.auth-form__title Log in to Sports Hub
 
   - sign_in_failed = !!flash[:alert]
-  - if sign_in_failed
-    .auth-form__error
-      = flash[:alert]
+  - flash.select {|type, msg| [:notice, :alert].include?(type.to_sym)}.each do |type, msg|
+    div class="auth-form__#{type}"
+      = msg
 
   = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
     .auth-form__inputs

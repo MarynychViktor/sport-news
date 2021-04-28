@@ -15,17 +15,33 @@
       +line-height(33px)
       font-weight: 600
 
+    &__subtitle
+      font-size: 14px
+      font-weight: 600
+      line-height: 19px
+      letter-spacing: 0
+      margin-top: 8px
+      color: #596377
+      max-width: 265px
+
     &__inputs
       margin-top: 20px
 
-    &__error
-      +font-size(10px)
-      +line-height(13px)
-      color: #D72130
-      margin-top: 20px
+    &__alert,
+    &__notice
+      +font-size(14px)
+      +line-height(19px)
 
       + .auth-form__inputs
         margin-top: 15px
+
+    &__alert
+      color: #D72130
+      margin-top: 20px
+
+    &__notice
+      margin-top: 8px
+      color: #57A902
 
     &__group
       &:not(:first-child)
@@ -48,6 +64,12 @@
       position: absolute
       right: 0
       top: 0
+
+    &__actions
+      text-align: center
+
+      > :not(:first-child)
+        margin-top: 12px
 
     &__submit
       height: 42px
