@@ -15,10 +15,11 @@ html
   body
     #app-container
       = render 'partials/header'
+      = flash_messages
 
       .wrapper
         .column-left
-          = render 'partials/sidebar'
+          = render SidebarComponent.new
 
         .column-right
           #main

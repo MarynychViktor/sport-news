@@ -1,0 +1,62 @@
+.admin-sidebar
+  padding: 50px 0 80px
+  border-right: 1px solid #D8D8D8
+  height: calc(100vh - 215px)
+  overflow: hidden auto
+  top: 215px
+  position: sticky
+
+  &__links
+    list-style-type: none
+    padding: 0
+    margin: 0
+
+  &__link
+    &-wrapper
+      position: relative
+      padding-left: 20px
+
+      &:not(:first-child)
+        margin-top: 10px
+
+      &.is-active
+        svg
+          stroke: #D72130
+
+    &-tooltip
+      position: absolute
+      top: calc(50% - 20px)
+      left: calc(100% - 10px)
+      color: white
+      background: asset_url("common/tooltip.svg")
+      height: 40px
+      padding: 8px 24px
+      visibility: hidden
+      width: 0
+      overflow: hidden
+
+      &[data-popper-escaped]
+        width: 119px
+        visibility: visible
+
+    &-icon
+      max-width: 100%
+      max-height: 100%
+
+      &-wrapper
+        width: 60px
+        height: 60px
+        display: flex
+        align-items: center
+        justify-content: center
+
+
+        svg
+          stroke: #B2B2B2
+
+        &:hover
+          background: rgba(198, 204, 215, 0.11)
+          border-radius: 50%
+
+          svg
+            stroke: #D72130

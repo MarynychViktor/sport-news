@@ -1,6 +1,5 @@
-console.log('FILE CALLBACK FIRED')
-
-require('admin/ia/ia.js')
+require('cms/ia/ia.js')
+import { createPopper } from '@popperjs/core';
 
 $(document).ready(() => {
     $('#admin-menu').slick({

@@ -1,6 +1,6 @@
-module Auth
+module Users
   class DeviseController < ApplicationController
-    layout :authentication
+    layout 'authentication'
     before_action :configure_permitted_parameters
 
     protected

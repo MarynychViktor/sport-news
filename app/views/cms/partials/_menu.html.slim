@@ -10,9 +10,9 @@
         #admin-menu-prev.admin-submenu__nav.is-prev
           span.material-icons west
         #admin-menu.admin-submenu__links
-          - @_categories.each.with_index do |category, i|
-            .admin-submenu__link-wrapper
-              a class=("admin-submenu__link #{i == 0 ? 'is-active' : ''}") href="#"
-                = category.name
+          / - @_categories.each.with_index do |category, i|
+          /   .admin-submenu__link-wrapper
+          /     a class=("admin-submenu__link #{i == 0 ? 'is-active' : ''}") href="#"
+          /       = category.name
         #admin-menu-next.admin-submenu__nav.is-next
           span.material-icons east

@@ -10,10 +10,11 @@ html
     link href="https://fonts.gstatic.com" rel="preconnect" /
     link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet" /
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = stylesheet_link_tag 'admin', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag 'cms', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'admin', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'cms', media: 'all', 'data-turbolinks-track': 'reload'
     = yield :styles
+    script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
   body
     / .admin-layout-wrapper
     /   - @admin_panel = true
@@ -31,11 +32,11 @@ html
     #admin-container
       - @admin_panel = true
       = render 'partials/header'
-      = render 'admin/partials/menu'
+      = render 'cms/partials/menu'
 
       .wrapper
         .column-left
-          = render 'admin/partials/sidebar'
+          = render 'cms/partials/sidebar'
 
         .column-right
           #main

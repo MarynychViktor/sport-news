@@ -16,6 +16,11 @@
 @import "utils/variables";
 @import "elements/index";
 @import "components/index";
-@import "admin/components/index";
-@import "admin/home";
+@import "cms/components/index";
+@import "cms/home";
 @import "cms/information_architecture";
+
+.test-tooltip {
+  height: 35px;
+  background: red;
+}
