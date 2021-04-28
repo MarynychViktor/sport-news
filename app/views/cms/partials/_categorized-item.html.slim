@@ -12,7 +12,7 @@
             = resource.name
 
     - if paths.key?(:child)
-      = link_to(paths[:child].(resource), class: 'link', remote: true) do
+      = link_to(paths[:child].(resource), class: 'categorized-item__link', remote: true) do
         = item
     - else
       .link

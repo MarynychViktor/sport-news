@@ -10,9 +10,11 @@
   display: flex
   align-items: center
   justify-content: center
+  text-decoration: none
 
   &:hover
     color: #B2B2B2
+    text-decoration: none
 
 .categorized-item
   +font-size(14px)
@@ -86,6 +88,11 @@
   &.is-active
     color: #D72130
 
+  &__link
+    text-decoration: none
+
+    &:hover
+      text-decoration: none
 
   &-wrapper
     position: relative
@@ -102,7 +109,7 @@
 
     &.sortable-chosen
       .categorized-item
-        color: #D72130
+        //color: #D72130
 
         &-menu
           display: none

@@ -2,7 +2,7 @@
   .ia-items
     .ia-categories
       .ia-resource__action-wrapper
-        = link_to '+ Add category', new_cms_category_path, class: 'resource-action-button link', remote: true
+        = link_to '+ Add category', new_cms_category_path, class: 'resource-action-button', remote: true
 
       .ia-categories__list#categories-list
         = render 'cms/categories/partials/column'
