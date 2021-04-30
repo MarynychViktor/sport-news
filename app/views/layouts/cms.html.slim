@@ -18,6 +18,8 @@ html
     = yield :styles
     script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
   body
+    javascript:
+      window.controllerContext = ["#{controller_path}", "#{action_name}"]
     #admin-container
       - @admin_panel = true
       = render 'partials/header'

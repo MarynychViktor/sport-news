@@ -16,14 +16,18 @@ require("slick-carousel")
 require('simplebar')
 require('utils/menu')
 require('selectize')
-window.Sortable = require('sortablejs')
+// window.Sortable = require('sortablejs')
 require('dropzone')
 require('application')
 
 Dropzone.autoDiscover = false;
 
-window.onPageStart = function (page) {
-    console.log('dispatch')
-    document.dispatchEvent(new CustomEvent("APP_PAGE_START", {detail: {page}}));
-}
 
+$(async () => {
+    const [controller, action] = window.controllerContext;
+    try {
+        await import(`../application/pages/${controller}/${action}.js`)
+    } catch (e) {
+        console.log('Oops. File not found.');
+    }
+})

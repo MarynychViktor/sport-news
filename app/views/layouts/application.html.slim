@@ -13,6 +13,9 @@ html
     = javascript_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = yield :styles
   body
+    // TODO: remove duplications
+    javascript:
+      window.controllerContext = ["#{controller_path}", "#{action_name}"]
     #app-container
       = render 'partials/header'
       = flash_messages
