@@ -6,6 +6,9 @@
   border: 1px solid #D4D9E2
   font-weight: 600
 
+  &[type=file]
+    padding: 9px 14px
+
   &[aria-invalid=true],
   &:focus[aria-invalid=true]
     border: 1px solid #d72130
@@ -32,8 +35,11 @@
   color: #434C5D
   display: block
   text-transform: uppercase
+  margin-bottom: 7px
 
 .app-input-error
   +font-size(10px)
-  +line-height(11px)
+  +line-height(13px)
   color: #E1464E
+  display: inline-block
+  margin-top: 4px

@@ -12,6 +12,10 @@ function updateResourcePosition(path, position) {
 }
 
 $(document).ready(function () {
+    const target = document.getElementById('categories-list');
+    if (!target) {
+        return;
+    }
     Sortable.create(document.getElementById('categories-list'), {
         handle: '.categorized-item__content',
         onEnd: function (event) {
@@ -34,6 +38,9 @@ $(document).ready(function () {
     let s = null;
     $.fn.iaRefreshSubcategoriesSortable = function () {
         const target = document.querySelector('.ia-subcategories__list');
+        if (!target) {
+            return;
+        }
         s = Sortable.create(target, {
             handle: '.categorized-item__content',
             onEnd: function (event) {
@@ -48,8 +55,12 @@ $(document).ready(function () {
             },
         });
     };
+
     $.fn.iaRefreshTeamsSortable = function () {
         const target = document.querySelector('.ia-teams__list');
+        if (!target) {
+            return;
+        }
         Sortable.create(target, {
             handle: '.categorized-item__content',
             onEnd: function (event) {

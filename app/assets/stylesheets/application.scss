@@ -11,13 +11,15 @@
  * It is generally better to create a new file per style scope.
  *
  */
+@import "utils/variables";
 @import "bootstrap/scss/bootstrap.scss";
 @import "slick-carousel/slick/slick";
 @import "simplebar/src/simplebar";
+@import "selectize/dist/css/selectize";
+@import "dropzone/dist/dropzone";
 
 @import "utils/index";
 
-@import "utils/variables";
 @import "elements/index";
 @import "components/index";
 

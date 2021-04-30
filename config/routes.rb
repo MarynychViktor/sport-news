@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
 
   namespace :cms do
-    root 'home#index'
+    root 'articles#new'
 
     resources :categories, only: %i[index new create edit update destroy] do
       member do
@@ -44,6 +44,8 @@ Rails.application.routes.draw do
     end
 
     resource :"information_architecture", controller: 'info_architecture', only: %i[show]
+
+    resource :articles
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

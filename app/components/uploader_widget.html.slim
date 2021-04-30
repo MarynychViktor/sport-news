@@ -1,0 +1,14 @@
+.uploader-widget-wrapper id=@id
+  .uploader-widget
+    .uploader-widget__content
+      .uploader-widget__logo-wrapper
+        = inline_svg_tag 'common/photo.svg', class: 'uploader-widget__logo'
+      .uploader-widget__description
+        span.is-highlighted +Add picture
+        | or drop it right here
+        br
+        | You can add next formats: png. jpg. jpeg. tif
+    .uploader-widget__preview
+      img
+  .uploader-widget__dropzone
+  = build_field

@@ -1,8 +1,11 @@
-require('cms/ia/ia.js')
-import { createPopper } from '@popperjs/core';
+require('cms/ia/ia')
 
 $(document).ready(() => {
-    $('#admin-menu').slick({
+    const menuEl = $('#admin-menu');
+    if (!menuEl.length) {
+        return;
+    }
+    menuEl.slick({
         arrows: true,
         variableWidth: true,
         infinite: false,

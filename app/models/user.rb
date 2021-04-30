@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable
   mount_uploader :photo, PhotoUploader
+  #  TODO: add uploader to S3
 
   validates :first_name, :last_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :photo, presence: true

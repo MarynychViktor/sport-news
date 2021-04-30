@@ -39,7 +39,7 @@ body
             img.h-profile__avatar alt="profile" src="#{current_user.photo.url}" /
 
           .h-profile-menu
-            #header-profile-dropdown.h-profile-menu__toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+            #header-profile-dropdown.h-profile-menu__toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"
               .h-profile-menu__toggle-name
                 = current_user.full_name
               span.material-icons arrow_drop_down
@@ -65,7 +65,7 @@ body
 
     .h-lang-wrapper
       .h-lang.btn-group
-        .h-lang__toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" 
+        .h-lang__toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
           | EN
           span.h-lang__toggle-icon.material-icons arrow_drop_down
         .app-dropdown-menu.h-lang__select.dropdown-menu
