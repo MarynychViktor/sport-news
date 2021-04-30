@@ -1,6 +1,6 @@
 export function clearErrorsOnFormField() {
     document.querySelectorAll('input[aria-invalid=true]').forEach((input) => {
-        input.addEventListener('input', clearInputErrors);
+        input.addEventListener('focus', clearInputErrors);
     });
 
     function clearInputErrors(event) {
@@ -12,8 +12,24 @@ export function clearErrorsOnFormField() {
             error.remove();
         }
 
-        input.removeEventListener('input', clearInputErrors);
+        input.removeEventListener('focus', clearInputErrors);
     }
 }
 
+export function clearErrorsOnReachTextField() {
+    document.querySelectorAll('.ck-editor__editable').forEach((editor) => {
+        editor.addEventListener('focus', clearRichTextFieldErrors);
+    });
 
+    function clearRichTextFieldErrors({target}) {
+        const formGroup = target.closest('.app-form-group');
+        formGroup.querySelector('.field_with_errors').classList.remove('field_with_errors');
+        const error = formGroup.querySelector('.app-input-error');
+
+        if (error) {
+            error.remove();
+        }
+
+        target.removeEventListener('focus', clearRichTextFieldErrors);
+    }
+}

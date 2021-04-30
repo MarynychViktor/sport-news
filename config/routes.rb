@@ -29,6 +29,8 @@ Rails.application.routes.draw do
           post 'update_category', to: 'subcategories#update_category'
         end
       end
+
+      resource :articles
     end
 
     resources :subcategories, only: [] do
@@ -44,8 +46,6 @@ Rails.application.routes.draw do
     end
 
     resource :"information_architecture", controller: 'info_architecture', only: %i[show]
-
-    resource :articles
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

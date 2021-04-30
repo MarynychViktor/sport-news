@@ -18,6 +18,8 @@ html
     = yield :styles
     script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
   body
+    h1
+      = controller_name
     / .admin-layout-wrapper
     /   - @admin_panel = true
     /   = render 'partials/header'
@@ -35,11 +37,8 @@ html
       - @admin_panel = true
       = render 'partials/header'
       = render AdminPageMenu.new do
-        .admin-page-menu
-          .admin-page-menu__name
-            | HOME
-          .admin-page-menu__actions
-            button.button disabled="disabled"  Save all changes
+        = yield :admin_page_menu
+
 
       .wrapper
         .column-left
@@ -51,3 +50,6 @@ html
 
     = yield :body_append
     = yield :scripts
+
+    javascript:
+      window.resource = "#{controller_name.camelize}"

@@ -18,8 +18,12 @@ require('utils/menu')
 require('selectize')
 window.Sortable = require('sortablejs')
 require('dropzone')
-
 require('application')
 
-Dropzone.autoDiscover = false
+Dropzone.autoDiscover = false;
+
+window.onPageStart = function (page) {
+    console.log('dispatch')
+    document.dispatchEvent(new CustomEvent("APP_PAGE_START", {detail: {page}}));
+}
 

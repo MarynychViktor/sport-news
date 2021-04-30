@@ -1,6 +1,13 @@
+= content_for :admin_page_menu do
+  .admin-page-menu
+    .admin-page-menu__name
+      = @category.name
+    .admin-page-menu__actions
+      button.articles-save-button.button Save
+
 .articles
   .app-form.articles-new-form
-    = simple_form_for [:cms, @article] do |form|
+    = simple_form_for [:cms, @category, @article] do |form|
       .articles-new-form__preview
         = render 'partials/preview', path: '#'
       .app-form-group
@@ -9,15 +16,16 @@
 
       .app-form-group.app-form-group--multi-row
         .multi-item
-          = form.input :conference, input_html: {class: 'app-form-select app-form-select--selectize'},\
-            collection: [['Select subcategory', nil], *@subcategories],\
+          = form.input :conference, input_html: {class: 'app-form-select', id: 'article-subcategory-select'},\
+            collection: [['Select subcategory', nil], *@subcategories_options],\
             label_html: { class: "app-label" }, \
             include_blank: false, error_html: { class: 'app-input-error' }
         .multi-item
-          = form.input :team, input_html: {class: 'app-form-select app-form-select--selectize'},\
-            collection: [['Select team', nil], *@teams],\
+          = form.input :team, input_html: {class: 'app-form-select', id: 'article-team-select', data: { teams: "#{raw @teams_options.to_json}"} },\
+            collection: [['Select team', nil]],\
             label_html: { class: "app-label" }, \
             include_blank: false, error_html: { class: 'app-input-error' }
+
         .multi-item
           = form.input :location, input_html: { class: 'app-form-select app-form-select--selectize'},\
             collection: [["Select", nil], ["opt1", "1"],["opt2","2"],["opt3", "3"]],\
@@ -36,27 +44,13 @@
         = form.input :caption, input_html: { class: "app-input", placeholder: 'Email@gmail.com' }, \
             label_html: { class: "app-label" }, \
             error_html: { class: 'app-input-error' }
-      .app-form-group
+      .app-form-group.app-form-group--with-rich-editor
         label.app-label Content
+        = form.input :content, as: :hidden, error_html: { class: 'app-input-error' }
         #content-field
-
-      .app-form-group
-        = form.input :content, as: :hidden
 
       .app-form-group
         .app-form-switch
           label class="form-check-label" for="displayComments" Show
           .form-check.form-switch
             = form.check_box :display_comments, class: "form-check-input", id: "displayComments"
-
-      = form.submit 'Submit'
-        / = form.input :name, label_html: { :class => "app-label" }, input_html: {class: 'app-input'}, error_html: { class: 'app-input-error' }
-  javascript:
-      $(document).ready(() => {
-          ClassicEditor
-              .create(document.querySelector('#content-field'), {
-                  toolbar: ['heading1', 'heading2', 'paragraph', '|', 'bold', 'italic', 'underline', '|', 'bulletedList', 'numberedList', '|', 'alignment:left', 'alignment:center', 'alignment:right'],
-              })
-              .then(e => console.log('e', e))
-              .catch(err => console.log('err', err));
-      })
