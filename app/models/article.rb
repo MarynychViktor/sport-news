@@ -3,6 +3,10 @@ class Article < ApplicationRecord
   friendly_id :headline, use: :slugged
   mount_base64_uploader :picture, PhotoUploader
 
+  belongs_to :category
+  belongs_to :subcategory, optional: true
+  belongs_to :team, optional: true
+
   validates :headline, presence: true
   validates :alt, presence: true
   validates :caption, presence: true

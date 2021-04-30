@@ -5,10 +5,10 @@
     .admin-page-menu__actions
       button.articles-save-button.button Save
 
-.articles
-  .app-form.articles-new-form
+.articles-container
+  .app-form.articles-new__form
     = simple_form_for [:cms, @category, @article] do |form|
-      .articles-new-form__preview
+      .articles-new__preview
         = render 'partials/preview', path: '#'
       .app-form-group
         label.app-label Picture

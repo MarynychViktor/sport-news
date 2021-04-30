@@ -2,13 +2,20 @@ module CMS
   class ArticlesController < ApplicationController
     before_action :find_category
 
+    def index
+      @articles = @category.articles
+    end
+
     def new
       @article = Article.new
       render_new_form
     end
 
     def create
-      @article = Article.create(article_params)
+      p  = article_params
+      p.delete(:team) if p[:team].empty?
+      # p.delete(:subcategory) if p[:subcategory].empty?
+      @article = @category.articles.create(p)
 
       if @article.valid?
         redirect_to '/'

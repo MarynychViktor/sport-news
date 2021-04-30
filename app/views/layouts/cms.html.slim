@@ -18,25 +18,10 @@ html
     = yield :styles
     script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
   body
-    h1
-      = controller_name
-    / .admin-layout-wrapper
-    /   - @admin_panel = true
-    /   = render 'partials/header'
-    /   = render 'admin/partials/menu'
-    /   .admin-layout-container
-    /     .admin-layout-container__sidebar data-simplebar="true"
-    /       = render 'admin/partials/sidebar'
-    /     .admin-layout-container__content data-simplebar="true"
-    /       = yield
-    /
-    / = yield :body_append
-    / = yield :scripts
-
     #admin-container
       - @admin_panel = true
       = render 'partials/header'
-      = render AdminPageMenu.new do
+      = render AdminPageMenu.new(@category) do
         = yield :admin_page_menu
 
 

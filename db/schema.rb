@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 2021_04_30_073308) do
   enable_extension "plpgsql"
 
   create_table "articles", force: :cascade do |t|
-    t.string "conference", null: false
-    t.string "team", null: false
-    t.string "location", null: false
+    t.string "conference"
+    t.string "team"
+    t.string "location"
     t.string "headline", null: false
     t.string "alt", null: false
     t.string "caption", null: false
@@ -26,9 +26,15 @@ ActiveRecord::Schema.define(version: 2021_04_30_073308) do
     t.string "picture", null: false
     t.boolean "display_comments", default: true
     t.string "slug", null: false
+    t.bigint "category_id", null: false
+    t.bigint "subcategory_id"
+    t.bigint "team_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_articles_on_category_id"
     t.index ["slug"], name: "index_articles_on_slug", unique: true
+    t.index ["subcategory_id"], name: "index_articles_on_subcategory_id"
+    t.index ["team_id"], name: "index_articles_on_team_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -112,6 +118,9 @@ ActiveRecord::Schema.define(version: 2021_04_30_073308) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "articles", "categories"
+  add_foreign_key "articles", "subcategories"
+  add_foreign_key "articles", "teams"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "teams", "subcategories"
 end

@@ -85,7 +85,6 @@ export class ArticlePage {
               clearErrorsOnReachTextField();
               editor.setData(field.value);
               editor.model.document.on( 'change:data', () => {
-                  console.log( 'The data has changed!' , editor.getData());
                   field.value = editor.getData();
               });
           });

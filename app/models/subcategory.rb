@@ -4,6 +4,7 @@ class Subcategory < ApplicationRecord
 
   belongs_to :category
   has_many :teams, dependent: :destroy
+  has_many :articles
 
   validates :name, presence: true, length: { minimum: 2, maximum: 100 }, uniqueness: { scope: :category_id }
 

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
 
   namespace :cms do
-    root 'articles#new'
+    root 'home#index'
 
     resources :categories, only: %i[index new create edit update destroy] do
       member do
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resource :articles
+      resources :articles
     end
 
     resources :subcategories, only: [] do

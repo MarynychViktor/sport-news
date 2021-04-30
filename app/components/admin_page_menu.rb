@@ -1,5 +1,6 @@
 class AdminPageMenu < ViewComponent::Base
-  def initialize
+  def initialize(category = nil)
+    @category = category
     @categories = Category.all
     super
   end

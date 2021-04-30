@@ -12,6 +12,9 @@ class CreateArticles < ActiveRecord::Migration[6.1]
       t.boolean :display_comments, default: true
       t.string :slug, null: false
       t.index :slug, unique: true
+      t.references :category, null: false, foreign_key: true
+      t.references :subcategory, null: true, foreign_key: true
+      t.references :team, null: true, foreign_key: true
 
       t.timestamps
     end

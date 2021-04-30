@@ -1,0 +1,45 @@
+= content_for :admin_page_menu do
+  .admin-page-menu
+    .admin-page-menu__name
+      = @category.name
+    .admin-page-menu__actions
+      = link_to  '+ New Article', new_cms_category_article_path(@category), class: 'button'
+
+.articles-container
+  .articles-index
+    .articles-index-nav
+      .articles-index-nav-filters
+        select.articles-nav-selectize
+          option value=""
+            | All conferences
+        select.articles-nav-selectize
+          option value=""
+            | All teams
+        select.articles-nav-selectize
+          option value=""
+            | All
+    .articles-index-items
+      - @articles.each do |article|
+        .articles-index-item-wrapper
+          .articles-index-item
+            .articles-index-item__photo-wrapper
+              = image_tag article.picture.url, class: 'articles-index-item__photo', alt: article.alt
+            .articles-index-item-content
+              .articles-index-item__title
+                / = article.headline
+                | As M.L.B.’s Season Opens in Japan, at Least the Dirt Is Familiar
+
+              .articles-index-item__description
+                / = article.content.slice(50)
+                | TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
+
+              .articles-index-item-footer
+                .articles-index-item__relations
+                  | AFC South / Tennessee
+                .articles-index-item__status.is-published
+                  | Published
+
+javascript:
+  $(document).ready(() => {
+    $('.articles-nav-selectize').selectize()
+  });
