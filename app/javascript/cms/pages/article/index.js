@@ -76,11 +76,19 @@ export class ArticlePage {
     }
 
     renderRichTextEditor(selector) {
+        const field  = document.querySelector('#article_content');
         ClassicEditor
           .create(document.querySelector(selector), {
               toolbar: ['heading1', 'heading2', 'paragraph', '|', 'bold', 'italic', 'underline', '|', 'bulletedList', 'numberedList', '|', 'alignment:left', 'alignment:center', 'alignment:right'],
           })
-          .then(() => clearErrorsOnReachTextField())
+          .then((editor) => {
+              clearErrorsOnReachTextField();
+              editor.setData(field.value);
+              editor.model.document.on( 'change:data', () => {
+                  console.log( 'The data has changed!' , editor.getData());
+                  field.value = editor.getData();
+              });
+          });
     }
 
     setupSubmitListeners() {

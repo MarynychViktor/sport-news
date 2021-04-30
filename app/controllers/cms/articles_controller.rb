@@ -32,7 +32,7 @@ module CMS
     end
 
     def article_params
-      params.require(:article).permit(:conference, :team, :caption, :alt, :location, :headline, :content, :display_comments)
+      params.require(:article).permit(:conference, :team, :picture, :caption, :alt, :location, :headline, :content, :display_comments)
     end
   end
 end

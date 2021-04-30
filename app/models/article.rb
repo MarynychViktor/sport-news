@@ -1,10 +1,8 @@
 class Article < ApplicationRecord
   extend FriendlyId
   friendly_id :headline, use: :slugged
+  mount_base64_uploader :picture, PhotoUploader
 
-  validates :conference, presence: true
-  validates :team, presence: true
-  validates :location, presence: true
   validates :headline, presence: true
   validates :alt, presence: true
   validates :caption, presence: true
