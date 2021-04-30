@@ -4,47 +4,47 @@ module CMS
 
     def new
       @team = Team.new
-      render 'form'
+      render :form
     end
 
     def create
       @team = Team.create(team_params)
 
       if @team.valid?
-        render 'column'
+        render :column
       else
-        render 'form'
+        render :form
       end
     end
 
     def appear
       @team.appear!
-      render 'column'
+      render :column
     end
 
     def hide
       @team.hide!
-      render 'column'
+      render :column
     end
 
     def edit
-      render 'form'
+      render :form
     end
 
     def update
       @team.update(team_params)
 
       if @team.valid?
-        render 'column'
+        render :column
       else
-        render 'form'
+        render :form
       end
     end
 
     def select_category
       @categories = Category.where.not(id: params[:category_id])
 
-      render 'select_category', layout: false
+      render :select_category, layout: false
     end
 
     def update_category
@@ -52,7 +52,7 @@ module CMS
 
       if @team.subcategory_id != @new_subcategory.id
         @team.update!(subcategory_id: @new_subcategory.id)
-        render 'column'
+        render :column
       else
         head status: 403
       end
@@ -60,7 +60,7 @@ module CMS
 
     def destroy
       @team.destroy!
-      render 'column'
+      render :column
     end
 
     def change_position

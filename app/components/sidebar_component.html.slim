@@ -1,0 +1,35 @@
+.sidebar
+  .sidebar-content
+    ul.sidebar-menu
+      - @categories.each do |category|
+        li.sidebar-menu-item
+          a.sidebar-menu-item__link.link--primary
+            = category.name
+
+          - unless category.subcategories.empty?
+            ul.sidebar-sub-menu
+              - category.subcategories.each do |subcategory|
+                li.sidebar-sub-menu-item
+                  a.sidebar-sub-menu-item__link.link--primary
+                    = subcategory.name
+
+                  - unless subcategory.teams.empty?
+                    ul.sidebar-sub-menu
+                      - subcategory.teams.each do |team|
+                        li.sidebar-sub-menu-item
+                          a.sidebar-sub-menu-item__link.link--primary
+                            = team.name
+    .sidebar-follow
+      .sidebar-follow__title
+        | Follow
+      .sidebar-follow__group
+        a.sidebar-follow__link href="#"
+          = image_tag 'social/facebook.svg', alt: 'facebook icon', class: 'sidebar-follow__icon'
+        a.sidebar-follow__link href="#"
+          = image_tag 'social/twitter.svg', alt: 'twitter icon', class: 'sidebar-follow__icon'
+      .sidebar-follow__group
+        a.sidebar-follow__link href="#"
+          = image_tag 'social/google.svg', alt: 'google icon', class: 'sidebar-follow__icon'
+        a.sidebar-follow__link href="#"
+          = image_tag 'social/youtube.svg', alt: 'youtube icon', class: 'sidebar-follow__icon'
+

@@ -855,6 +855,11 @@
     "mkdirp" "^1.0.4"
     "rimraf" "^3.0.2"
 
+"@popperjs/core@^2.8.3":
+  "integrity" "sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q=="
+  "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.9.2.tgz"
+  "version" "2.9.2"
+
 "@rails/actioncable@^6.0.0":
   "integrity" "sha512-m02524MR9cTnUNfGz39Lkx9jVvuL0tle4O7YgvouJ7H83FILxzG1nQ5jw8pAjLAr9XQGu+P1sY4SKE3zyhCNjw=="
   "resolved" "https://registry.npmjs.org/@rails/actioncable/-/actioncable-6.1.3.tgz"
@@ -915,11 +920,6 @@
     "webpack-assets-manifest" "^3.1.1"
     "webpack-cli" "^3.3.12"
     "webpack-sources" "^1.4.3"
-
-"@shopify/draggable@*":
-  "integrity" "sha512-9IeBPQM93Ad4qFKUopwuTClzoST/1OId4MaSd/8FB5ScCL2tl25UaOGNR8E2hjiL7xK4LN5+I1Ews6amS7YAiA=="
-  "resolved" "https://registry.npmjs.org/@shopify/draggable/-/draggable-1.0.0-beta.8.tgz"
-  "version" "1.0.0-beta.8"
 
 "@types/glob@^7.1.1":
   "integrity" "sha512-SEYeGAIQIQX8NN6LDKprLjbrd5dARM5EXsd8GI/A5l0apYI1fGMWgPHSe4ZKL4eozlAyI+doUE9XbYS4xCkQ1w=="
@@ -7283,6 +7283,13 @@
   "integrity" "sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q="
   "resolved" "https://registry.npmjs.org/timsort/-/timsort-0.3.0.tgz"
   "version" "0.3.0"
+
+"tippy.js@^6.3.1":
+  "integrity" "sha512-JnFncCq+rF1dTURupoJ4yPie5Cof978inW6/4S6kmWV7LL9YOSEVMifED3KdrVPEG+Z/TFH2CDNJcQEfaeuQww=="
+  "resolved" "https://registry.npmjs.org/tippy.js/-/tippy.js-6.3.1.tgz"
+  "version" "6.3.1"
+  dependencies:
+    "@popperjs/core" "^2.8.3"
 
 "to-arraybuffer@^1.0.0":
   "integrity" "sha1-fSKbH8xjfkZsoIEYCDanqr/4P0M="

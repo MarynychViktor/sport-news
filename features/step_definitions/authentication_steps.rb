@@ -10,7 +10,7 @@ When('I complete the sign-up form with valid data') do
   fill_in("user_first_name", with: 'John')
   fill_in("user_last_name", with: 'Smith')
   fill_in("user_email", with: 'john_smith@gmail.com')
-  page.attach_file(Rails.root.join('spec/stub/uploads/test.jpeg').to_s) do
+  page.attach_file(Rails.root.join('spec/fixtures/files/test.jpeg').to_s) do
     page.find('#user_photo').click
   end
   fill_in("user_password", with: 'Backspace_123')

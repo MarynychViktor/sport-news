@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    passwords: 'users/passwords'
+  }
+
   root 'home#index'
 
   namespace :admin do
@@ -8,6 +11,8 @@ Rails.application.routes.draw do
 
 
   namespace :cms do
+    root 'home#index'
+
     resources :categories, only: %i[index new create edit update destroy] do
       member do
         post 'hide', to: 'categories#hide'

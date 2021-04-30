@@ -1,0 +1,14 @@
+customer:
+  first_name: 'John'
+  last_name: 'Smith1'
+  email: 'john_smith1@gmail.com'
+  photo: 'stub'
+  encrypted_password: '$2a$12$74RMxrR1oCWHbczT4YZXtumaJ7U/l3tqVZ.tAhEY.1XapcFvrerv.'
+
+confirmed_customer:
+  first_name: 'John'
+  last_name: 'Smith2'
+  email: 'john_smith2@gmail.com'
+  photo: 'stub'
+  encrypted_password: '$2a$12$74RMxrR1oCWHbczT4YZXtumaJ7U/l3tqVZ.tAhEY.1XapcFvrerv.'
+  confirmed_at: '2021-04-29 07:44:03.725165'

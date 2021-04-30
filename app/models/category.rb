@@ -8,6 +8,9 @@ class Category < ApplicationRecord
   before_destroy :check_if_can_be_destroyed
 
   def check_if_can_be_destroyed
-    throw(:abort) if static?
+    return true unless static?
+
+    errors.add(:base, :immutable, "Record is static and can't be destroyed")
+    false
   end
 end

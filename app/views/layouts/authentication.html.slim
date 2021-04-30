@@ -10,12 +10,17 @@ html
     link href="https://fonts.gstatic.com" rel="preconnect" /
     link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet" /
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag 'auth', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = yield :styles
   body
     #auth-container
-
       .wrapper
-        .column-left
-        .column-right
-          = yield
+        = render 'auth/partials/header'
+        .content
+          .column-left
+            .auth-logo-wrapper
+              = image_tag 'https://archziner.com/wp-content/uploads/2020/05/chris-paul-photo-edit-best-nba-wallpapers-wearing-los-angeles-clippers-uniform.jpg', alt: 'sport news logo', class: 'auth-logo'
+          .column-right
+            .auth-wrapper
+              = yield

@@ -8,7 +8,7 @@ module CMS
 
     def new
       @category = Category.new
-      render 'form'
+      render :form
     end
 
     def create
@@ -17,7 +17,7 @@ module CMS
       if @category.valid?
         render_column
       else
-        render 'form'
+        render :form
       end
     end
 
@@ -28,7 +28,7 @@ module CMS
         @categories = Category.all
         render_column
       else
-        render 'form'
+        render :form
       end
     end
 
@@ -64,7 +64,7 @@ module CMS
 
     def render_column
       @categories = Category.all
-      render 'column'
+      render :column
     end
 
     def category_params

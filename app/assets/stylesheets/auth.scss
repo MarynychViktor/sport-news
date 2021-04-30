@@ -1,0 +1,58 @@
+@import "utils/index";
+@import "utils/variables";
+@import "elements/index";
+@import "components/index";
+@import "auth/components/index";
+@import "auth/sessions";
+@import "auth/passwords";
+
+#auth-container {
+  height: 100vh;
+
+  .auth-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .wrapper  {
+    height: 100%;
+  }
+
+  .content {
+    height: 100%;
+    display: flex;
+  }
+
+  .column {
+    &-left,
+    &-right {
+      flex-shrink: 0;
+      min-width: 0;
+    }
+
+    &-left {
+      height: 100%;
+      width: 44.5%;
+    }
+
+    &-right {
+      flex-grow: 1;
+      overflow: auto;
+      min-height: 100%;
+    }
+  }
+
+  .auth-logo {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+
+    &-wrapper {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+  }
+}

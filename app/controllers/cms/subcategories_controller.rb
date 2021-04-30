@@ -4,47 +4,47 @@ module CMS
 
     def new
       @subcategory = Subcategory.new
-      render 'form'
+      render :form
     end
 
     def create
       @subcategory = Subcategory.create(subcategory_params)
 
       if @subcategory.valid?
-        render 'column'
+        render :column
       else
-        render 'form'
+        render :form
       end
     end
 
     def appear
       @subcategory.appear!
-      render 'column'
+      render :column
     end
 
     def hide
       @subcategory.hide!
-      render 'column'
+      render :column
     end
 
     def edit
-      render 'form'
+      render :form
     end
 
     def update
       @subcategory.update(subcategory_params)
 
       if @subcategory.valid?
-        render 'column'
+        render :column
       else
-        render 'form'
+        render :form
       end
     end
 
     def select_category
       @categories = Category.where.not(id: params[:category_id])
 
-      render 'select_category', layout: false
+      render :select_category, layout: false
     end
 
     def update_category
@@ -52,7 +52,7 @@ module CMS
 
       if @subcategory.category_id != @new_category.id
         @subcategory.update!(category_id: @new_category.id)
-        render 'column'
+        render :column
       else
         head status: 403
       end
@@ -65,7 +65,7 @@ module CMS
 
     def destroy
       @subcategory.destroy!
-      render 'column'
+      render :column
     end
 
     private

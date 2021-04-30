@@ -1,24 +1,40 @@
 .link
   +font-size(12px)
   +line-height(17px)
-  text-decoration: none
-  color: inherit
+  font-style: normal
+  font-weight: 600
+  letter-spacing: 0
+  color: #4A90E2
+  display: inline-block
+  outline: none
+  background: none
+  border: none
 
   &:hover,
   &:focus,
   &:active
+    color: #4A90E2
+    text-decoration: underline
+    outline: none
+    background: none
+    border: none
+
+  &--dark
+    @extend .link
+    color: #434C5D
+
+    &:hover,
+    &:focus,
+    &:active
+      color: #434C5D
+
+  &--primary
+    @extend .link
+    color: #C63638
     text-decoration: none
-    color: inherit
 
-
-  &-regular
-    +link(#D72130, #E02232, underline)
-    +link-visited(#C80515, underline)
-    +link-disabled(#F7D3D6, underline)
-
-  &-secondary
-    +link(#4A90E2, #69A9F4)
-    +link-visited(#3C80CF)
-    +link-disabled(#C6CCD7)
-    +font-size(10px)
-    +line-height(13px)
+    &:hover,
+    &:focus,
+    &:active
+      color: #C63638
+      text-decoration: none

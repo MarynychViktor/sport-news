@@ -121,7 +121,8 @@ body {
       width: 100px;
       flex-shrink: 0;
       top: 215px;
-      position: sticky
+      position: sticky;
+      z-index: 1;
     }
 
     &-right {
