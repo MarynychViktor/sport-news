@@ -9,37 +9,39 @@
   .articles-index
     .articles-index-nav
       .articles-index-nav-filters
-        select.articles-nav-selectize
-          option value=""
-            | All conferences
-        select.articles-nav-selectize
-          option value=""
-            | All teams
-        select.articles-nav-selectize
-          option value=""
-            | All
+        = simple_form_for :'', url: request.fullpath, method: :get do |form|
+          - unless @subcategories.empty?
+            .articles-index-nav-filter
+              = form.input :subcategory, collection: [['All conferences', ''], *@subcategories.map { |s| [s.name, s.id] }], \
+                      input_html: { id: 'subcategory-filter', value: params[:subcategory] }, label: false, include_blank: false
+
+          - unless @teams.empty?
+            .articles-index-nav-filter
+              = form.input :team, collection: [['All teams', ''], *@teams.map { |s| [s.name, s.id] }], \
+                        input_html: { id: 'team-filter', value: params[:team] }, label: false, include_blank: false
+
+          .articles-index-nav-filter
+            = form.input :published, collection: [['All', ''], ['Unpublished', 0], ['Published', 1]], \
+                      input_html: { id: 'published-filter', value: params[:published] }, label: false, include_blank: false
+
     .articles-index-items
       - @articles.each do |article|
-        .articles-index-item-wrapper
-          .articles-index-item
-            .articles-index-item__photo-wrapper
-              = image_tag article.picture.url, class: 'articles-index-item__photo', alt: article.alt
-            .articles-index-item-content
-              .articles-index-item__title
-                / = article.headline
-                | As M.L.B.’s Season Opens in Japan, at Least the Dirt Is Familiar
+        = link_to edit_cms_category_article_url(@category, article) do
+          .articles-index-item-wrapper
+            .articles-index-item
+              .articles-index-item__photo-wrapper
+                = image_tag article.picture.url, class: 'articles-index-item__photo', alt: article.alt
+              .articles-index-item-content
+                .articles-index-item__title
+                  / = article.headline
+                  | As M.L.B.’s Season Opens in Japan, at Least the Dirt Is Familiar
 
-              .articles-index-item__description
-                / = article.content.slice(50)
-                | TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
+                .articles-index-item__description
+                  / = article.content.slice(50)
+                  | TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
 
-              .articles-index-item-footer
-                .articles-index-item__relations
-                  | AFC South / Tennessee
-                .articles-index-item__status.is-published
-                  | Published
-
-javascript:
-  $(document).ready(() => {
-    $('.articles-nav-selectize').selectize()
-  });
+                .articles-index-item-footer
+                  .articles-index-item__relations
+                    | AFC South / Tennessee
+                  .articles-index-item__status.is-published
+                    | Published

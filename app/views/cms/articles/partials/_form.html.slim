@@ -1,0 +1,46 @@
+= simple_form_for [:cms, @category, @article] do |form|
+  .articles-new__preview
+    = render 'partials/preview', path: '#'
+  .app-form-group
+    label.app-label Picture
+    = render UploaderWidget.new(form, :picture)
+  .app-form-group.app-form-group--multi-row
+    .multi-item
+      = form.input :subcategory_id, input_html: {class: 'app-form-select', id: 'article-subcategory-select'},\
+        collection: [['No Subcategory', nil], *@subcategories_options],\
+        label_html: { class: "app-label" }, \
+        include_blank: false, error_html: { class: 'app-input-error' }
+    .multi-item
+      = form.input :team_id, input_html: {class: 'app-form-select', id: 'article-team-select', data: { teams: "#{raw @teams_options.to_json}"} },\
+        collection: [['No team', nil]],\
+        label_html: { class: "app-label" }, \
+        include_blank: false, error_html: { class: 'app-input-error' }
+
+    .multi-item
+      = form.input :location, input_html: { class: 'app-form-select app-form-select--selectize'},\
+        collection: [["Select", nil], ["opt1", "1"],["opt2","2"],["opt3", "3"]],\
+        label_html: { class: "app-label" }, \
+        include_blank: false, error_html: { class: 'app-input-error' }
+
+  .app-form-group
+    = form.input :alt, input_html: { class: "app-input", placeholder: 'Email@gmail.com' }, \
+        label_html: { class: "app-label" }, \
+        error_html: { class: 'app-input-error' }
+  .app-form-group
+    = form.input :headline, input_html: { class: "app-input", placeholder: 'Email@gmail.com' }, \
+        label_html: { class: "app-label" }, \
+        error_html: { class: 'app-input-error' }
+  .app-form-group
+    = form.input :caption, input_html: { class: "app-input", placeholder: 'Email@gmail.com' }, \
+        label_html: { class: "app-label" }, \
+        error_html: { class: 'app-input-error' }
+  .app-form-group.app-form-group--with-rich-editor
+    label.app-label Content
+    = form.input :content, as: :hidden, error_html: { class: 'app-input-error' }
+    #content-field
+
+  .app-form-group
+    .app-form-switch
+      label class="form-check-label" for="displayComments" Show
+      .form-check.form-switch
+        = form.check_box :display_comments, class: "form-check-input", id: "displayComments"

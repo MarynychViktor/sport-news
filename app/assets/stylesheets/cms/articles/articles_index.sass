@@ -6,11 +6,15 @@
 .articles-index
   &-nav
     &-filters
-      display: flex
+      form
+        width: 100%
+        display: flex
 
-      > .selectize-control
-        flex: 1
-      > :not(:last-child)
+    &-filter
+      flex: 1
+      max-width: 210px
+
+      &:not(:last-child)
         margin-right: 91px
 
   &-items

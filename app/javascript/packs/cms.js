@@ -1,4 +1,4 @@
-require('cms/ia/ia')
+// require('cms/ia/ia')
 import 'cms'
 
 

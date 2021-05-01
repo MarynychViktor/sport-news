@@ -8,8 +8,7 @@
 .articles-container
   .app-form.articles-new__form
     = render 'cms/articles/partials/form'
-
-      / = simple_form_for [:cms, @category, @article] do |form|
+    / = simple_form_for [:cms, @category, @article] do |form|
     /   .articles-new__preview
     /     = render 'partials/preview', path: '#'
     /   .app-form-group

@@ -1,15 +1,23 @@
-export function initWidgetUploaders() {
-    document.querySelectorAll('.uploader-widget-wrapper')
-        .forEach((uploader) => {
-            const uploaderId = uploader.getAttribute('id');
-            new Dropzone(`#${uploaderId} .uploader-widget__dropzone`, {
-                // stub url provided since dropzone requires url
-                url: '/#',
-                autoProcessQueue: false,
-                autoQueue: false,
-                addedfile: file => onFileAdded(file, uploader)
-            });
+export function initUploaderWidgets() {
+    document.querySelectorAll('.uploader-widget-wrapper').forEach((uploader) => {
+        const uploaderId = uploader.getAttribute('id');
+        new Dropzone(`#${uploaderId} .uploader-widget__dropzone`, {
+            // stub url provided since dropzone requires url
+            url: '/#',
+            autoProcessQueue: false,
+            autoQueue: false,
+            addedfile: file => onFileAdded(file, uploader)
         });
+
+        const formInput = document.querySelector(`#${uploaderId} input`);
+        console.log('forminput value', formInput.value)
+        if (formInput.value) {
+            updateUploaderPreview(uploader, formInput.value);
+            // TODO: refactor this
+            const input = document.querySelector(`#${uploaderId}  input`);
+            input.classList.add('untouched')
+        }
+    });
 }
 
 function onFileAdded(file, uploader) {

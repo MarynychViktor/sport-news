@@ -1,9 +1,10 @@
-import { clearErrorsOnFormField } from './components/form'
-import { initFormSelects } from './components/select'
-import { initWidgetUploaders } from './components/uploader-widget';
+import { clearSimpleFormFieldsErrorsOnFocus, initFormSelects } from './helpers';
+import { renderAdminMenuSlider } from './helpers/menu/menu';
+import { initUploaderWidgets } from './components/uploader-widget';
 
 document.addEventListener('DOMContentLoaded', () => {
-    clearErrorsOnFormField();
     initFormSelects();
-    initWidgetUploaders();
+    initUploaderWidgets();
+    renderAdminMenuSlider();
+    clearSimpleFormFieldsErrorsOnFocus();
 });
