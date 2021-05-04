@@ -1,0 +1,14 @@
+/ a.multi-level-dropdown-link href="#"  Action
+div class="multi-level-dropdown-item #{links.count > 0 ? "has-submenu" : ""}"
+  = content
+  .dropdown-menu.multi-level-dropdown-submenu
+    - links.each do |link|
+      = link
+    / .multi-level-dropdown-item
+    /   a.multi-level-dropdown-link href="#"  Action
+    /
+    / .multi-level-dropdown-item
+    /   a.multi-level-dropdown-link href="#"  Another action
+    /
+    / .multi-level-dropdown-item
+    /   a.multi-level-dropdown-link href="#"  Something else here

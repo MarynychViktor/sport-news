@@ -8,10 +8,12 @@
     .multi-item
       = form.input :subcategory_id, input_html: {class: 'app-form-select', id: 'article-subcategory-select'},\
         collection: [['No Subcategory', nil], *@subcategories_options],\
+        data: { value: "#{@article.subcategory_id}"},\
         label_html: { class: "app-label" }, \
         include_blank: false, error_html: { class: 'app-input-error' }
     .multi-item
-      = form.input :team_id, input_html: {class: 'app-form-select', id: 'article-team-select', data: { teams: "#{raw @teams_options.to_json}"} },\
+      = form.input :team_id, input_html: {class: 'app-form-select', id: 'article-team-select',\
+        data: { value: "#{@article.team_id}", teams: "#{raw @teams_options.to_json}"} },\
         collection: [['No team', nil]],\
         label_html: { class: "app-label" }, \
         include_blank: false, error_html: { class: 'app-input-error' }
@@ -41,6 +43,6 @@
 
   .app-form-group
     .app-form-switch
-      label class="form-check-label" for="displayComments" Show
-      .form-check.form-switch
-        = form.check_box :display_comments, class: "form-check-input", id: "displayComments"
+      .custom-control.custom-switch
+        = form.check_box :display_comments, class: "custom-control-input", id: "displayComments"
+        label.custom-control-label for="displayComments"  Show comments

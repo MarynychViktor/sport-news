@@ -1,3 +1,10 @@
+class Select {
+  constructor(selector, options = {}) {}
+
+  initialize() {
+
+  }
+}
 // export function initFormSelects() {
 //     createSelectize('.app-form-select--selectize');
 // }

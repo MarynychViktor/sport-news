@@ -10,11 +10,12 @@ module CMS
         team_id: params[:team],
         published: params[:published]
       )
+      @categories = Category.all
     end
 
     def new
       @article = Article.new
-      setup_options
+      setup_select_options
     end
 
     def create
@@ -23,13 +24,13 @@ module CMS
       if @article.valid?
         redirect_to cms_category_articles_url(@category)
       else
-        setup_options
+        setup_select_options
         render :new
       end
     end
 
     def edit
-      setup_options
+      setup_select_options
     end
 
     def update
@@ -38,18 +39,12 @@ module CMS
       if @article.valid?
         redirect_to cms_category_articles_url(@category)
       else
-        setup_options
+        setup_select_options
         render :edit
       end
     end
 
     private
-
-    def setup_options
-      subcategories = @category.subcategories
-      @subcategories_options = subcategories.map { |s| [s.name, s.id] }
-      @teams_options = subcategories.map { |s| [s.id, s.teams.map { |t| [t.name, t.id] }] }
-    end
 
     def find_article
       @article = Article.friendly.find(params[:id]) if params[:id]
@@ -59,8 +54,15 @@ module CMS
       @category = Category.includes(subcategories: :teams).find(params[:category_id]) if params[:category_id]
     end
 
+    def setup_select_options
+      subcategories = @category.subcategories
+      @subcategories_options = subcategories.map { |s| [s.name, s.id] }
+      @teams_options = subcategories.map { |s| [s.id, s.teams.map { |t| [t.name, t.id] }] }
+    end
+
     def article_params
-      params.require(:article).permit(:conference, :subcategory_id, :team_id, :picture, :caption, :alt, :location, :headline, :content, :display_comments)
+      params.require(:article).permit(:conference, :subcategory_id, :team_id, :picture, :caption, :alt, :location,
+                                      :headline, :content, :display_comments)
     end
   end
 end

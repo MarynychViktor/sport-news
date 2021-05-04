@@ -1,11 +1,105 @@
-= render('cms/partials/categorized-item',
-    resources: @categories,\
-    data: ->(category) { { id: category.id, type: category.class } }, \
-    paths: { \
-      show: ->(category) { appear_cms_category_path(category) }, \
-      hide: ->(category) { hide_cms_category_path(category) }, \
-      edit: ->(category) { edit_cms_category_path(category) }, \
-      delete: ->(category) { cms_category_path(category) }, \
-      child: -> (category) { cms_category_subcategories_path(category) },\
-     },\
-  )
+/ = render('cms/partials/categorized-item',
+/     resources: @categories,\
+/     data: ->(category) { { id: category.id, type: category.class } }, \
+/     paths: { \
+/       show: ->(category) { appear_cms_category_path(category) }, \
+/       hide: ->(category) { hide_cms_category_path(category) }, \
+/       edit: ->(category) { edit_cms_category_path(category) }, \
+/       delete: ->(category) { cms_category_path(category) }, \
+/       child: -> (category) { cms_category_subcategories_path(category) },\
+/      },\
+/   )
+- @categories.each do |resource|
+  = render CategorizedItemComponent.new(resource,\
+                                        click_link: cms_category_subcategories_path(resource),\
+                                        class_name: 'categorized-item__dropdown',\
+  data_attributes: { id: resource.id, type: resource.class }\
+  ) do |item|
+    = render Dropdown::MenuComponent.new(id: 'menu1', class_name: 'categorized-item__dropdown') do |menu|
+      - menu.button do
+        .categorized-item__more-toggle
+          = inline_svg_tag 'common/more.svg'
+
+      - menu.link do
+        = link_to 'HIDE', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
+
+      - menu.link do
+        = link_to 'EDIT', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', remote: true
+
+      - menu.link do
+        = link_to 'DELETE', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :delete, remote: true
+
+      - @other_categories = @categories.select {|c| c != @category}
+      - unless @other_categories.empty?
+        - menu.link do |menu_link|
+          .multi-level-dropdown-link
+            | MOVE TO
+          - @other_categories.each do |category|
+            - menu_link.link do |link|
+              = link_to category.name, 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
+
+      / .categorized-item-wrapper*{ data:  { id: resource.id, type: resource.class } }
+  /   .categorized-item__drag
+  /     = inline_svg_tag 'common/drag-n-drop.svg', class: 'categorized-item__action-left'
+  /
+  /   - item = capture do
+  /     div class="categorized-item #{resource.hidden? ? 'is-hidden' : ''}"
+  /       .categorized-item__hidden-label
+  /         | hidden
+  /       .categorized-item__container
+  /         .categorized-item__content
+  /           = resource.name
+
+      / - if paths.key?(:child)
+      /   = link_to(paths[:child].(resource), class: 'categorized-item__link', remote: true) do
+      /     = item
+      / - else
+    / .categorized-item__link
+    /   = item
+
+    / .categorized-item__more.more-action
+    /   = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
+
+    / .categorized-item-menu
+    /   .categorized-item-menu__preview
+    /     = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
+    /
+    /   - if resource.hidden?
+    /     .categorized-item-menu__link-wrapper
+    /       = link_to 'SHOW', paths[:show].(resource), class: 'categorized-item-menu__link', method: :post, remote: true
+    /   - else
+    /     .categorized-item-menu__link-wrapper
+    /       = link_to 'HIDE', paths[:hide].(resource), class: 'categorized-item-menu__link', method: :post, remote: true
+    /
+    /   .categorized-item-menu__link-wrapper
+    /     = link_to 'EDIT', paths[:edit].(resource), class: 'categorized-item-menu__link', remote: true
+    /
+    /   .categorized-item-menu__link-wrapper
+    /     = link_to 'DELETE', paths[:delete].(resource), class: 'categorized-item-menu__link', method: :delete, remote: true
+
+    / .categorized-item__more.more-action
+    /   = render Dropdown::MenuComponent.new(id: 'menu1', class_name: '') do |menu|
+    /     - menu.button do
+    /       = inline_svg_tag 'common/more.svg'
+    /
+    /     - menu.link do
+    /       = link_to 'HIDE', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
+    /
+    /     - menu.link do
+    /       = link_to 'EDIT', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', remote: true
+    /
+    /     - menu.link do
+    /       = link_to 'DELETE', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :delete, remote: true
+
+    /
+    / - menu.link do |link|
+    /   a.multi-level-dropdown-link Another action
+    /
+    /   - link.link do
+    /     a.multi-level-dropdown-link 1 Another action
+    /
+    /   - link.link do
+    /     a.multi-level-dropdown-link 2 Another action
+    /
+    /   - link.link do
+    /     a.multi-level-dropdown-link 3 Another action

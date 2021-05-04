@@ -1,6 +1,10 @@
 module CMS
   class TeamsController < ApplicationController
-    before_action :set_resource
+    before_action :find_subcategory_and_team
+
+    def index
+      @categories = Category.includes(:subcategories)
+    end
 
     def new
       @team = Team.new
@@ -11,7 +15,7 @@ module CMS
       @team = Team.create(team_params)
 
       if @team.valid?
-        render :column
+        render_column
       else
         render :form
       end
@@ -19,12 +23,12 @@ module CMS
 
     def appear
       @team.appear!
-      render :column
+      render_column
     end
 
     def hide
       @team.hide!
-      render :column
+      render_column
     end
 
     def edit
@@ -35,16 +39,10 @@ module CMS
       @team.update(team_params)
 
       if @team.valid?
-        render :column
+        render_column
       else
         render :form
       end
-    end
-
-    def select_category
-      @categories = Category.where.not(id: params[:category_id])
-
-      render :select_category, layout: false
     end
 
     def update_category
@@ -52,7 +50,7 @@ module CMS
 
       if @team.subcategory_id != @new_subcategory.id
         @team.update!(subcategory_id: @new_subcategory.id)
-        render :column
+        render_column
       else
         head status: 403
       end
@@ -60,7 +58,7 @@ module CMS
 
     def destroy
       @team.destroy!
-      render :column
+      render_column
     end
 
     def change_position
@@ -74,9 +72,13 @@ module CMS
       params.require(:team).permit(:name, :subcategory_id)
     end
 
-    def set_resource
+    def render_column
+      @categories = Category.includes(:subcategories)
+      render :column
+    end
+
+    def find_subcategory_and_team
       @subcategory = Subcategory.find(params[:subcategory_id])
-      @categories = Category.all
       @team = Team.find(params[:id]) if params[:id]
     end
   end

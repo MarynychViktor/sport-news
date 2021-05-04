@@ -2,6 +2,34 @@ body
   header.h-header.d-flex
     = render 'partials/app-hero'
 
+    / div
+    /   .dropdown.multi-level-dropdown
+    /     #d1.dropdown-toggle.dropdown-menu-right aria-expanded="false" data-toggle="dropdown"
+    /       | Dropdown button
+    /
+    /     .dropdown-menu aria-labelledby="d1"
+    /       .multi-level-dropdown-item.multi-level-dropdown-toggle
+    /         .multi-level-dropdown-more-link
+    /           = inline_svg_tag 'common/more.svg'
+    /
+    /       .multi-level-dropdown-item
+    /         a.multi-level-dropdown-link href="#"  Action
+    /       .multi-level-dropdown-item.has-submenu
+    /         a.dropdown-item.multi-level-dropdown-link href="#" With nested
+    /         .dropdown-menu.multi-level-dropdown-submenu aria-labelledby="d2"
+    /           .multi-level-dropdown-item
+    /             a.multi-level-dropdown-link href="#"  Action
+    /           .multi-level-dropdown-item
+    /             a.multi-level-dropdown-link href="#"  Another action
+    /           .multi-level-dropdown-item
+    /             a.multi-level-dropdown-link href="#"  Something else here
+    /
+    /       .multi-level-dropdown-item
+    /         a.multi-level-dropdown-link href="#"  Another action
+    /
+    /       .multi-level-dropdown-item
+    /         a.multi-level-dropdown-link href="#"  Something else here
+
     - if not @admin_panel
       /! Search widget
       .h-search

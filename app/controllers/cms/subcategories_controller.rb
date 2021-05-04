@@ -1,6 +1,10 @@
 module CMS
   class SubcategoriesController < ApplicationController
-    before_action :set_resource
+    before_action :find_category_and_subcategory
+
+    def index
+      @categories = Category.all
+    end
 
     def new
       @subcategory = Subcategory.new
@@ -11,7 +15,7 @@ module CMS
       @subcategory = Subcategory.create(subcategory_params)
 
       if @subcategory.valid?
-        render :column
+        render_column
       else
         render :form
       end
@@ -19,12 +23,12 @@ module CMS
 
     def appear
       @subcategory.appear!
-      render :column
+      render_column
     end
 
     def hide
       @subcategory.hide!
-      render :column
+      render_column
     end
 
     def edit
@@ -35,16 +39,10 @@ module CMS
       @subcategory.update(subcategory_params)
 
       if @subcategory.valid?
-        render :column
+        render_column
       else
         render :form
       end
-    end
-
-    def select_category
-      @categories = Category.where.not(id: params[:category_id])
-
-      render :select_category, layout: false
     end
 
     def update_category
@@ -52,7 +50,7 @@ module CMS
 
       if @subcategory.category_id != @new_category.id
         @subcategory.update!(category_id: @new_category.id)
-        render :column
+        render_column
       else
         head status: 403
       end
@@ -65,7 +63,7 @@ module CMS
 
     def destroy
       @subcategory.destroy!
-      render :column
+      render_column
     end
 
     private
@@ -74,7 +72,12 @@ module CMS
       params.require(:subcategory).permit(:name, :category_id)
     end
 
-    def set_resource
+    def render_column
+      @categories = Category.all
+      render :column
+    end
+
+    def find_category_and_subcategory
       @category = Category.find(params[:category_id])
       @subcategory = Subcategory.find(params[:id]) if params.key? :id
     end

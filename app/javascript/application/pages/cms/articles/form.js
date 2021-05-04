@@ -8,10 +8,20 @@ let subcategoryId = null;
 parseTeamOptions();
 initTeamSelect().then(() => initSubcategorySelect());
 renderRichTextEditor('#content-field');
+setupSubmitListeners();
 
+createSelect('#article_location', {
+  valueField: 'value',
+  labelField: 'label',
+  allowEmptyOption: true,
+  options: [],
+});
 
 function parseTeamOptions() {
-    teamOptions = JSON.parse($('#article-team-select').attr('data-teams'));
+    const dataTeams = $('#article-team-select').attr('data-teams');
+    if (dataTeams) {
+      teamOptions = JSON.parse(dataTeams);
+    }
   }
 
 function initTeamSelect() {
@@ -62,16 +72,28 @@ function renderTeamSelectForSubcategory() {
   }
 
 function renderRichTextEditor(selector) {
-    const field  = document.querySelector('#article_content');
-    ClassicEditor
-      .create(document.querySelector(selector), {
-        toolbar: ['heading1', 'heading2', 'paragraph', '|', 'bold', 'italic', 'underline', '|', 'bulletedList', 'numberedList', '|', 'alignment:left', 'alignment:center', 'alignment:right'],
-      })
-      .then((editor) => {
-        // clearErrorsOnReachTextField();
-        editor.setData(field.value);
-        editor.model.document.on( 'change:data', () => {
-          field.value = editor.getData();
-        });
+  const field  = document.querySelector('#article_content');
+  ClassicEditor
+    .create(document.querySelector(selector), {
+      toolbar: ['heading1', 'heading2', 'paragraph', '|', 'bold', 'italic', 'underline', '|', 'bulletedList', 'numberedList', '|', 'alignment:left', 'alignment:center', 'alignment:right'],
+    })
+    .then((editor) => {
+      // clearErrorsOnReachTextField();
+      editor.setData(field.value);
+      editor.model.document.on( 'change:data', () => {
+        field.value = editor.getData();
       });
-  }
+    });
+}
+
+function setupSubmitListeners() {
+  $('.articles-save-button').on('click', () => {
+    const input = $('#article_picture.untouched');
+
+    if (input) {
+      input.remove()
+    }
+
+    $('.articles-form form').submit();
+  });
+}

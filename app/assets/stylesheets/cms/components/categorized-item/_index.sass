@@ -62,9 +62,12 @@
     left: 0
 
   &__more
-    padding-top: 5px
     right: 0
     cursor: pointer
+
+    &-toggle
+      height: 36px
+      padding: 6px 0
 
   &__hidden-label
     +font-size(8px)
@@ -187,6 +190,16 @@
       width: 168px
       background: #FFFEFE
       box-shadow: 0px 2px 14px rgba(0, 0, 0, 0.0949246)
+
+  &__dropdown
+    > .dropdown-menu
+      margin-top: -37px
+      margin-left: -10px
+  //    display: none
+  //
+  //  &:hover
+  //    > .dropdown-menu
+  //      display: block
 
 .move-to-select
   position: absolute

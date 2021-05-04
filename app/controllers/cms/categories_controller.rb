@@ -1,6 +1,6 @@
 module CMS
   class CategoriesController < ApplicationController
-    before_action :set_category, only: %i[edit update appear hide destroy change_position]
+    before_action :find_category, only: %i[edit update appear hide destroy change_position]
 
     def index
       @categories = Category.all
@@ -58,7 +58,7 @@ module CMS
 
     private
 
-    def set_category
+    def find_category
       @category = Category.find(params[:id])
     end
 

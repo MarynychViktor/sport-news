@@ -23,9 +23,5 @@ Dropzone.autoDiscover = false;
 
 $(async () => {
     const [controller, action] = window.controllerContext;
-    try {
-        await import(`../application/pages/${controller}/${action}.js`)
-    } catch (e) {
-        console.log('Oops. File not found.');
-    }
-})
+    import(`../application/pages/${controller}`);
+});

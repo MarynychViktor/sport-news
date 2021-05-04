@@ -14,7 +14,7 @@ export function createSelect(selector, config) {
           config.onInitialize.bind(this)();
         }
 
-        const value = this.$input.attr('value');
+        const value = this.$input.attr('data-value');
 
         if (value) {
           this.setValue(value);
@@ -27,7 +27,7 @@ export function createSelect(selector, config) {
         clearSimpleFormErrors(document.querySelector(selector))
 
         if (config && config.onFocus) {
-          config.onFocus();
+          config.onFocus.bind(this)();
         }
       },
       onChange(value) {
@@ -36,7 +36,7 @@ export function createSelect(selector, config) {
         }
 
         if (config && config.onChange) {
-          config.onChange(value);
+          config.onChange.bind(this)(value);
         }
       }
     });

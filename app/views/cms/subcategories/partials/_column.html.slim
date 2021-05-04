@@ -4,14 +4,32 @@
       | + Add subcategory
 
 .ia-subcategories__list
-  = render('cms/partials/categorized-item',
-      resources: @category.subcategories,\
-      data: ->(subcategory) { { id: subcategory.id, type: subcategory.class, 'category-id': @category.id} }, \
-      paths: { \
-        show: ->(subcategory) { appear_cms_category_subcategory_path(@category, subcategory) }, \
-        hide: ->(subcategory) { hide_cms_category_subcategory_path(@category, subcategory) }, \
-        edit: ->(subcategory) { edit_cms_category_subcategory_path(@category, subcategory) }, \
-        delete: ->(subcategory) { cms_category_subcategory_path(@category, subcategory) }, \
-        child: -> (subcategory) { cms_subcategory_teams_path(subcategory) },\
-       },\
-    )
+  - @category.subcategories.each do |subcategory|
+    = render CategorizedItemComponent.new(subcategory, \
+                                          click_link: cms_subcategory_teams_path(subcategory), \
+                                          class_name: 'categorized-item__dropdown',
+                                          data_attributes: { id: subcategory.id, type: subcategory.class, 'category-id': @category.id}\
+                                          ) do |item|
+      = render Dropdown::MenuComponent.new(id: 'menu1', class_name: 'categorized-item__dropdown') do |menu|
+        - menu.button do
+          .categorized-item__more-toggle
+            = inline_svg_tag 'common/more.svg'
+
+        - @other_categories = @categories.select {|c| c != @category}
+        - unless @other_categories.empty?
+          - menu.link do |menu_link|
+            .multi-level-dropdown-link
+              | MOVE TO
+            - @other_categories.each do |category|
+              - menu_link.link do |link|
+                = link_to category.name, 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
+
+        - menu.link do
+          = link_to 'HIDE', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
+
+        - menu.link do
+          = link_to 'EDIT', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', remote: true
+
+        - menu.link do
+          = link_to 'DELETE', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :delete, remote: true
+

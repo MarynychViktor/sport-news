@@ -1,3 +1,4 @@
+// TODO: Check if used or remove
 .app-ml
   &-menu
     padding: 0
@@ -25,3 +26,94 @@
     left: 100%
     top: 0
     display: none
+
+// Updated version
+.multi-level-dropdown
+  .dropdown-menu
+    border-radius: 0
+    border: none
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.09)
+    padding: 0
+    margin: 0
+    min-width: 168px
+
+  .dropdown-toggle
+    &:after
+      content: none
+
+  &-item
+    height: 39px
+    //display: block
+    //width: 100%
+    //padding: 0
+    //clear: both
+    //font-weight: 400
+    //color: #000
+    //text-align: left
+
+    &.has-submenu
+      position: relative
+
+      &:after
+        content: ''
+        border: 3px solid transparent
+        border-left: 5px solid #000
+        width: 6px
+        height: 6px
+        display: block
+        position: absolute
+        right: 7px
+        top: calc(50% - 3px)
+
+      &:hover
+        color: #D72130
+        background: rgba(215, 33, 48, 0.11)
+
+        &:after
+          border-left-color: #D72130
+
+        > .multi-level-dropdown-submenu
+          display: block
+
+  &-link
+    +font-size(14px)
+    +line-height(19px)
+    width: 100%
+    height: 100%
+    padding: 9px 25px 11px
+    display: block
+    color: #000
+    text-decoration: none
+    white-space: nowrap
+    text-overflow: ellipsis
+    overflow: hidden
+
+    &:hover
+      color: #D72130
+      background: rgba(215, 33, 48, 0.11)
+      text-decoration: none
+
+  &-more
+    &-link
+      padding-top: 7px
+      padding-left: 10px
+      cursor: pointer
+      border-bottom: 1px solid #EDEDED
+      height: 100%
+
+      svg
+        stroke: #D72130
+
+  &-submenu
+    position: absolute
+    left: 100%
+    top: 0
+    display: none
+
+.hoverable-dropdown
+  > .dropdown-menu
+    display: none
+
+  &:hover
+    > .dropdown-menu
+      display: block
