@@ -1,9 +1,19 @@
 module CMS
   class TeamsController < ApplicationController
-    before_action :find_subcategory_and_team
+    before_action :find_subcategory_and_team, except: %i[all]
+
+    def all
+      respond_to do |format|
+        format.json { render json: paginate(Team) }
+      end
+    end
 
     def index
       @categories = Category.includes(:subcategories)
+      respond_to do |format|
+        format.js
+        format.json { render json: paginate(@subcategory.teams) }
+      end
     end
 
     def new

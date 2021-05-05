@@ -13,61 +13,73 @@
         .articles-list-search
           = inline_svg_tag 'common/search.svg', class: 'articles-list-search__icon'
 
-      .articles-filters
+      .articles-filters#filters
         = simple_form_for :'', url: request.fullpath, method: :get do |form|
-          - unless @subcategories.empty?
+          - unless @category.subcategories.empty?
             .articles-filter
-              = form.input :subcategory, collection: [['All conferences', ''], *@subcategories.map { |s| [s.name, s.id] }], \
+              = form.input :subcategory_id, collection: @subcategory ? [[@subcategory.name, @subcategory.id]] : [], \
                       input_html: { id: 'subcategory-filter', value: params[:subcategory] }, label: false, include_blank: false
 
-          - unless @teams.empty?
+          - unless @category.teams.empty?
             .articles-filter
-              = form.input :team, collection: [['All teams', ''], *@teams.map { |s| [s.name, s.id] }], \
+              = form.input :team_id, collection: @team ? [[@team.name, @team.id]] : [],\
                         input_html: { id: 'team-filter', value: params[:team] }, label: false, include_blank: false
 
           .articles-filter
-            = form.input :published, collection: [['All', ''], ['Unpublished', 0], ['Published', 1]], \
-                      input_html: { id: 'published-filter', value: params[:published] }, label: false, include_blank: false
+            = form.input :published, collection: [['All', nil], ['Unpublished', 0], ['Published', 1]], \
+                      input_html: { id: 'published-filter'}, label: false,\
+              include_blank: false
 
     .articles-list
-      - @articles.each do |article|
-        .articles-item-wrapper
-          .articles-item__more-wrapper
-            .articles-item__more
-              = render Dropdown::MenuComponent.new(id: 'menu1', class_name: 'hoverable-dropdown articles-item-dropdown') do |menu|
-                - menu.button do
-                  .articles-item__more-link
-                    = inline_svg_tag 'common/more.svg'
+      = render 'cms/articles/partials/page'
+        / .articles-item-wrapper
+        /   .articles-item__more-wrapper
+        /     .articles-item__more
+        /       = render Dropdown::MenuComponent.new(id: 'menu1', class_name: 'hoverable-dropdown articles-item-dropdown') do |menu|
+        /         - menu.button do
+        /           .articles-item__more-link
+        /             = inline_svg_tag 'common/more.svg'
+        /
+        /         - menu.link do
+        /           = link_to 'Unpublish', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
+        /
+        /         - menu.link do
+        /           = link_to 'Delete', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', remote: true
+        /
+        /         / - @other_categories = @categories.select {|c| c.id != article.category_id}
+        /         / - unless @other_categories.empty?
+        /         /   - menu.link do |menu_link|
+        /         /     .multi-level-dropdown-link
+        /         /       | Move to
+        /         /     - @other_categories.each do |category|
+        /         /       - menu_link.link do |link|
+        /         /         = link_to category.name, 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
+        /
+        /   = link_to edit_cms_category_article_url(@category, article), class: 'articles-item__link more-link' do
+        /     .articles-item
+        /       .articles-item__photo-wrapper
+        /         = image_tag article.picture.url, class: 'articles-item__photo', alt: article.alt
+        /
+        /       .articles-item-content
+        /         .articles-item__title
+        /           = article.headline
+        /
+        /         .articles-item__description
+        /           = article.content.slice(50)
+        /
+        /         .articles-item-footer
+        /           .articles-item__relations
+        /             | AFC South / Tennessee
+        /           .articles-item__status.is-published
+        /             | Published
 
-                - menu.link do
-                  = link_to 'Unpublish', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
 
-                - menu.link do
-                  = link_to 'Delete', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', remote: true
-
-                - @other_categories = @categories.select {|c| c.id != article.category_id}
-                - unless @other_categories.empty?
-                  - menu.link do |menu_link|
-                    .multi-level-dropdown-link
-                      | Move to
-                    - @other_categories.each do |category|
-                      - menu_link.link do |link|
-                        = link_to category.name, 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
-
-          = link_to edit_cms_category_article_url(@category, article), class: 'articles-item__link more-link' do
-            .articles-item
-              .articles-item__photo-wrapper
-                = image_tag article.picture.url, class: 'articles-item__photo', alt: article.alt
-
-              .articles-item-content
-                .articles-item__title
-                  = article.headline
-
-                .articles-item__description
-                  = article.content.slice(50)
-
-                .articles-item-footer
-                  .articles-item__relations
-                    | AFC South / Tennessee
-                  .articles-item__status.is-published
-                    | Published
+javascript:
+  _context = {
+    category: JSON.parse('#{raw @category.to_json}'),
+    last_page: JSON.parse('#{raw @articles.fetch(:last_page).to_json}')
+  }
+  // $.ajax({
+  //   url: `${window.location.pathname}/page`,
+  //   dataType: 'script'
+  // })

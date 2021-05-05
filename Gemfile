@@ -36,6 +36,7 @@ gem 'slim', '~> 4.1.0'
 gem 'view_component', '~> 2.9'
 gem 'carrierwave-base64', '~> 2.10'
 gem 'friendly_id', '~> 5.4.0'
+gem 'kaminari', '~> 0.16.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

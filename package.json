@@ -3,15 +3,21 @@
   "private": true,
   "dependencies": {
     "@babel/preset-typescript": "^7.13.0",
+    "@popperjs/core": "^2.9.2",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.2.1",
+    "@types/ckeditor": "^4.9.10",
+    "@types/query-string": "^6.3.0",
     "bootstrap": "^4.6.0",
     "bootstrap-icons": "^1.4.1",
     "dropzone": "^5.9.2",
+    "infinite-scroll": "^4.0.1",
     "jquery": "^3.6.0",
-    "popper.js": "^1.16.1",
+    "query-string": "^4.3.4",
+    "rxjs": "^7.0.0",
+    "select2": "*",
     "selectize": "^0.12.6",
     "simplebar": "^5.3.0",
     "slick-carousel": "^1.8.1",
@@ -21,6 +27,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "@types/jquery": "^3.5.5",
     "webpack-dev-server": "^3.11.2"
   }
 }

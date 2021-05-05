@@ -3,7 +3,13 @@ module CMS
     before_action :find_category_and_subcategory
 
     def index
-      @categories = Category.all
+      respond_to do |format|
+        # TODO: refactor
+        format.html { @categories = Category.all }
+        format.json do
+          render json: paginate(@category.subcategories)
+        end
+      end
     end
 
     def new

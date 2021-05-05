@@ -1,0 +1,41 @@
+.select2-container
+  min-width: 210px !important
+
+.app-select2
+  &-selection
+    +font-size(12px)
+    +line-height(16px)
+    font-family: Open Sans
+    color: #2B2F43
+    border: 1px solid #D4D9E2 !important
+    border-radius: 0 !important
+    height: 36px !important
+
+    .select2-selection
+      &__rendered,
+      &__arrow
+        line-height: 36px !important
+        height: 100% !important
+
+      &__rendered
+        padding-left: 20px !important
+
+
+  &-dropdown
+    border: none !important
+    border-radius: 0 !important
+    background: #FFFEFE
+    box-shadow: 0px 2px 14px rgba(0, 0, 0, 0.0949246)
+
+    .select2-results
+      &__option
+        +font-size(14px)
+        +line-height(19px)
+        height: 41px
+        color: #000000
+        padding: 11px 20px 11px
+
+        &--selected,
+        &--highlighted
+          color: #D72130 !important
+          background-color: rgba(215, 33, 48, 0.11) !important

@@ -1,14 +1,3 @@
-/ = render('cms/partials/categorized-item',
-/     resources: @categories,\
-/     data: ->(category) { { id: category.id, type: category.class } }, \
-/     paths: { \
-/       show: ->(category) { appear_cms_category_path(category) }, \
-/       hide: ->(category) { hide_cms_category_path(category) }, \
-/       edit: ->(category) { edit_cms_category_path(category) }, \
-/       delete: ->(category) { cms_category_path(category) }, \
-/       child: -> (category) { cms_category_subcategories_path(category) },\
-/      },\
-/   )
 - @categories.each do |resource|
   = render CategorizedItemComponent.new(resource,\
                                         click_link: cms_category_subcategories_path(resource),\

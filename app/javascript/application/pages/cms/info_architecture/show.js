@@ -1,4 +1,21 @@
 import Sortable from 'sortablejs/modular/sortable.core.esm';
+import * as InfiniteScroll from 'infinite-scroll';
+
+// $('#categories-list').infiniteScroll({
+//   path: getNextPage,
+//   append: '#categories-list',
+//   // button: '.view-more-button',
+//   // using button, disable loading on scroll
+//   scrollThreshold: false,
+//   // status: '.page-load-status',
+// })
+document.querySelector()
+
+function getNextPage() {
+  const loaded = this.loadCount;
+  const nextPage = loaded % 25;
+  console.log('this infinite scroll', this);
+}
 
 $(() => {
   enableOrderingForCategories();

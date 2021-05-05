@@ -171,6 +171,9 @@ GEM
       nokogiri (>= 1.6)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
+    kaminari (0.16.3)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -363,6 +366,7 @@ DEPENDENCIES
   friendly_id (~> 5.4.0)
   inline_svg
   jbuilder (~> 2.7)
+  kaminari (~> 0.16.3)
   listen (~> 3.3)
   pg (~> 1.2)
   pry-rails

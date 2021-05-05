@@ -30,11 +30,15 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :articles
+      resources :articles do
+        collection do
+          get 'page', to: 'articles#page'
+        end
+      end
     end
 
     resources :subcategories, only: [] do
-      resources :teams, only: %i[index new edit create update destroy] do
+      resources :teams, shallow: true, only: %i[index new edit create update destroy] do
         member do
           post 'hide', to: 'teams#hide'
           post 'appear', to: 'teams#appear'
@@ -44,6 +48,7 @@ Rails.application.routes.draw do
         end
       end
     end
+    get 'teams', to: 'teams#all'
 
     resource :"information_architecture", controller: 'info_architecture', only: %i[show]
   end

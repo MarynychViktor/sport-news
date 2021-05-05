@@ -1,5 +1,7 @@
 module CMS
   class ApplicationController < ActionController::Base
+    include Pagination
+
     layout 'cms'
 
     before_action :require_admin_role
