@@ -13,5 +13,6 @@ class Article < ApplicationRecord
   validates :content, presence: true
   validates :picture, presence: true
 
+  default_scope { order(updated_at: :desc) }
   #  TODO: add uploader to S3
 end
