@@ -1,2 +1,39 @@
-h1
-  | Articles
+.articles
+  = render 'customer/partials/article-hero', articles: @articles
+
+.articles-list
+  - @other_articles.each_with_index do |article, index|
+    = link_to article_path(article), class: 'article-item'
+      .article-item__logo-wrapper
+        // TODO: add alt
+        = image_tag article.picture.url, alt: 'qweqwe', class: 'article-item__logo'
+
+      .article-item__content
+        .article-item__title
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt .
+          / = article.headline
+
+        .article-item__text
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          / = article.content
+    - if @other_articles.count - index > 1
+      hr.article-item-divider
+
+.articles-trends
+  .articles-trends-popular
+    .aside-divider
+      .aside-divider__content
+        | MOST POPULAR
+      .aside-divider__line
+
+    .articles-trends-section.trending-item-group
+      = render 'customer/partials/trending-article'
+
+  .articles-trends-commented
+    .aside-divider
+      .aside-divider__content
+        | MOST COMMENTED
+      .aside-divider__line
+
+    .articles-trends-section.trending-item-group
+      = render 'customer/partials/trending-article'

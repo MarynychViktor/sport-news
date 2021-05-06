@@ -1,0 +1,58 @@
+.articles-list
+    margin-top: 40px
+
+.article-item
+  display: flex
+  padding: 12px 70px 12px 0
+  width: 100%
+  background: #FFFFFF
+  color: #000
+
+  &:hover
+    width: calc(100% + 12px)
+    padding-left: 12px
+    margin-left: -12px
+    box-shadow: 0 2px 24px rgba(0, 0, 0, 0.110932)
+    text-decoration: none
+    color: #000
+
+  &__logo
+    @extend .fillable-image
+
+    &-wrapper
+      flex-shrink: 0
+      width: 284px
+      height: 158px
+
+  &__content
+    margin-left: 32px
+
+  &__title
+    +font-size(16px)
+    +line-height(22px)
+    font-weight: 700
+
+  &__text
+    +font-size(14px)
+    +line-height(19px)
+    margin-top: 15px
+    color: #7F7B7B
+
+  &-divider
+    margin: 13px 0
+    width: 100%
+    padding: 0
+    border: none
+    height: 1px
+    background: #EDEDED
+
+.articles-trends
+  margin: 125px 0 50px
+  display: flex
+  justify-content: space-between
+
+  > div
+    width: calc(50% - 17px)
+
+  &-section
+    margin-top: 34px

@@ -4,37 +4,8 @@
   = javascript_pack_tag 'home-page'
 
 div
-  .hero-wrapper
-    #hero-carousel.hero-list
-      - @heroes.each do |hero|
-        .hero
-          .category-name
-            = hero[:group]
-          .hero__logo-wrapper
-            img.hero__logo alt="" src="#{hero[:logo]}" /
-
-    .hero-info-list-wrapper
-      #hero-info-carousel.hero-info-list
-        - @heroes.each do |hero|
-          .hero-info
-            .hero-info__published
-              | Published / #{hero[:published]}
-            .hero-info__title
-              = hero[:title].truncate(30)
-            .hero-info__text
-              = hero[:text].truncate(75)
-            button.hero-info__action.button-large More
-
-      .hero-nav
-        .hero-nav__before
-          span.material-icons navigate_before
-        .hero-nav__pages
-          - @heroes.count.times do |t|
-            .hero-nav__page data-slide="0"
-              | 0#{t + 1}
-
-        .hero-nav__next
-          span.material-icons navigate_next
+  / TODO: add trending categories here
+  = render 'customer/partials/article-hero', articles: Article.take(5)
 
   .hero-articles-preview
     .hero-article-preview

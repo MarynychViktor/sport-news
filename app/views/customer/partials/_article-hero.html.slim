@@ -1,0 +1,41 @@
+- carousel = articles.count > 1
+.hero-widget
+  .hero-items id="#{carousel ? 'hero-carousel' : 'hero-items'}"
+    - articles.each do |article|
+      .hero-item
+        .hero-item-link
+          .hero-item-content
+            - if defined? category
+              .category-name
+                = category.name
+            .hero-item__logo-wrapper
+              img.hero-item__logo alt="" src="#{article.picture.url}" /
+
+  .hero-info-items
+    .hero-info-slider id="#{carousel ? 'hero-info-carousel' : 'hero-info'}"
+      - articles.each do |article|
+        .hero-info
+          .hero-info__published
+            | Published / article.published
+
+          .hero-info__title
+            = article.headline.truncate(30)
+
+          .hero-info__text
+            = article.content.truncate(75)
+
+          = link_to article_path(article), class: 'hero-info__action button-large'
+            | More
+
+    - if carousel
+      .hero-nav
+        .hero-nav__before
+          span.material-icons navigate_before
+        .hero-nav__pages
+          - articles.count.times do |t|
+            .hero-nav__page data-slide="0"
+              | 0#{t + 1}
+
+        .hero-nav__next
+          span.material-icons navigate_next
+

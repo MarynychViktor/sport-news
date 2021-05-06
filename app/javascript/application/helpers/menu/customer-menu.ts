@@ -1,3 +1,4 @@
+
 export function customerMenu() {
   document.querySelectorAll('.categories-menu .category-menu-item')
     .forEach((menuLink) => {
@@ -57,6 +58,7 @@ export function customerMenu() {
     });
   });
 }
+
 
 function hideSubcategoryMenus() {
   document.querySelectorAll(`.subcategories-menu.show`).forEach(activeMenu => activeMenu.classList.remove('show'));

@@ -9,20 +9,22 @@
 
           - unless category.subcategories.empty?
             - subcategory_menu = capture do
-              ul.sidebar-sub-menu.subcategories-menu  data-parent-id="#{category.id}"
-                - category.subcategories.each do |subcategory|
-                  li.sidebar-sub-menu-item.subcategory-menu-item data-id="#{subcategory.id}"
-                    a.sidebar-sub-menu-item__link.link--primary href="#{articles_path(params: {subcategory_id: subcategory.id})}"
-                      = subcategory.name
+              .sidebar-sub-menu.subcategories-menu  data-parent-id="#{category.id}"
+                ul.sidebar-sub-menu__content
+                  - category.subcategories.each do |subcategory|
+                    li.sidebar-sub-menu-item.subcategory-menu-item data-id="#{subcategory.id}"
+                      a.sidebar-sub-menu-item__link.link--primary href="#{articles_path(params: {subcategory_id: subcategory.id})}"
+                        = subcategory.name
 
-                    - unless subcategory.teams.empty?
-                      - team_menu = capture do
-                        ul.sidebar-sub-menu.teams-menu data-parent-id="#{subcategory.id}"
-                          - subcategory.teams.each do |team|
-                            li.sidebar-sub-menu-item
-                              a.sidebar-sub-menu-item__link.link--primary href="#{articles_path(params: {team_id: team.id})}"
-                                = team.name
-                      - team_menus.push(team_menu)
+                      - unless subcategory.teams.empty?
+                        - team_menu = capture do
+                          .sidebar-sub-menu.teams-menu data-parent-id="#{subcategory.id}"
+                            ul.sidebar-sub-menu__content
+                              - subcategory.teams.each do |team|
+                                li.sidebar-sub-menu-item
+                                  a.sidebar-sub-menu-item__link.link--primary href="#{articles_path(params: {team_id: team.id})}"
+                                    = team.name
+                        - team_menus.push(team_menu)
             - subcategory_menus.push(subcategory_menu)
 
     - subcategory_menus.each do |menu|
