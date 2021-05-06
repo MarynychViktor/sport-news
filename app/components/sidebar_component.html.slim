@@ -1,24 +1,36 @@
+- team_menus, subcategory_menus = [], []
 .sidebar
   .sidebar-content
-    ul.sidebar-menu
+    ul.sidebar-menu.categories-menu
       - @categories.each do |category|
-        li.sidebar-menu-item
-          a.sidebar-menu-item__link.link--primary
+        li.sidebar-menu-item.category-menu-item data-id="#{category.id}"
+          a.sidebar-menu-item__link.link--primary href="#{articles_path(params: {category_id: category.id})}"
             = category.name
 
           - unless category.subcategories.empty?
-            ul.sidebar-sub-menu
-              - category.subcategories.each do |subcategory|
-                li.sidebar-sub-menu-item
-                  a.sidebar-sub-menu-item__link.link--primary
-                    = subcategory.name
+            - subcategory_menu = capture do
+              ul.sidebar-sub-menu.subcategories-menu  data-parent-id="#{category.id}"
+                - category.subcategories.each do |subcategory|
+                  li.sidebar-sub-menu-item.subcategory-menu-item data-id="#{subcategory.id}"
+                    a.sidebar-sub-menu-item__link.link--primary href="#{articles_path(params: {subcategory_id: subcategory.id})}"
+                      = subcategory.name
 
-                  - unless subcategory.teams.empty?
-                    ul.sidebar-sub-menu
-                      - subcategory.teams.each do |team|
-                        li.sidebar-sub-menu-item
-                          a.sidebar-sub-menu-item__link.link--primary
-                            = team.name
+                    - unless subcategory.teams.empty?
+                      - team_menu = capture do
+                        ul.sidebar-sub-menu.teams-menu data-parent-id="#{subcategory.id}"
+                          - subcategory.teams.each do |team|
+                            li.sidebar-sub-menu-item
+                              a.sidebar-sub-menu-item__link.link--primary href="#{articles_path(params: {team_id: team.id})}"
+                                = team.name
+                      - team_menus.push(team_menu)
+            - subcategory_menus.push(subcategory_menu)
+
+    - subcategory_menus.each do |menu|
+      = menu
+
+    - team_menus.each do |menu|
+      = menu
+
     .sidebar-follow
       .sidebar-follow__title
         | Follow

@@ -84,30 +84,30 @@ categories.each do |c|
     end
   end
 end
-#
-# require 'factory_bot_rails'
-# require 'faker'
-# include FactoryBot::Syntax::Methods
-#
-# 30.times do
-#   create(:category) do |category|
-#     30.times do
-#       create(:subcategory, category: category) do |subcategory|
-#       end
-#     end
-#   end
-# end
-#
-# Subcategory.take(5).each do |subcategory|
-#   30.times do
-#     create(:team, subcategory: subcategory) do |team|
-#       55.times do
-#         create(:article, category: subcategory.category, subcategory: subcategory, team: team)
-#       end
-#     end
-#   end
-# end
-#
+
+require 'factory_bot_rails'
+require 'faker'
+include FactoryBot::Syntax::Methods
+
+30.times do
+  create(:category) do |category|
+    30.times do
+      create(:subcategory, category: category) do |subcategory|
+      end
+    end
+  end
+end
+
+Subcategory.all.each do |subcategory|
+  50.times do
+    create(:team, subcategory: subcategory) do |team|
+      55.times do
+        create(:article, category: subcategory.category, subcategory: subcategory, team: team)
+      end
+    end
+  end
+end
+
 
 User.create!(
   first_name: 'Admin',

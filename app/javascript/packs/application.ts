@@ -25,9 +25,77 @@ Dropzone.autoDiscover = false;
 $(async () => {
     const [controller, action] = window.controllerContext;
     import(`../application/pages/${controller}`);
-
-
     //
+    // function registerMenuListeners(menuSelector, menuItemSelector, submenuSelector, onSelect = null) {
+    //     document.querySelectorAll(menuItemSelector).forEach((menuLink) => {
+    //           const id = menuLink.getAttribute('data-id');
+    //           const subMenu = document.querySelector(`${submenuSelector}[data-parent-id='${id}']`);
+    //
+    //           menuLink.addEventListener('mouseover', (e) => {
+    //                document.querySelectorAll(`${submenuSelector}.show`).forEach(activeMenu => {
+    //                    activeMenu.classList.remove('show');
+    //                })
+    //
+    //               if (onSelect) {
+    //                   onSelect();
+    //               }
+    //
+    //               if (!subMenu) {
+    //                   return;
+    //               }
+    //
+    //               if (!subMenu.classList.contains('show')) {
+    //                   subMenu.classList.add('show');
+    //               }
+    //           });
+    //       });
+    // }
+    // registerMenuListeners('.categories-menu', '.categories-menu > .sidebar-menu-item', '.subcategories-menu', () => {
+    //     document.querySelectorAll(`.teams-menu.show`).forEach(teamMenu => teamMenu.classList.remove('show'))
+    // });
+
+
+    // registerMenuListeners('.subcategories-menu', '.subcategories-menu > .sidebar-sub-menu-item', '.teams-menu');
+    // document.querySelectorAll('.categories-menu > .sidebar-menu-item')
+    //   .forEach((categoryMenu) => {
+    //     const id = categoryMenu.getAttribute('data-id');
+    //     const subMenu = document.querySelector(`.subcategories-menu[data-parent-id='${id}']`);
+    //
+    //     categoryMenu.addEventListener('mouseover', (e) => {
+    //         const activeMenu = document.querySelector(`.subcategories-menu.show`);
+    //         if (activeMenu) {
+    //             activeMenu.classList.remove('show');
+    //         }
+    //
+    //         if (!subMenu) {
+    //             return;
+    //         }
+    //
+    //         if (!subMenu.classList.contains('show')) {
+    //             subMenu.classList.add('show');
+    //         }
+    //     });
+    // });
+    document.querySelectorAll('.categories-menu > .sidebar-menu-item')
+      .forEach((categoryMenu) => {
+        const id = categoryMenu.getAttribute('data-id');
+        const subMenu = document.querySelector(`.subcategories-menu[data-parent-id='${id}']`);
+
+        categoryMenu.addEventListener('mouseover', (e) => {
+            const activeMenu = document.querySelector(`.subcategories-menu.show`);
+            if (activeMenu) {
+                activeMenu.classList.remove('show');
+            }
+
+            if (!subMenu) {
+                return;
+            }
+
+            if (!subMenu.classList.contains('show')) {
+                subMenu.classList.add('show');
+            }
+        });
+    });
     // document.querySelectorAll('.sidebar-menu-item').forEach(menuItem => {
     //     const id = menuItem.getAttribute('id');
     //     const menu = menuItem.querySelector(`[data-dialog-id=${id}]`);

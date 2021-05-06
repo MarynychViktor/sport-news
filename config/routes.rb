@@ -5,10 +5,14 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  # TODO: remove!
   namespace :admin do
     root 'home#index'
   end
 
+  scope module: :customer do
+    resources :articles
+  end
 
   namespace :cms do
     root 'home#index'
