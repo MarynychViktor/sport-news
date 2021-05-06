@@ -1,6 +1,6 @@
 class SidebarComponent < ViewComponent::Base
   def initialize
-    @categories = Category.all
+    @categories = Category.includes(subcategories: :teams)
     super
   end
 end

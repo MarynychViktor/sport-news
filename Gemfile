@@ -33,7 +33,7 @@ gem 'ranked-model', '~> 0.4.0'
 gem 'rolify', '~> 6.0'
 gem 'simple_form', '~> 5.0'
 gem 'slim', '~> 4.1.0'
-gem 'view_component', '~> 2.9'
+gem "view_component", require: "view_component/engine"
 gem 'carrierwave-base64', '~> 2.10'
 gem 'friendly_id', '~> 5.4.0'
 gem 'kaminari', '~> 0.16.3'

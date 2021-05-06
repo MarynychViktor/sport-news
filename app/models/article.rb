@@ -14,5 +14,17 @@ class Article < ApplicationRecord
   validates :picture, presence: true
 
   default_scope { order(updated_at: :desc) }
-  #  TODO: add uploader to S3
+
+  after_validation :refresh_picture_on_errors
+
+  def refresh_picture_on_errors
+    return if errors.empty?
+
+    if persisted?
+      picture.retrieve_from_store!(picture.identifier)
+    else
+      picture.remove!
+      errors.add(:picture, :blank)
+    end
+  end
 end

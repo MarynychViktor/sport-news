@@ -13,4 +13,6 @@
           | You can add next formats: png. jpg. jpeg. tif
 
     .uploader-widget__dropzone
-  = build_field
+  = @form.input @field_name.to_sym, as: :hidden, label: false,\
+    input_html: { class: 'd-none' }, error_html: { class: 'app-input-error' }
+  = @form.input "#{@field_name}_cache".to_sym, as: :hidden, label: false
