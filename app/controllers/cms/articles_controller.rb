@@ -3,8 +3,6 @@ module CMS
     before_action :find_category, :find_article
 
     def index
-      @subcategory = @category.subcategories.find { |s| s.id == params[:subcategory_id].to_i }
-      @team = @category.teams.find { |t| t.id == params[:team_id].to_i }
       @articles = paginate(@category.articles.where(search_params))
     end
 
@@ -14,7 +12,6 @@ module CMS
 
     def new
       @article = Article.new
-      set_select_options
     end
 
     def create
@@ -23,13 +20,8 @@ module CMS
       if @article.valid?
         redirect_to cms_category_articles_url(@category)
       else
-        set_select_options
         render :new
       end
-    end
-
-    def edit
-      set_select_options
     end
 
     def update
@@ -38,7 +30,6 @@ module CMS
       if @article.valid?
         redirect_to cms_category_articles_url(@category)
       else
-        set_select_options
         render :edit
       end
     end
@@ -51,12 +42,6 @@ module CMS
 
     def find_category
       @category = Category.includes(subcategories: :teams).find(params[:category_id]) if params[:category_id]
-    end
-
-    def set_select_options
-      subcategories = @category.subcategories
-      @subcategories_options = subcategories.map { |s| [s.name, s.id] }
-      @teams_options = subcategories.map { |s| [s.id, s.teams.map { |t| [t.name, t.id] }] }
     end
 
     def article_params
