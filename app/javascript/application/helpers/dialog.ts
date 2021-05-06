@@ -1,7 +1,6 @@
 import { createPopper, reference } from '@popperjs/core';
-import { retry } from "rxjs/dist/types/internal/operators/retry";
 
-
+// TODO: rename dropdown!
 interface DialogOption {
   name: string;
   options?: DialogOption[]
@@ -13,6 +12,7 @@ export class Dialog {
 
   private toggle: HTMLElement;
   private dialogMenu: HTMLElement;
+  private popper: any;
 
   private documentEventListener: any;
 
@@ -36,7 +36,7 @@ export class Dialog {
   }
 
   private renderDialogMenu() {
-    createPopper(this.toggle, this.dialogMenu, {
+    this.popper = createPopper(this.toggle, this.dialogMenu, {
       placement: 'right-start',
       modifiers: [
         {
@@ -46,12 +46,23 @@ export class Dialog {
             resize: true
           }
         },
+        {
+          name: 'flip',
+          enabled: false
+        },
+        {
+          name: 'preventOverflow',
+          escapeWithReference: true
+        }
       ],
     });
   }
 
   private setupDialogListeners() {
     this.toggle.addEventListener('click', this.onToggleClick.bind(this));
+    this.toggle.addEventListener('mouseover', () => {
+      this.popper.update();
+    });
   }
 
   private onToggleClick(_) {
@@ -62,14 +73,6 @@ export class Dialog {
 
       const self = this;
       this.documentEventListener = function (event) {
-        console.log(
-          // 'XXX',
-          // 'event.target.closest(`.${Dialog.dialogClass}`)',
-          `.${Dialog.dialogClass}`,
-          event.target
-          // event.target.closest(`.${Dialog.dialogClass}`)
-        );
-
         if (!event.target.closest(`.${Dialog.dialogClass}`)) {
           if (self.dialogMenu.classList.contains(Dialog.dialogVisibleClass)) {
             self.dialogMenu.classList.remove(Dialog.dialogVisibleClass);

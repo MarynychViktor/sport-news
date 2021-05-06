@@ -1,6 +1,23 @@
 .select2-container
   min-width: 210px !important
 
+.select2-selection
+  +font-size(12px)
+  +line-height(16px)
+  font-family: Open Sans
+  color: #2B2F43
+  border: 1px solid #D4D9E2 !important
+  border-radius: 0 !important
+  height: 36px !important
+
+  &__rendered,
+  &__arrow
+    line-height: 36px !important
+    height: 100% !important
+
+  &__rendered
+    padding-left: 20px !important
+
 .app-select2
   &-selection
     +font-size(12px)

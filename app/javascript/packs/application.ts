@@ -5,6 +5,7 @@
 import Rails from '@rails/ujs';
 import * as ActiveStorage from '@rails/activestorage';
 import 'channels';
+import { Dialog } from "application/helpers/dialog";
 
 Rails.start();
 ActiveStorage.start();
@@ -24,4 +25,28 @@ Dropzone.autoDiscover = false;
 $(async () => {
     const [controller, action] = window.controllerContext;
     import(`../application/pages/${controller}`);
+
+
+    //
+    // document.querySelectorAll('.sidebar-menu-item').forEach(menuItem => {
+    //     const id = menuItem.getAttribute('id');
+    //     const menu = menuItem.querySelector(`[data-dialog-id=${id}]`);
+    //     new Dialog(id);
+    //
+    //     menu.querySelectorAll('.sidebar-sub-menu-item').forEach(submenu => {
+    //         const submenuId = submenu.getAttribute('id');
+    //         if (!submenuId) {
+    //             return;
+    //         }
+    //         const subsubmenu = submenu.querySelector(`[data-dialog-id=${submenuId}]`);
+    //         if (!subsubmenu) {
+    //             return;
+    //         }
+    //         try {
+    //             new Dialog(submenuId);
+    //         } catch (e) {
+    //             console.log('susubmenu', subsubmenu, submenuId)
+    //         }
+    //     })
+    // });
 });

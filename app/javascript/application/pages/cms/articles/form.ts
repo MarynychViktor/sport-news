@@ -47,11 +47,11 @@ function renderRichTextEditor(selector) {
 
 function setupSubmitListeners() {
   $('.articles-save-button').on('click', () => {
-    const input = $('#article_picture.untouched');
-
-    if (input) {
-      input.remove()
-    }
+    // const input = $('#article_picture.untouched');
+    //
+    // if (input) {
+    //   input.remove()
+    // }
 
     $('.articles-form form').submit();
   });

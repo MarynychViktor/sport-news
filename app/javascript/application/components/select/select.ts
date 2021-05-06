@@ -1,5 +1,5 @@
 import 'selectize';
-import 'select2';
+import 'select2/dist/js/select2.full';
 import { BehaviorSubject, Subject } from "rxjs";
 
 const DEFAULT_CONFIG = {
@@ -9,6 +9,7 @@ const DEFAULT_CONFIG = {
 };
 
 export class Select {
+
     public selectize: any;
     private initSource = new BehaviorSubject<void>(undefined);
     initialized$ = this.initSource.asObservable();
