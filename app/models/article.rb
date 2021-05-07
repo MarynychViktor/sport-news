@@ -27,4 +27,14 @@ class Article < ApplicationRecord
       errors.add(:picture, :blank)
     end
   end
+
+  def self.most_popular(max: 3)
+    # TODO: add comments and provide
+    take(max)
+  end
+
+  def self.most_commented(max: 3)
+    # TODO: add comments and provide
+    take(max)
+  end
 end

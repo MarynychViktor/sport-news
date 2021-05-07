@@ -27,7 +27,8 @@
       .aside-divider__line
 
     .articles-trends-section.trending-item-group
-      = render 'customer/partials/trending-article'
+      - @most_popular.each do |article|
+        = render 'customer/partials/trending-article', article: article
 
   .articles-trends-commented
     .aside-divider
@@ -36,4 +37,5 @@
       .aside-divider__line
 
     .articles-trends-section.trending-item-group
-      = render 'customer/partials/trending-article'
+      - @most_commented.each do |article|
+        = render 'customer/partials/trending-article', article: article

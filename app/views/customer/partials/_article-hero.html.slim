@@ -22,7 +22,7 @@
             = article.headline.truncate(30)
 
           .hero-info__text
-            = article.content.truncate(75)
+            = strip_tags_with_spaces(article.content).truncate(75)
 
           = link_to article_path(article), class: 'hero-info__action button-large'
             | More
@@ -33,7 +33,7 @@
           span.material-icons navigate_before
         .hero-nav__pages
           - articles.count.times do |t|
-            .hero-nav__page data-slide="0"
+            .hero-nav__page data-slide="#{t}"
               | 0#{t + 1}
 
         .hero-nav__next

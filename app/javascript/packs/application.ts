@@ -36,6 +36,7 @@ $(async () => {
     document.querySelectorAll('.sidebar-sub-menu__content').forEach(content => {
         new PerfectScrollbar(content);
     });
+    $('[data-toggle="tooltip"]').tooltip();
     //
     // function registerMenuListeners(menuSelector, menuItemSelector, submenuSelector, onSelect = null) {
     //     document.querySelectorAll(menuItemSelector).forEach((menuLink) => {
@@ -154,7 +155,7 @@ $(document).ready(() => {
         arrows: false,
         fade: true,
         asNavFor: '#hero-info-carousel',
-        autoplay: true,
+        // autoplay: true,
         autoplaySpeed: 2000,
     })
     $('#hero-info-carousel').slick({
