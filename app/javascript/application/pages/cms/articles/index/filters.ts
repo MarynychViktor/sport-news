@@ -1,6 +1,6 @@
 import { Select } from "application/components/select";
 import { merge } from "rxjs";
-import { tap } from "rxjs/operators";
+import { skip, tap } from "rxjs/operators";
 
 declare const _context: {category: any, last_page: boolean};
 
@@ -26,8 +26,13 @@ const teamsFilter = new Select('#team-filter', {
 });
 
 merge(
-  subcategoriesFilter.changed$.pipe(tap(() => teamsFilter.clear())),
-  teamsFilter.changed$
+  subcategoriesFilter.changed$.pipe(
+    skip(1),
+    tap(() => teamsFilter.clear())
+  ),
+  teamsFilter.changed$.pipe(
+    skip(1)
+  )
 ).subscribe(() => filtersForm.submit());
 
 

@@ -130,6 +130,7 @@ $(async () => {
     //     })
     // });
 });
+// TODO: refactor
 function makeHeroPageElementActive(page) {
     const activeElement = document.querySelector('.hero-nav__page.active');
     if (activeElement) {
@@ -155,16 +156,18 @@ $(document).ready(() => {
         arrows: false,
         fade: true,
         asNavFor: '#hero-info-carousel',
-        // autoplay: true,
+        autoplay: true,
         autoplaySpeed: 2000,
-    })
+        pauseOnHover: true
+    });
+
     $('#hero-info-carousel').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows: false,
         fade: true,
         asNavFor: '#hero-carousel'
-    })
+    });
 
     $('#hero-carousel').on('beforeChange', (_, __, ___, nextSlide) => makeHeroPageElementActive(nextSlide));
     $('.hero-nav__before').on('click', () => heroCarousel.slickPrev());

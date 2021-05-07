@@ -1,3 +1,20 @@
+.cms-wrapper
+  .main-articles
+    = render 'partials/section-divider', content: 'MAIN ARTICLES'
+    .main-articles-content
+      = simple_form_for :'', url: request.fullpath, method: :get do |form|
+        .articles-form
+          .articles-form-group.articles-form-group--category
+            = form.input :category_id, collection: [], \
+                            input_html: { }, label_html: { class: 'app-label' }, include_blank: false
 
-h1 Admin::Home#index
-p Find me in app/views/admin/home/index.html.erb
+            = form.input :subcategory_id, collection: [], \
+                            input_html: { }, label_html: { class: 'app-label' }, include_blank: false
+
+            = form.input :team_id, collection: [], \
+                            input_html: { }, label_html: { class: 'app-label' }, include_blank: false
+
+          .articles-form-group.articles-form-group--article
+            = form.input :article_id, collection: [], \
+                            input_html: { }, label_html: { class: 'app-label' }, include_blank: false
+  .breakdown

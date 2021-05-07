@@ -3,7 +3,13 @@ module CMS
     before_action :find_category, only: %i[edit update appear hide destroy change_position]
 
     def index
-      @categories = Category.all
+      respond_to do |format|
+        # TODO: refactor
+        format.html { @categories = Category.all }
+        format.json do
+          render json: paginate(Category)
+        end
+      end
     end
 
     def new

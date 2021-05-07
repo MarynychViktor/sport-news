@@ -5,7 +5,7 @@ import { BehaviorSubject, Subject } from "rxjs";
 const DEFAULT_CONFIG = {
     dropdownCssClass: 'app-select2-dropdown',
     selectionCssClass: 'app-select2-selection',
-    minimumResultsForSearch: -1,
+    minimumResultsForSearch: Infinity,
 };
 
 export class Select {
@@ -14,7 +14,7 @@ export class Select {
     private initSource = new BehaviorSubject<void>(undefined);
     initialized$ = this.initSource.asObservable();
 
-    private changeSource = new Subject<string>();
+    private changeSource = new BehaviorSubject<string>(null);
     changed$ = this.changeSource.asObservable();
 
     private focusSource = new Subject<void>();
@@ -76,7 +76,14 @@ export class Select {
     }
 
     clear() {
-        this.setValue('').trigger('change');
+        this.getSelect().empty().trigger('change');
+    }
+
+    disable() {
+        this.getSelect().prop("disabled", true);
+    }
+    enable() {
+        this.getSelect().prop("disabled", false);
     }
 
     private onFocus() {
