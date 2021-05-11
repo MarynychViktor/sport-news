@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2021_05_10_134002) do
     t.text "content", null: false
     t.string "picture", null: false
     t.boolean "display_comments", default: true
+    t.datetime "published_at"
     t.string "slug", null: false
     t.bigint "category_id", null: false
     t.bigint "subcategory_id"
@@ -92,6 +93,8 @@ ActiveRecord::Schema.define(version: 2021_05_10_134002) do
   create_table "home_settings", force: :cascade do |t|
     t.boolean "show_popular_articles", default: true, null: false
     t.boolean "show_commented_articles", default: true, null: false
+    t.string "popular_articles_period", default: "day", null: false
+    t.string "commented_articles_period", default: "day", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

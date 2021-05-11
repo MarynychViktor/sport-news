@@ -3,16 +3,21 @@ module CMS
     before_action :find_category, :find_article
 
     def index
-      @articles = paginate(@category.articles.where(search_params))
+      query_builder = @category.articles.search(search_query)
+      @articles = paginate(query_builder)
 
       respond_to do |format|
-        format.html
+        format.html do
+          @subcategory = Subcategory.find(params[:subcategory_id]) if params[:subcategory_id]
+          @team = Team.find(params[:team_id]) if params[:team_id]
+        end
         format.json { render json: @articles }
       end
     end
 
     def page
-      @articles = paginate(@category.articles.where(search_params))
+      query_builder = @category.articles.search(search_query)
+      @articles = paginate(query_builder)
     end
 
     def new
@@ -39,6 +44,21 @@ module CMS
       end
     end
 
+    def publish
+      @article.publish
+      redirect_to cms_category_articles_url(@category)
+    end
+
+    def unpublish
+      @article.unpublish
+      redirect_to cms_category_articles_url(@category)
+    end
+
+    def destroy
+      @article.destroy
+      redirect_to cms_category_articles_url(@category)
+    end
+
     private
 
     def find_article
@@ -54,8 +74,25 @@ module CMS
                                       :headline, :content, :display_comments)
     end
 
+    def search_query
+      search_query = { where: search_params.slice(:subcategory_id, :team_id), scopes: [] }
+
+      case search_params[:published]
+      when '1'
+        search_query[:scopes] << :published
+      when '0'
+        search_query[:scopes] << :unpublished
+      end
+
+      search_query
+    end
+
     def search_params
-      params.permit(:subcategory_id, :team_id, :published).select { |_, value| value && !value.empty? }
+      %i[subcategory_id team_id published].reduce({}) do |output, next_key|
+        param = params[next_key]
+        output[next_key] = param if param && !param.empty?
+        output
+      end
     end
   end
 end

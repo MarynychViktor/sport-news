@@ -40,6 +40,10 @@ Rails.application.routes.draw do
         collection do
           get 'page', to: 'articles#page'
         end
+        member do
+          post 'publish', to: 'articles#publish'
+          post 'unpublish', to: 'articles#unpublish'
+        end
       end
     end
 

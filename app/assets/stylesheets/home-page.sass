@@ -242,6 +242,10 @@ $columns-gap: 34
   &-container
     position: relative
 
+    &:hover
+      .pod-description
+        visibility: visible
+
   &-sign
     position: absolute
     left: 5px
@@ -282,6 +286,8 @@ $columns-gap: 34
     bottom: 0
     color: white
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, #000000 100%)
+    width: 100%
+    visibility: hidden
 
     &__title
       font-size: 22px

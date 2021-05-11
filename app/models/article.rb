@@ -14,6 +14,8 @@ class Article < ApplicationRecord
   validates :picture, presence: true
 
   default_scope { order(updated_at: :desc) }
+  scope :published, -> { where.not(published_at: nil) }
+  scope :unpublished, -> { where(published_at: nil) }
 
   after_validation :refresh_picture_on_errors
 
@@ -26,6 +28,28 @@ class Article < ApplicationRecord
       picture.remove!
       errors.add(:picture, :blank)
     end
+  end
+
+  def published?
+    !!published_at
+  end
+
+  def publish
+    return if published?
+
+    update!(published_at: DateTime.current)
+  end
+
+  def unpublish
+    return unless published?
+
+    update!(published_at: nil)
+  end
+
+  def self.search(params)
+    where_params = params.fetch(:where, {})
+    scopes = params.fetch(:scopes, [])
+    scopes.reduce(self) { |res, n| res.send(n) }.where(where_params)
   end
 
   def self.most_popular(max: 3)

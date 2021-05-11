@@ -6,20 +6,15 @@
           .articles-item__more-link
             = inline_svg_tag 'common/more.svg'
 
-        - menu.link do
-          = link_to 'Unpublish', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
+        - if article.published?
+          - menu.link do
+            = link_to 'Unpublish', unpublish_cms_category_article_path(category, article), class: 'multi-level-dropdown-link', method: :post
+        - else
+          - menu.link do
+            = link_to 'Publish', publish_cms_category_article_path(category, article), class: 'multi-level-dropdown-link', method: :post
 
         - menu.link do
-          = link_to 'Delete', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', remote: true
-
-          / - @other_categories = @categories.select {|c| c.id != article.category_id}
-          / - unless @other_categories.empty?
-          /   - menu.link do |menu_link|
-          /     .multi-level-dropdown-link
-          /       | Move to
-          /     - @other_categories.each do |category|
-          /       - menu_link.link do |link|
-          /         = link_to category.name, 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
+          = link_to 'Delete', cms_category_article_path(category, article), class: 'multi-level-dropdown-link', method: :delete
 
   = link_to edit_cms_category_article_url(category, article), class: 'articles-item__link more-link' do
     .articles-item

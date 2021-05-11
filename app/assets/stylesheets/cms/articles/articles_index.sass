@@ -130,17 +130,22 @@
       & + .articles-item-wrapper
         margin-top: 18px
 
+      &:hover
+        .articles-item
+          &__more-wrapper
+            display: block
+
+          &__link
+            box-shadow: 0 2px 24px rgba(0, 0, 0, 0.110932)
+
+            .more-link
+              display: block
 
     &__link
       text-decoration: none !important
       display: block
       padding: 25px
 
-      &:hover
-        box-shadow: 0 2px 24px rgba(0, 0, 0, 0.110932)
-
-        .more-link
-          display: block
 
     &__more
       &-wrapper

@@ -5,7 +5,7 @@
 
 div
   / TODO: add trending categories here
-  = render 'customer/partials/article-hero', articles: Article.take(5)
+  = render 'customer/partials/article-hero', articles: @articles
 
   .hero-articles-preview
     .hero-article-preview
@@ -59,28 +59,29 @@ div
         = render 'home/partials/block-item'
         = render 'home/partials/block-item'
 
-  .pod-divider
-    = render 'partials/section-divider', content: 'PHOTO OF THE DAY'
+  - if @photo_of_the_day&.show
+    .pod
+      .pod-divider
+        = render 'partials/section-divider', content: 'PHOTO OF THE DAY'
 
-  .pod
-    .pod-container
-      .pod-sign
-        span.pod-sign-decoration
-        div
-          b PHOTO
-          br/
-          | OF THE
-          br/
-          b DAY
-      .pod__logo-wrapper
-        img.pod__logo alt=("photo of the day") src="https://www.businessinsider.in/photo/77825377/Lionel-Messi-leaving-Barcelona-would-be-the-biggest-and-most-shocking-transfer-in-football-history-but-it-would-make-perfect-sense-for-everyone.jpg?imgsize=330710" /
-      .pod-description
-        .pod-description__title
-          | Defending The Throne
-        .pod-description__text
-          | Los Angeles Lakes guard Derek Fisher, right, is pressured by the Denver Nuggets Nene during th efirst quarter of NBA exhibition action on Oct 16
-        .pod-description__source
-          | Photo Courtesy MCT
+      .pod-container
+        .pod-sign
+          span.pod-sign-decoration
+          div
+            b PHOTO
+            br
+            | OF THE
+            br
+            b DAY
+        .pod__logo-wrapper
+          = image_tag @photo_of_the_day.image.url, alt: @photo_of_the_day.alt, class: 'pod__logo'
+        .pod-description
+          .pod-description__title
+            = @photo_of_the_day.title
+          .pod-description__text
+            = @photo_of_the_day.description
+          .pod-description__source
+            = @photo_of_the_day.author
 
   .top-data
     .most-popular

@@ -7,8 +7,8 @@ module CMS
     def index
       @articles = Home::Article.resolve
       @breakdowns = Home::Breakdown.resolve
-      @photo_of_the_day = Home::PhotoOfTheDay.instance
-      @settings = Home::Setting.instance
+      @photo_of_the_day = Home::PhotoOfTheDay.instance_or_new
+      @settings = Home::Setting.instance_or_new
     end
 
     def create
@@ -29,10 +29,10 @@ module CMS
       @articles = Home::Article.build_from(page_params[:articles])
       @breakdowns = Home::Breakdown.build_from(page_params[:breakdowns])
 
-      @photo_of_the_day = Home::PhotoOfTheDay.instance
+      @photo_of_the_day = Home::PhotoOfTheDay.instance_or_new
       @photo_of_the_day.assign_attributes(page_params[:photo_of_the_day])
 
-      @settings = Home::Setting.instance
+      @settings = Home::Setting.instance_or_new
       @settings.assign_attributes(page_params[:settings])
     end
 
@@ -44,6 +44,7 @@ module CMS
 
         return
       end
+      binding.pry
 
       render :index
     end

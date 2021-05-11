@@ -7,6 +7,8 @@ module Home
 
     default_scope { includes(article: %i[category subcategory team]).order(:created_at) }
 
+    scope :visible, -> { where(show: true) }
+
     def category_id
       article&.category_id
     end

@@ -75,35 +75,37 @@ categories = [
   }
 ]
 
+require 'factory_bot_rails'
+require 'faker'
+include FactoryBot::Syntax::Methods
+
 categories.each do |c|
   category = Category.create!(name: c[:category])
   c[:subcategories].each do |s|
     subcategory = category.subcategories.create!(name: s[:name])
     s[:teams].each do |team|
-      subcategory.teams.create!(name: team[:name])
+      t = subcategory.teams.create!(name: team[:name])
+      create(:article, category: subcategory.category, subcategory: subcategory, team: t)
     end
   end
 end
 
-require 'factory_bot_rails'
-require 'faker'
-include FactoryBot::Syntax::Methods
-
-1.times do
-  create(:category) do |category|
-    5.times do
-      create(:subcategory, category: category) do |subcategory|
-        5.times do
-          create(:team, subcategory: subcategory) do |team|
-            5.times do
-              create(:article, category: subcategory.category, subcategory: subcategory, team: team)
-            end
-          end
-        end
-      end
-    end
-  end
-end
+#
+# 1.times do
+#   create(:category) do |category|
+#     5.times do
+#       create(:subcategory, category: category) do |subcategory|
+#         5.times do
+#           create(:team, subcategory: subcategory) do |team|
+#             5.times do
+#               create(:article, category: subcategory.category, subcategory: subcategory, team: team)
+#             end
+#           end
+#         end
+#       end
+#     end
+#   end
+# end
 
 
 User.create!(

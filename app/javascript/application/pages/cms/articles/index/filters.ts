@@ -24,15 +24,14 @@ const teamsFilter = new Select('#team-filter', {
     },
   },
 });
+const publishedFilter = new Select('#published-filter');
 
 merge(
   subcategoriesFilter.changed$.pipe(
-    skip(1),
     tap(() => teamsFilter.clear())
   ),
-  teamsFilter.changed$.pipe(
-    skip(1)
-  )
+  teamsFilter.changed$,
+  publishedFilter.changed$
 ).subscribe(() => filtersForm.submit());
 
 

@@ -10,6 +10,7 @@ class CreateArticles < ActiveRecord::Migration[6.1]
       t.text :content, null: false
       t.string :picture, null: false
       t.boolean :display_comments, default: true
+      t.datetime :published_at
       t.string :slug, null: false
       t.index :slug, unique: true
       t.references :category, null: false, foreign_key: true

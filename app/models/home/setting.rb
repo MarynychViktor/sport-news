@@ -3,7 +3,11 @@ module Home
     validates_inclusion_of :show_popular_articles, :show_commented_articles, in: [true, false]
 
     def self.instance
-      first_or_initialize
+      first
+    end
+
+    def self.instance_or_new
+      instance || new
     end
   end
 end
