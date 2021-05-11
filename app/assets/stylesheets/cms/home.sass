@@ -3,6 +3,10 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 .main
   &-form
+    &:first-child
+      .main-form-remove
+        visibility: hidden
+
     &:not(:first-child)
       &:before
         content: ''
@@ -33,6 +37,9 @@
       transform: scale(0.75)
       margin-right: -15px
       cursor: pointer
+
+    .app-input-error
+      display: block
 
 .main-breakdowns
   margin-top: 86px

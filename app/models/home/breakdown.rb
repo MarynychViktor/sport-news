@@ -13,9 +13,10 @@ class Home::Breakdown < ApplicationRecord
   end
 
   def self.build_from(params)
-    params.map do |attrs|
-      breakdown = find_or_initialize_by(attrs.except(:show))
-      breakdown.show = attrs[:show] || false
+    params.dup.map do |param|
+      attributes = param.except(:show)
+      breakdown = attributes.empty? ? new : find_or_initialize_by(attributes)
+      breakdown.show = param[:show] || false
       breakdown
     end
   end

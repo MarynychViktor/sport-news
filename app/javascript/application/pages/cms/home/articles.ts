@@ -33,5 +33,18 @@ function addForm() {
   [formPrototype, cloned].forEach(el => ArticleFormContextRegistry.addContext(el.getAttribute('id')));
   ArticleFormContextRegistry.get(cloned.getAttribute('id')).clear();
 
+  setToggleId(cloned, index + 1);
+
   toggleAddFormButton(forms.length < 4);
+}
+
+function setToggleId(target: HTMLElement, id: number) {
+  const showToggle = target.querySelector('.main-form__show-field')
+  const toggleInput = showToggle.querySelector('input');
+
+  const newId = toggleInput.getAttribute('id').replace(/(?<=-)\d+$/,`${id}`)
+  toggleInput.setAttribute('id', newId);
+
+  const toggleLabel= showToggle.querySelector('label');
+  toggleLabel.setAttribute('for', newId);
 }
