@@ -44,7 +44,6 @@ module CMS
 
         return
       end
-      binding.pry
 
       render :index
     end

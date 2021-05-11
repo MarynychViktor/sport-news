@@ -1,23 +1,25 @@
 class Article < ApplicationRecord
+  include Elasticsearch::Model
   extend FriendlyId
-  friendly_id :headline, use: :slugged
-  mount_base64_uploader :picture, PhotoUploader
 
   belongs_to :category
   belongs_to :subcategory, optional: true
   belongs_to :team, optional: true
+
+  scope :published, -> { where.not(published_at: nil) }
+  scope :unpublished, -> { where(published_at: nil) }
 
   validates :headline, presence: true
   validates :alt, presence: true
   validates :caption, presence: true
   validates :content, presence: true
   validates :picture, presence: true
-
-  default_scope { order(updated_at: :desc) }
-  scope :published, -> { where.not(published_at: nil) }
-  scope :unpublished, -> { where(published_at: nil) }
-
   after_validation :refresh_picture_on_errors
+
+  friendly_id :headline, use: :slugged
+  mount_base64_uploader :picture, PhotoUploader
+
+  default_scope { includes(:category).order(updated_at: :desc) }
 
   def refresh_picture_on_errors
     return if errors.empty?
@@ -46,7 +48,7 @@ class Article < ApplicationRecord
     update!(published_at: nil)
   end
 
-  def self.search(params)
+  def self.from_query(params)
     where_params = params.fetch(:where, {})
     scopes = params.fetch(:scopes, [])
     scopes.reduce(self) { |res, n| res.send(n) }.where(where_params)

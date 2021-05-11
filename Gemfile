@@ -28,15 +28,17 @@ gem 'inline_svg'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'carrierwave', '~> 2.0'
+gem 'carrierwave-base64', '~> 2.10'
 gem 'devise', '~> 4.2'
+gem 'elasticsearch-model', '~> 7.1', '>= 7.1.1'
+gem 'elasticsearch-rails', '~> 7.1', '>= 7.1.1'
+gem 'friendly_id', '~> 5.4.0'
+gem 'kaminari', '~> 0.16.3'
 gem 'ranked-model', '~> 0.4.0'
 gem 'rolify', '~> 6.0'
 gem 'simple_form', '~> 5.0'
 gem 'slim', '~> 4.1.0'
-gem "view_component", require: "view_component/engine"
-gem 'carrierwave-base64', '~> 2.10'
-gem 'friendly_id', '~> 5.4.0'
-gem 'kaminari', '~> 0.16.3'
+gem 'view_component', require: 'view_component/engine'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

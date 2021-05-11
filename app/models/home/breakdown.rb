@@ -1,30 +1,39 @@
-class Home::Breakdown < ApplicationRecord
-  belongs_to :category
-  belongs_to :subcategory, optional: true
-  belongs_to :team, optional: true
-  validates :category_id, presence: true
+module Home
+  class Breakdown < ApplicationRecord
+    belongs_to :category
+    belongs_to :subcategory, optional: true
+    belongs_to :team, optional: true
 
-  default_scope { includes(:category, :subcategory, :team).order(:created_at) }
+    validates :category_id, presence: true
 
-  def self.resolve
-    breakdowns = all.to_a
-    breakdowns << new if breakdowns.empty?
-    breakdowns
-  end
+    default_scope { includes(:category, :subcategory, :team).order(:created_at) }
 
-  def self.build_from(params)
-    params.dup.map do |param|
-      attributes = param.except(:show)
-      breakdown = attributes.empty? ? new : find_or_initialize_by(attributes)
-      breakdown.show = param[:show] || false
-      breakdown
+    scope :visible, -> { where(show: true) }
+
+    def articles
+      (team || subcategory || category).articles.take(4)
     end
-  end
 
-  def self.upsert_home_breakdowns(breakdowns)
-    transaction do
-      breakdowns.each(&:save!)
-      unscoped.where.not(id: breakdowns.map(&:id)).destroy_all
+    def self.resolve
+      breakdowns = all.to_a
+      breakdowns << new if breakdowns.empty?
+      breakdowns
+    end
+
+    def self.build_from(params)
+      params.dup.map do |param|
+        attributes = param.except(:show)
+        breakdown = attributes.empty? ? new : find_or_initialize_by(attributes)
+        breakdown.show = param[:show] || false
+        breakdown
+      end
+    end
+
+    def self.upsert_home_breakdowns(breakdowns)
+      transaction do
+        breakdowns.each(&:save!)
+        unscoped.where.not(id: breakdowns.map(&:id)).destroy_all
+      end
     end
   end
 end

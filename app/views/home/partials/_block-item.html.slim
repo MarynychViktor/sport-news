@@ -1,10 +1,10 @@
 .block-item
   .block-item__logo-wrapper
-    img.block-item__logo alt=("news logo") src="https://i.ytimg.com/vi/KvHiZTrd8Iw/maxresdefault.jpg" /
+    = image_tag article.picture.url, class: 'block-item__logo', alt: 'article logo'
   .block-item__content
     .block-item__title
-      | Lorem ipsum
+      = article.headline.truncate(25)
     .block-item__text
-      | Lorem ipsum dolor sit amet, consectetur
+      = strip_tags_with_spaces(article.content).truncate(40)
     .block-item__nav
       span.material-icons east

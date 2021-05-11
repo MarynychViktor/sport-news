@@ -146,6 +146,7 @@ export class ArticleFormContext {
     const rawParams = {
       subcategory_id: this.subcategorySelect.getValue(),
       team_id: this.teamSelect.getValue(),
+      published: 1
     };
 
     const queryParams = {};

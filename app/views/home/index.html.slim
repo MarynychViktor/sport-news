@@ -48,16 +48,18 @@ div
       .hero-article-preview__nav
         span.material-icons east
 
-  .breakdown-divider
-    = render 'partials/section-divider', content: 'BREAKDOWN'
+  - unless @breakdowns.empty?
+    .breakdown
+      .breakdown-divider
+        = render 'partials/section-divider', content: 'BREAKDOWN'
 
-  .breakdown
-    .breakdown-row
-      = render 'home/partials/news-preview'
-      .block-group
-        = render 'home/partials/block-item'
-        = render 'home/partials/block-item'
-        = render 'home/partials/block-item'
+      - @breakdowns.each do |breakdown|
+        - unless breakdown.articles.empty?
+          .breakdown-row
+            = render 'home/partials/news-preview', article: breakdown.articles.first
+            .block-group
+              - breakdown.articles[1..].each do |article|
+                = render 'home/partials/block-item', article: article
 
   - if @photo_of_the_day&.show
     .pod
@@ -83,25 +85,24 @@ div
           .pod-description__source
             = @photo_of_the_day.author
 
-  .top-data
-    .most-popular
-      .aside-divider
-        .aside-divider__content
-          | MOST POPULAR
-        .aside-divider__line
-      .top-data-col.block-group
-        = render 'home/partials/block-item'
-        = render 'home/partials/block-item'
-        = render 'home/partials/block-item'
+  .summary
+    - if @popular_articles
+      .summary__most-popular
+        .aside-divider
+          .aside-divider__content
+            | MOST POPULAR
+          .aside-divider__line
+        .summary__articles-list.block-group
+          - @popular_articles.each do |article|
+            = render 'home/partials/block-item', article: article
 
-
-    .most-commented
-      .aside-divider
-        .aside-divider__content
-          | MOST COMMENTED
-        .aside-divider__line
-      .top-data-col.block-group
-        = render 'home/partials/block-item'
-        = render 'home/partials/block-item'
-        = render 'home/partials/block-item'
+    - if @commented_articles
+      .summary__most-popular
+        .aside-divider
+          .aside-divider__content
+            | MOST COMMENTED
+          .aside-divider__line
+        .summary__articles-list.block-group
+          - @commented_articles.each do |article|
+            = render 'home/partials/block-item', article: article
 

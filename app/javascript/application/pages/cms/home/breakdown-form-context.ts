@@ -43,6 +43,7 @@ export class BreakdownFormContext {
   }
 
   private enableSelectsSynchronization() {
+    // TODO: fix bugs with disabled-enabled selects
     this.categorySelect.initialized$.subscribe(val => {
 
     });
