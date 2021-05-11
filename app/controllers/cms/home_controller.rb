@@ -2,78 +2,58 @@ module CMS
   class HomeController < ApplicationController
     layout 'cms'
 
+    before_action :build_models, :validate_models, only: :create
+
     def index
-      @articles = Home::Article.all.to_a
-      @articles << Home::Article.new if @articles.empty?
-
-      @breakdowns = Home::Breakdown.all.to_a
-      @breakdowns << Home::Breakdown.new if @breakdowns.empty?
-
-      @photo_of_the_day = Home::PhotoOfTheDay.first_or_initialize
-      @settings = Home::Setting.first_or_initialize
+      @articles = Home::Article.resolve
+      @breakdowns = Home::Breakdown.resolve
+      @photo_of_the_day = Home::PhotoOfTheDay.instance
+      @settings = Home::Setting.instance
     end
 
-    def store
-      articles_from_params
-      breakdowns_from_params
-      photo_of_the_day_params
-      settings
-
-      if @articles.all?(&:valid?) && @breakdowns.all?(&:valid?) && @photo_of_the_day.valid? && @settings.valid?
-        ActiveRecord::Base.transaction do
-          @articles.each(&:save!)
-          Home::Article.unscoped.where.not(id: @articles.map(&:id)).destroy_all
-
-          @breakdowns.each(&:save!)
-          Home::Breakdown.unscoped.where.not(id: @breakdowns.map(&:id)).destroy_all
-
-          @photo_of_the_day.save!
-        end
-
-        redirect_to '/cms' and return
+    def create
+      ActiveRecord::Base.transaction do
+        Home::Article.upsert_home_articles(@articles)
+        Home::Breakdown.upsert_home_breakdowns(@breakdowns)
+        @photo_of_the_day.save!
+        @settings.save!
       end
 
-      binding.pry
-
-      render :index
+      # TODO: generate dynamic path
+      redirect_to '/cms'
     end
 
     private
 
-    def articles_from_params
-      @articles = page_params[:articles].map do |attrs|
-        attrs[:show] ||= false
-        article = Article.find_by_id(attrs[:article_id])
-        home_article = Home::Article.find_or_initialize_by(article: article)
-        attrs.each { |k, v| home_article.send("#{k}=", v) }
-        home_article
+    def build_models
+      @articles = Home::Article.build_from(page_params[:articles])
+      @breakdowns = Home::Breakdown.build_from(page_params[:breakdowns])
+
+      @photo_of_the_day = Home::PhotoOfTheDay.instance
+      @photo_of_the_day.assign_attributes(page_params[:photo_of_the_day])
+
+      @settings = Home::Setting.instance
+      @settings.assign_attributes(page_params[:settings])
+    end
+
+    def validate_models
+      if @articles.all?(&:valid?) &&
+         @breakdowns.all?(&:valid?) &&
+         @photo_of_the_day.valid? &&
+         @settings.valid?
+
+        return
       end
-    end
 
-    def breakdowns_from_params
-      @breakdowns = page_params[:breakdowns].map do |attrs|
-        breakdown = Home::Breakdown.find_or_initialize_by(attrs.except(:show))
-        breakdown.show = attrs[:show] || false
-        breakdown
-      end
-    end
-
-    def photo_of_the_day_params
-      @photo_of_the_day = Home::PhotoOfTheDay.first_or_initialize
-      params[:photo_of_the_day].each { |k, v| @photo_of_the_day.send("#{k}=", v) }
-    end
-
-    def settings
-      @settings = Home::Setting.first_or_initialize
-      params[:settings].each { |k, v| @settings.send("#{k}=", v) }
+      render :index
     end
 
     def page_params
       params.require(:main_page).permit(
-        articles: [:category_id, :subcategory_id, :team_id, :article_id, :show],
-        breakdowns: [:category_id, :subcategory_id, :team_id, :show],
-        photo_of_the_day: [:image, :alt, :title, :description, :author, :show],
-        settings: [:show_popular_articles, :show_commented_articles]
+        articles: %i[category_id subcategory_id team_id article_id show],
+        breakdowns: %i[category_id subcategory_id team_id show],
+        photo_of_the_day: %i[image alt title description author show],
+        settings: %i[show_popular_articles show_commented_articles]
       )
     end
   end

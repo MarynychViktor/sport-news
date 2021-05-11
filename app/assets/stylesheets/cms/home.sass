@@ -3,9 +3,17 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 .main
   &-form
-    margin-top: 42px
+    &:not(:first-child)
+      &:before
+        content: ''
+        display: block
+        width: 100%
+        margin: 33px 0 22px
+        border: 1px dashed #D4D9E2
 
     &-group
+      margin-top: 20px
+
       &--multi
         display: flex
         justify-content: space-between
@@ -26,11 +34,43 @@
       margin-right: -15px
       cursor: pointer
 
-.main-photo-content
-  margin-top: 33px
+.main-breakdowns
+  margin-top: 86px
 
-  .main-form-group
-    margin-top: 20px
+.main-photo
+  margin-top: 86px
+
+  &-form
+    &-action
+      display: flex
+      justify-content: flex-end
+
+.main-settings
+  &-form
+    &-content
+      width: 100%
+      display: flex
+      justify-content: space-between
+
+    &-group
+      flex-basis: 50%
+
+      &:not(:first-child)
+        margin-left: 50px
+
+  &-visibility
+    background: #F8F8F8
+    padding: 11px 13px 11px 17px
+    display: flex
+    justify-content: space-between
+
+    &-title
+      +font-size(14px)
+      +line-height(19px)
+      font-weight: 700
+      color: #000000
+
+
 
 //.articles
 //  &-form

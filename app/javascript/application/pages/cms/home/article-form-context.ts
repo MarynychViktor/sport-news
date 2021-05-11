@@ -95,14 +95,14 @@ export class ArticleFormContext {
   }
 
   private createCategorySelect() {
-    this.categorySelect = new Select(`${this.formSelector} .articles-form__category-field`, {
+    this.categorySelect = new Select(`${this.formSelector} .main-articles-form__category-field`, {
       placeholder: 'Select a category',
       ajax: { url: `/cms/categories` },
     });
   }
 
   private createSubcategorySelect() {
-    this.subcategorySelect = new Select(`${this.formSelector} .articles-form__subcategory-field`, {
+    this.subcategorySelect = new Select(`${this.formSelector} .main-articles-form__subcategory-field`, {
       placeholder: 'Select a subcategory',
       ajax: {
         url: () => {
@@ -113,7 +113,7 @@ export class ArticleFormContext {
   }
 
   private createTeamSelect() {
-    this.teamSelect = new Select(`${this.formSelector} .articles-form__team-field`, {
+    this.teamSelect = new Select(`${this.formSelector} .main-articles-form__team-field`, {
       placeholder: 'Select a team',
       ajax: {
         url: () => {
@@ -124,7 +124,7 @@ export class ArticleFormContext {
   }
 
   private createArticleSelect() {
-    this.articleSelect = new Select(`${this.formSelector} .articles-form__article-field`, {
+    this.articleSelect = new Select(`${this.formSelector} .main-articles-form__article-field`, {
       placeholder: 'Select article',
       ajax: {
         processResults (result) {

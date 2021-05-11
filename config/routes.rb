@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   namespace :cms do
     root 'home#index'
-    post '/', to: 'home#store'
+    post '/', to: 'home#create'
     post '/add_article/:index', to: 'home#add_new_article'
 
     resources :categories, only: %i[index new create edit update destroy] do
