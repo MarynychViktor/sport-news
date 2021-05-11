@@ -9,6 +9,10 @@ module CMS
         format.json do
           render json: paginate(@category.subcategories)
         end
+        format.js do
+          @categories = Category.all
+          render :column
+        end
       end
     end
 

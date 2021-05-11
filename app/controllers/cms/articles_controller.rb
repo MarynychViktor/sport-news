@@ -88,10 +88,9 @@ module CMS
     end
 
     def search_params
-      %i[subcategory_id team_id published].reduce({}) do |output, next_key|
+      %i[subcategory_id team_id published].each_with_object({}) do |next_key, output|
         param = params[next_key]
         output[next_key] = param if param && !param.empty?
-        output
       end
     end
   end

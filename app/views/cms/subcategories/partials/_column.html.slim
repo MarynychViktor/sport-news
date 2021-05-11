@@ -9,7 +9,7 @@
                                           click_link: cms_subcategory_teams_path(subcategory), \
                                           class_name: 'categorized-item__dropdown',
                                           data_attributes: { id: subcategory.id, type: subcategory.class, 'category-id': @category.id}\
-                                          ) do |item|
+                                        ) do |item|
       = render Dropdown::MenuComponent.new(id: 'menu1', class_name: 'categorized-item__dropdown') do |menu|
         - menu.button do
           .categorized-item__more-toggle
@@ -22,14 +22,16 @@
               | MOVE TO
             - @other_categories.each do |category|
               - menu_link.link do |link|
-                = link_to category.name, 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
+                = link_to category.name, update_category_cms_category_subcategory_path(@category, subcategory, params: {new_category_id: category.id}), class: 'multi-level-dropdown-link', method: :post, remote: true
+        - menu.link do
+          - if subcategory.hidden?
+            = link_to 'SHOW', appear_cms_category_subcategory_path(@category, subcategory), class: 'multi-level-dropdown-link', method: :post, remote: true
+          - else
+            = link_to 'HIDE', hide_cms_category_subcategory_path(@category, subcategory), class: 'multi-level-dropdown-link', method: :post, remote: true
 
         - menu.link do
-          = link_to 'HIDE', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
+          = link_to 'EDIT', edit_cms_category_subcategory_path(@category, subcategory), class: 'multi-level-dropdown-link', remote: true
 
         - menu.link do
-          = link_to 'EDIT', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', remote: true
-
-        - menu.link do
-          = link_to 'DELETE', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :delete, remote: true
+          = link_to 'DELETE', cms_category_subcategory_path(@category, subcategory), class: 'multi-level-dropdown-link', method: :delete, remote: true
 

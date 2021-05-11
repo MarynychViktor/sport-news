@@ -9,6 +9,7 @@ module CMS
         format.json do
           render json: paginate(Category)
         end
+        format.js { render :column }
       end
     end
 

@@ -88,7 +88,7 @@ module CMS
     end
 
     def find_subcategory_and_team
-      @subcategory = Subcategory.find(params[:subcategory_id])
+      @subcategory = Subcategory.find(params[:subcategory_id]) if params[:subcategory_id]
       @team = Team.find(params[:id]) if params[:id]
     end
   end

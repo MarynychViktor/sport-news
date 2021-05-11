@@ -10,10 +10,13 @@
           = inline_svg_tag 'common/more.svg'
 
       - menu.link do
-        = link_to 'HIDE', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
+        - if category.hidden ?
+          = link_to 'SHOW', show_cms_category_path(category), class: 'multi-level-dropdown-link', method: :post, remote: true
+        - else
+          = link_to 'HIDE', hide_cms_category_path(category), class: 'multi-level-dropdown-link', method: :post, remote: true
 
       - menu.link do
-        = link_to 'EDIT', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', remote: true
+        = link_to 'EDIT', edit_cms_category_path(category), class: 'multi-level-dropdown-link', remote: true
 
       - menu.link do
-        = link_to 'DELETE', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :delete, remote: true
+        = link_to 'DELETE', cms_category_path(category), class: 'multi-level-dropdown-link', method: :delete, remote: true
