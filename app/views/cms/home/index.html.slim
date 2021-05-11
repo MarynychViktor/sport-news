@@ -1,20 +1,125 @@
 .cms-wrapper
   .main-articles
-    = render 'partials/section-divider', content: 'MAIN ARTICLES'
-    .main-articles-content
-      = simple_form_for :'', url: request.fullpath, method: :get do |form|
-        .articles-form
-          .articles-form-group.articles-form-group--category
-            = form.input :category_id, collection: [], \
-                            input_html: { }, label_html: { class: 'app-label' }, include_blank: false
+    = simple_form_for 'main_page', url: request.fullpath, method: :post do |form|
+      = render 'partials/section-divider', content: 'MAIN ARTICLES'
+      .main-articles-content
+        - @articles.each_with_index do |home_article, index|
+          - article = home_article.article
+          - category = article&.category
+          - subcategory = article&.subcategory
+          - team = article&.team
 
-            = form.input :subcategory_id, collection: [], \
-                            input_html: { }, label_html: { class: 'app-label' }, include_blank: false
+          = form.simple_fields_for 'articles[]', home_article do |article_form|
+            .main-form.articles-form id="article-form-#{index}" data-index="#{index}"
+              .main-form-group.main-form-group--multi.articles-form-group
+                = article_form.input :category_id, collection: category ? [[category.name, category.id]] : [], \
+                    input_html: { name: "main_page[articles][][category_id]", class: 'articles-form__category-field', id: nil }, \
+                    label_html: { class: 'app-label' },\
+                    error_html: { class: 'app-input-error' }
 
-            = form.input :team_id, collection: [], \
-                            input_html: { }, label_html: { class: 'app-label' }, include_blank: false
+                = article_form.input :subcategory_id, collection: subcategory ? [[subcategory.name, subcategory.id]] : [], \
+                    input_html: { name: "main_page[articles][][subcategory_id]", class: 'articles-form__subcategory-field', id: nil }, \
+                    label_html: { class: 'app-label' },\
+                    error_html: { class: 'app-input-error' }
 
-          .articles-form-group.articles-form-group--article
-            = form.input :article_id, collection: [], \
-                            input_html: { }, label_html: { class: 'app-label' }, include_blank: false
-  .breakdown
+                = article_form.input :team_id, collection:  team ? [[team.name, team.id]] : [], \
+                    input_html: { name: "main_page[articles][][team_id]", class: 'articles-form__team-field', id: nil }, \
+                    label_html: { class: 'app-label' },\
+                    error_html: { class: 'app-input-error' }
+
+              .main-form-group.main-form-group--full
+                = article_form.input :article_id, collection: article ? [[article.headline, article.id]] : [], \
+                  input_html: { name: "main_page[articles][][article_id]", class: 'articles-form__article-field', id: nil }, \
+                  label_html: { class: 'app-label' },\
+                  error_html: { class: 'app-input-error' }
+
+              .main-form-actions.articles-form-actions
+                button.button-plain.article-form-remove type="button"
+                  | Delete
+                div
+                  .custom-control.custom-switch.main-form__show-field
+                    = article_form.check_box :show, include_hidden: false, id: "app-article-show-#{index}",\
+                      name: "main_page[articles][][show]", class: 'custom-control-input'
+                    label.custom-control-label for="app-article-show-#{index}" Show comments
+
+        .articles-form-add-wrapper
+          button.button-plain.article-form-add type="button"
+            | + Add one more article
+
+      = render 'partials/section-divider', content: 'BREAKDOWNS'
+      .main-breakdowns-content
+        - @breakdowns.each_with_index do |breakdown, index|
+          = form.simple_fields_for 'breakdowns[]', breakdown do |breakdown_form|
+            .main-form.breakdowns-form id="breakdown-form-#{index}" data-index="#{index}"
+              .main-form-group.main-form-group--multi
+                = breakdown_form.input :category_id, collection: breakdown.category ? [[breakdown.category.name, breakdown.category.id]] : [],\
+                    input_html: { name: "main_page[breakdowns][][category_id]", class: 'breakdowns-form__category-field', id: nil },\
+                    label_html: { class: 'app-label' },\
+                    error_html: { class: 'app-input-error' }
+
+                = breakdown_form.input :subcategory_id, collection: breakdown.subcategory ? [[breakdown.subcategory.name, breakdown.subcategory.id]] : [],\
+                    input_html: { name: "main_page[breakdowns][][subcategory_id]", class: 'breakdowns-form__subcategory-field', id: nil },\
+                    label_html: { class: 'app-label' },\
+                    error_html: { class: 'app-input-error'}
+
+                = breakdown_form.input :team_id, collection: breakdown.team ? [[breakdown.team.name, breakdown.team.id]] : [],\
+                    input_html: { name: "main_page[breakdowns][][team_id]", class: 'breakdowns-form__team-field', id: nil },\
+                    label_html: { class: 'app-label' },\
+                    error_html: { class: 'app-input-error'}
+
+              .main-form-actions
+                button.button-plain.main-form-remove.breakdown-form-remove type="button"
+                  | Delete
+                div
+                  .custom-control.custom-switch.main-form__show-field
+                    = breakdown_form.check_box :show, include_hidden: false, id: "app-breakdown-show-#{index}", name: "main_page[breakdowns][][show]", class: 'custom-control-input'
+                    label.custom-control-label for="app-breakdown-show-#{index}" Show comments
+
+      .breakdowns-form-add-wrapper
+        button.button-plain.breakdown-form-add type="button"
+          | + Add one more breakdown
+
+      = render 'partials/section-divider', content: 'PHOTO OF THE DAY'
+      = form.simple_fields_for 'photo_of_the_day', @photo_of_the_day do |photo_form|
+        .main-photo-content
+          = render UploaderWidget.new(photo_form, 'photo_of_the_day[image]')
+
+          .main-form-group
+            = photo_form.input :alt,\
+                input_html: { name: "photo_of_the_day[alt]", class: 'app-input', id: nil }, \
+                label_html: { class: 'app-label' }, \
+                error_html: { class: 'app-input-error' }
+          .main-form-group
+            = photo_form.input :title,\
+                input_html: { name: "photo_of_the_day[title]", class: 'app-input', id: nil }, \
+                label_html: { class: 'app-label' }, \
+                error_html: { class: 'app-input-error' }
+          .main-form-group
+            = photo_form.input :description, \
+                        input_html: { name: "photo_of_the_day[description]", class: 'app-input', id: nil }, \
+                        label_html: { class: 'app-label' }, \
+                        error_html: { class: 'app-input-error' }
+          .main-form-group
+            = photo_form.input :author, \
+                                  input_html: { name: "photo_of_the_day[author]", class: 'app-input', id: nil }, \
+                                  label_html: { class: 'app-label' }, \
+                                  error_html: { class: 'app-input-error' }
+
+          .main-form-actions
+            button.button-plain.main-form-remove.breakdown-form-remove type="button"
+              | Delete
+            div
+              .custom-control.custom-switch.main-form__show-field
+                = photo_form.check_box :show, name: "photo_of_the_day[show]", class: 'custom-control-input', id: 'showPhoto'
+                label.custom-control-label for="showPhoto" Show
+
+      = form.simple_fields_for 'settings', @settings do |settings_form|
+        .main-settings-form
+          .custom-control.custom-switch.main-form__show-field
+            = settings_form.check_box :show_popular_articles, name: "settings[show_popular_articles]", class: 'custom-control-input', id: 'showPopularArticles'
+            label.custom-control-label for="showPopularArticles" Show Most Popular Articles
+        div
+          .custom-control.custom-switch.main-form__show-field
+            = settings_form.check_box :show_commented_articles, name: "settings[show_commented_articles]", class: 'custom-control-input', id: 'showCommentedArticles'
+            label.custom-control-label for="showCommentedArticles" Show Most Commented Articles
+      = form.submit

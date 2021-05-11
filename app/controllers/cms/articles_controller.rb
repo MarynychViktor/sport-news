@@ -4,6 +4,11 @@ module CMS
 
     def index
       @articles = paginate(@category.articles.where(search_params))
+
+      respond_to do |format|
+        format.html
+        format.json { render json: @articles }
+      end
     end
 
     def page

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_30_073308) do
+ActiveRecord::Schema.define(version: 2021_05_10_134002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,44 @@ ActiveRecord::Schema.define(version: 2021_04_30_073308) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "home_articles", force: :cascade do |t|
+    t.boolean "show", default: true, null: false
+    t.bigint "article_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["article_id"], name: "index_home_articles_on_article_id"
+  end
+
+  create_table "home_breakdowns", force: :cascade do |t|
+    t.boolean "show", default: true, null: false
+    t.bigint "category_id", null: false
+    t.bigint "subcategory_id"
+    t.bigint "team_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_home_breakdowns_on_category_id"
+    t.index ["subcategory_id"], name: "index_home_breakdowns_on_subcategory_id"
+    t.index ["team_id"], name: "index_home_breakdowns_on_team_id"
+  end
+
+  create_table "home_photo_of_the_days", force: :cascade do |t|
+    t.string "image", null: false
+    t.string "title", null: false
+    t.string "alt", null: false
+    t.string "description", null: false
+    t.string "author", null: false
+    t.boolean "show", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "home_settings", force: :cascade do |t|
+    t.boolean "show_popular_articles", default: true, null: false
+    t.boolean "show_commented_articles", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "roles", force: :cascade do |t|
@@ -121,6 +159,10 @@ ActiveRecord::Schema.define(version: 2021_04_30_073308) do
   add_foreign_key "articles", "categories"
   add_foreign_key "articles", "subcategories"
   add_foreign_key "articles", "teams"
+  add_foreign_key "home_articles", "articles"
+  add_foreign_key "home_breakdowns", "categories"
+  add_foreign_key "home_breakdowns", "subcategories"
+  add_foreign_key "home_breakdowns", "teams"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "teams", "subcategories"
 end

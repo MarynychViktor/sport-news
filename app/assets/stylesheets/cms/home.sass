@@ -1,12 +1,70 @@
 // Place all the styles related to the Admin::Home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-.articles
-  &-form-group
-    &--category
+.main
+  &-form
+    margin-top: 42px
+
+    &-group
+      &--multi
+        display: flex
+        justify-content: space-between
+
+      &--full
+        margin-top: 25px
+
+        .select2-container
+          width: 100% !important
+
+    &-actions
       display: flex
       justify-content: space-between
+      padding: 10px 0
 
-    &--article
-      .select2-container
-        width: 100% !important
+    &__show-field
+      transform: scale(0.75)
+      margin-right: -15px
+      cursor: pointer
+
+.main-photo-content
+  margin-top: 33px
+
+  .main-form-group
+    margin-top: 20px
+
+//.articles
+//  &-form
+//    &-group
+//      &--category
+//        display: flex
+//        justify-content: space-between
+//
+//      &--article
+//        margin-top: 25px
+//
+//        .select2-container
+//          width: 100% !important
+//
+//    &-actions
+//      display: flex
+//      justify-content: space-between
+//
+//    &__show-field
+//      transform: scale(0.75)
+//      margin-right: -15px
+//      cursor: pointer
+
+//.breakdowns
+//  &-form
+//    margin-top: 42px
+//
+//    &-group
+//      &--category
+//        display: flex
+//        justify-content: space-between
+//
+//.main-articles
+//  &-content
+//    input + .articles-form
+//      .article-form-remove
+//        display: none
