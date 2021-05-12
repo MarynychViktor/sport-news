@@ -70,7 +70,7 @@ module CMS
     end
 
     def article_params
-      params.require(:article).permit(:conference, :subcategory_id, :team_id, :picture, :caption, :alt, :location,
+      params.require(:article).permit(:subcategory_id, :team_id, :picture, :caption, :alt, :location,
                                       :headline, :content, :display_comments)
     end
 
