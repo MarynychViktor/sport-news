@@ -39,6 +39,7 @@ gem 'rolify', '~> 6.0'
 gem 'simple_form', '~> 5.0'
 gem 'slim', '~> 4.1.0'
 gem 'view_component', require: 'view_component/engine'
+gem 'sidekiq', '~> 4.1', '>= 4.1.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

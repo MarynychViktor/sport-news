@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   scope module: :customer do
     resources :articles
+    resource :search, only: %i[show]
   end
 
   namespace :cms do
@@ -36,7 +37,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :articles do
+      resources :articles, shallow: true do
         collection do
           get 'page', to: 'articles#page'
         end

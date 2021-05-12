@@ -31,5 +31,9 @@
         .articles-item-footer
           .articles-item__relations
             | AFC South / Tennessee
-          .articles-item__status.is-published
-            | Published
+          - if article.published?
+            .articles-item__status.is-published
+              | Published
+          - else
+            .articles-item__status.is-unpublished
+              | Unpublished

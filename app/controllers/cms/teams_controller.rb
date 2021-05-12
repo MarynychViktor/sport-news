@@ -1,6 +1,6 @@
 module CMS
   class TeamsController < ApplicationController
-    before_action :find_subcategory_and_team, except: %i[all]
+    before_action :find_subcategory_and_team
 
     def all
       respond_to do |format|

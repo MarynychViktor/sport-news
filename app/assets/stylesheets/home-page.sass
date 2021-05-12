@@ -168,8 +168,13 @@ $columns-gap: 34
   position: relative
   border: 1px solid #EDEDED
   cursor: pointer
+  text-decoration: none
+  color: #000
 
   &:hover
+    text-decoration: none
+    color: #000
+
     .news-preview__footer-arrow
       visibility: visible
 
@@ -203,11 +208,16 @@ $columns-gap: 34
     display: flex
     position: relative
     cursor: pointer
+    text-decoration: none
+    color: #000
 
     &:not(:last-child)
       border-bottom:  1px solid #EDEDED
 
     &:hover
+      text-decoration: none
+      color: #000
+
       .block-item__nav
         visibility: visible
 
@@ -221,6 +231,7 @@ $columns-gap: 34
         height: 97px
         width: 150px
         overflow: hidden
+        flex-shrink: 0
 
     &__content
       padding: 16px 18px

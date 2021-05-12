@@ -5,10 +5,11 @@
 
 .ia-teams__list
   - @subcategory.teams.each do |team|
-    = render CategorizedItemComponent.new(team, \
-                                            class_name: 'categorized-item__dropdown',
-            data_attributes: {id: team.id, type: team.class, 'subcategory-id': @subcategory.id}\
-                                            ) do |item|
+    = render CategorizedItemComponent.new(\
+        team,
+        class_name: 'categorized-item__dropdown',
+        data_attributes: { id: team.id, type: team.class, 'subcategory-id': @subcategory.id }\
+      ) do |item|
       = render Dropdown::MenuComponent.new(id: 'menu1', class_name: 'categorized-item__dropdown') do |menu|
         - menu.button do
           .categorized-item__more-toggle
@@ -28,8 +29,7 @@
 
                   - other_subcategories.each do |subcategory|
                     - category_link.link do
-                      = link_to subcategory.name, update_category_cms_team_path(team, params: { new_subcategory_id: subcategory.id}), class: 'multi-level-dropdown-link', method: :post, remote: true
-                      / = link_to subcategory.name, 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
+                      = link_to subcategory.name, update_category_cms_team_path(team, params: { new_subcategory_id: subcategory.id }), class: 'multi-level-dropdown-link', method: :post, remote: true
 
         - menu.link do
           - if team.hidden?

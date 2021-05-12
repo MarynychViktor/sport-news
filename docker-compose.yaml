@@ -18,6 +18,11 @@ services:
       ELASTICSEARCH_URL: http://elasticsearch:9200
     networks:
       - elastic
+  redis:
+    image: redis:6.2.3
+    container_name: redis_container
+    ports:
+    - 6379:6379
   elasticsearch:
     image: elasticsearch:7.12.1
     ports:
@@ -25,6 +30,8 @@ services:
       - 9300:9300
     environment:
       - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     networks:
       - elastic
     volumes:
