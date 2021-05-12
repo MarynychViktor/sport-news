@@ -26,34 +26,6 @@ class Article < ApplicationRecord
 
   attr_accessor :highlighted_headline
 
-  # TODO: add search service and put ES specific logic there
-  def self.search_by_title_and_content(query, page: 1, limit: 10)
-    result = search(query: {
-                      multi_match: {
-                        query: query,
-                        # fuzziness: 1,
-                        fields: ['headline']
-                      }
-                    },
-                    highlight: {
-                      tags_schema: "styled",
-                      fields: {
-                        headline: {}
-                      }
-                    },
-                    _source: ['_id'],
-                    size: limit,
-                    from: (page - 1) * limit
-    )
-    total = result.response[:hits][:total][:value]
-    data = result.results.map do |res|
-      record = find(res[:_id])
-      record.highlighted_headline = res[:highlight][:headline].join(' ')
-      record
-    end
-    { data: data, total: total, page: page, last_page: page * limit >= total }
-  end
-
   def as_indexed_json(options = {})
     content = as_json(only: %i[id location headline content])
     content['content'] = ActionController::Base.helpers.strip_tags(content['content'].gsub('><', '> <')).strip

@@ -7,6 +7,13 @@ export function setupSearchField() {
     const query = (event.target as HTMLInputElement).value;
     if (query) {
       searchArticles(query);
+      const onClickOutside = (e) => {
+        if (!e.target.closest('.h-search-wrapper')) {
+          clearSuggestions();
+          document.removeEventListener('click', onClickOutside);
+        }
+      }
+      document.addEventListener('click', onClickOutside);
     } else {
       clearSuggestions();
     }
@@ -14,7 +21,6 @@ export function setupSearchField() {
 
   input.addEventListener('input', onInput);
   input.addEventListener('focus', onInput);
-  input.addEventListener('blur', clearSuggestions);
 }
 
 function searchArticles(query: string) {

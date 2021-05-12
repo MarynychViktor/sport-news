@@ -4,7 +4,7 @@
       .search-suggestion
         .search-suggestion-breadcrumb
           | NBA > As M.L.B.’s Season Opens in Japan, at Least the Dirt Is Familiar
-        = link_to '#', class: 'search-suggestion-link' do
+        = link_to article_path(article), class: 'search-suggestion-link' do
           .search-suggestion-content
             = raw article.highlighted_headline
   - else
