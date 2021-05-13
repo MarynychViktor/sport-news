@@ -3,6 +3,9 @@ import debounce from 'lodash.debounce';
 // TODO: add breadcrumb styles
 export function setupSearchField() {
   const input = document.querySelector('#app-search input');
+  if (!input) {
+    return;
+  }
   const onInput = debounce((event) => {
     const query = (event.target as HTMLInputElement).value;
     if (query) {

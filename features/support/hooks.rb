@@ -6,13 +6,13 @@ After do |scenario, block|
   DatabaseCleaner.clean
 end
 
-Before('@ia') do
-  Random.rand(1..3).times do
-    create(:category) do |category|
-      Random.rand(1..3).times do
-        create(:subcategory, category: category) do |subcategory|
-          Random.rand(1..3).times do
-            create(:team, subcategory: subcategory)
+Before('@articles') do
+  create(:category, name: 'Football') do |category|
+    create(:subcategory, category: category) do |subcategory|
+      2.times do
+        create(:team, subcategory: subcategory) do |team|
+          3.times do
+            create(:article, category: category, subcategory: subcategory, team: team)
           end
         end
       end

@@ -9,6 +9,7 @@ module CMS
       @breakdowns = Home::Breakdown.resolve
       @photo_of_the_day = Home::PhotoOfTheDay.instance_or_new
       @settings = Home::Setting.instance_or_new
+      @default_category = Category.first
     end
 
     def create
@@ -19,8 +20,7 @@ module CMS
         @settings.save!
       end
 
-      # TODO: generate dynamic path
-      redirect_to '/cms'
+      redirect_to cms_root_path
     end
 
     private
@@ -44,6 +44,8 @@ module CMS
 
         return
       end
+
+      @default_category = Category.first
 
       render :index
     end
