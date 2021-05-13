@@ -23,10 +23,10 @@
 
       .articles-item-content
         .articles-item__title
-          = article.headline
+          = article.headline.truncate(100)
 
         .articles-item__description
-          = article.content.truncate(50)
+          = strip_tags_with_spaces(article.content).truncate(200)
 
         .articles-item-footer
           .articles-item__relations

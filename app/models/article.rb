@@ -21,8 +21,9 @@ class Article < ApplicationRecord
   validates :picture, :category_id, presence: true
   after_validation :refresh_picture_on_errors
 
-  after_update { ArticleIndexerJob.perform_later(id.to_s) }
-  after_destroy { ArticleIndexerJob.perform_later(id.to_s) }
+  after_create_commit { ArticleIndexerJob.perform_later(id.to_s) if published? }
+  after_update_commit { ArticleIndexerJob.perform_later(id.to_s) }
+  after_destroy_commit { ArticleIndexerJob.perform_later(id.to_s) }
 
   def as_indexed_json(options = {})
     content = as_json(only: %i[id location headline content])

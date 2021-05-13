@@ -1,6 +1,7 @@
 :verbose: true
 :concurrency: 10
 :timeout: 25
+:max_retries: 0
 
 # Sidekiq will run this file through ERB when reading it so you can
 # even put in dynamic logic, like a host-specific queue.

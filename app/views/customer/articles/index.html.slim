@@ -1,5 +1,5 @@
 .articles
-  = render 'customer/partials/article-hero', articles: @articles
+  = render 'customer/partials/article-hero', articles: @hero_articles
 
 .articles-list
   - @other_articles.each_with_index do |article, index|
@@ -10,32 +10,32 @@
 
       .article-item__content
         .article-item__title
-          | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt .
-          / = article.headline
+          = article.headline.truncate(100)
 
         .article-item__text
-          | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          / = article.content
+          = strip_tags_with_spaces(article.content).truncate(200)
     - if @other_articles.count - index > 1
       hr.article-item-divider
 
 .articles-trends
-  .articles-trends-popular
-    .aside-divider
-      .aside-divider__content
-        | MOST POPULAR
-      .aside-divider__line
+  - unless @most_popular.empty?
+    .articles-trends-popular
+      .aside-divider
+        .aside-divider__content
+          | MOST POPULAR
+        .aside-divider__line
 
-    .articles-trends-section.trending-item-group
-      - @most_popular.each do |article|
-        = render 'customer/partials/trending-article', article: article
+      .articles-trends-section.trending-item-group
+        - @most_popular.each do |article|
+          = render 'customer/partials/trending-article', article: article
 
-  .articles-trends-commented
-    .aside-divider
-      .aside-divider__content
-        | MOST COMMENTED
-      .aside-divider__line
+  - unless @most_commented.empty?
+    .articles-trends-commented
+      .aside-divider
+        .aside-divider__content
+          | MOST COMMENTED
+        .aside-divider__line
 
-    .articles-trends-section.trending-item-group
-      - @most_commented.each do |article|
-        = render 'customer/partials/trending-article', article: article
+      .articles-trends-section.trending-item-group
+        - @most_commented.each do |article|
+          = render 'customer/partials/trending-article', article: article
