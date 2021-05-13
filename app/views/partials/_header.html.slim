@@ -52,10 +52,13 @@ body
                 .h-profile-menu__user-email
                   = current_user.email
               .dropdown-divider
-              a.app-dropdown-item.dropdown-item href="#"  View Profile
-              a.app-dropdown-item.dropdown-item href="#"  Change Password
-              a.app-dropdown-item.dropdown-item href="#"  My surveys
-              a.app-dropdown-item.dropdown-item href="#"  Team hub
+              - if current_user.admin?
+                = link_to 'Dashboard', cms_root_path, class: 'app-dropdown-item dropdown-item'
+              - else
+                a.app-dropdown-item.dropdown-item href="#"  View Profile
+                a.app-dropdown-item.dropdown-item href="#"  Change Password
+                a.app-dropdown-item.dropdown-item href="#"  My surveys
+                a.app-dropdown-item.dropdown-item href="#"  Team hub
               .dropdown-divider
               = link_to 'Log out', destroy_user_session_path, class: 'app-dropdown-item dropdown-item', method: :delete
     - else

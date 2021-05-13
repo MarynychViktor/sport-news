@@ -1,2 +1,7 @@
-- @articles.fetch(:data).each do |article|
-  = render 'cms/articles/partials/article', article: article, category: @category
+- articles = @articles.fetch(:data)
+- if !articles.empty?
+  - articles.each do |article|
+    = render 'cms/articles/partials/article', article: article, category: @category
+- else
+  .articles-index-no-results
+    | No articles found

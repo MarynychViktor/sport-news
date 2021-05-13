@@ -16,6 +16,10 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def admin?
+    has_role? :admin
+  end
+
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
   end

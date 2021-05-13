@@ -10,8 +10,8 @@
     .articles-list-nav
       .articles-list-nav-header
         = render 'partials/preview', path: '#'
-        .articles-list-search
-          = inline_svg_tag 'common/search.svg', class: 'articles-list-search__icon'
+        / .articles-list-search
+        /   = inline_svg_tag 'common/search.svg', class: 'articles-list-search__icon'
 
       .articles-filters#filters
         = simple_form_for :'', url: request.fullpath, method: :get do |form|

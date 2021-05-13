@@ -16,9 +16,10 @@ class ArticlesInfiniteScroll extends DocumentInfiniteScroll {
       const queryParams = parse(window.location.search);
       queryParams.page = this.page;
       this.page++;
+      const {category} = _context;
 
       $.ajax({
-        url: `/cms/categories/1/articles/page?${stringify(queryParams)}`,
+        url: `/cms/categories/${category.id}/articles/page?${stringify(queryParams)}`,
         dataType: 'script'
       })
         .done(() => resolve(undefined));

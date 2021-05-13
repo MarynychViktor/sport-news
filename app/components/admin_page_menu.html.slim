@@ -8,7 +8,7 @@
           span.material-icons west
         #admin-menu.admin-submenu__links
           .admin-submenu__link-wrapper
-            a class="admin-submenu__link #{@category.nil? ? 'is-active' : ''}" href="#"
+            = link_to cms_root_path, class: "admin-submenu__link #{@category.nil? ? 'is-active' : ''}" do
               | Home
           - @categories.each.with_index do |category, i|
             .admin-submenu__link-wrapper
