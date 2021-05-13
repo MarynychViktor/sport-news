@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-shared_examples 'render form with errors' do |name, invalid_values|
-  it "renders form with errors when #{name} is not valid" do
+shared_examples 'renders new form with errors' do |name, invalid_values|
+  it "renders :new form with errors when #{name} is not valid" do
     invalid_values.each do |value|
       article_params[name] = value
 
@@ -13,7 +13,7 @@ shared_examples 'render form with errors' do |name, invalid_values|
   end
 end
 
-describe 'POST /cms/categories/:category_id/articles', type: :request, articles: true do
+describe 'POST /cms/categories/:category_id/articles', type: :request, articles: true, create: true do
   context 'when user is admin' do
     let(:user) { create(:user, admin: true) }
     let(:category) { create(:category) }
@@ -37,16 +37,16 @@ describe 'POST /cms/categories/:category_id/articles', type: :request, articles:
     context 'with invalid params' do
       let(:article_params) { attributes_for(:article) }
 
-      include_examples 'render form with errors', 'headline', [nil, 'too short', 1 * 256]
-      include_examples 'render form with errors', 'alt', [nil, 'a' * 4, 1 * 256]
-      include_examples 'render form with errors', 'caption', [nil, 'a' * 4, 1 * 256]
-      include_examples 'render form with errors', 'content', [nil, 'a' * 4, 1 * 4000]
-      include_examples 'render form with errors', 'picture', [nil]
+      include_examples 'renders new form with errors', 'headline', [nil, 'too short', 1 * 256]
+      include_examples 'renders new form with errors', 'alt', [nil, 'a' * 4, 1 * 256]
+      include_examples 'renders new form with errors', 'caption', [nil, 'a' * 4, 1 * 256]
+      include_examples 'renders new form with errors', 'content', [nil, 'a' * 4, 1 * 4000]
+      include_examples 'renders new form with errors', 'picture', [nil]
     end
   end
 end
 
-describe 'POST /cms/categories/:category_id/articles', type: :request, articles: true do
+describe 'POST /cms/categories/:category_id/articles', type: :request, articles: true, create: true do
   context 'when user is not admin' do
     let(:user) { create(:user) }
     let(:category) { create(:category) }
@@ -56,6 +56,12 @@ describe 'POST /cms/categories/:category_id/articles', type: :request, articles:
     it 'renders forbidden response' do
       post cms_category_articles_path(category), params: { article: article_params }
       expect(response).to have_http_status(:forbidden)
+    end
+
+    it 'does not create new article' do
+      articles_count = Article.count
+      post cms_category_articles_path(category), params: { article: article_params }
+      expect(Article.count).to be(articles_count)
     end
   end
 end
