@@ -37,7 +37,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :articles, shallow: true do
+      resources :articles do
         collection do
           get 'page', to: 'articles#page'
         end

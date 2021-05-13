@@ -21,8 +21,8 @@ class Article < ApplicationRecord
   validates :picture, :category_id, presence: true
   after_validation :refresh_picture_on_errors
 
-  after_save    { ArticleIndexerJob.perform_later(:index, id) }
-  after_destroy { ArticleIndexerJob.perform_later(:destroy, id) }
+  after_update { ArticleIndexerJob.perform_later(id.to_s) }
+  after_destroy { ArticleIndexerJob.perform_later(id.to_s) }
 
   def as_indexed_json(options = {})
     content = as_json(only: %i[id location headline content])
@@ -54,12 +54,12 @@ class Article < ApplicationRecord
 
   def self.most_popular(max: 3)
     # TODO: add comments and provide
-    take(max)
+    published.take(max)
   end
 
   def self.most_commented(max: 3)
     # TODO: add comments and provide
-    take(max)
+    published.take(max)
   end
 
   private

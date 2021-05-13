@@ -1,17 +1,28 @@
 class ArticleIndexerJob < ApplicationJob
   queue_as :elasticsearch
 
-  Client = Elasticsearch::Model.client
+  def perform(id)
+    entity = Article.find_by_id(id)
 
-  def perform(operation, model_id)
-    case operation
-    when :index
-      model = Article.find(model_id)
-      Client.index index: 'articles', id: model_id, body: model.as_indexed_json
-    when :destroy
-      Client.delete index: 'articles', id: model_id
-    else
-      raise ArgumentError, "Unknown operation '#{operation}'"
+    if entity.nil? || !entity.published?
+      delete_if_exists(id)
+      return
     end
+
+    reindex(id, body: entity.as_indexed_json)
+  end
+
+  private
+
+  def delete_if_exists(id)
+    client.delete(index: 'articles', id: id) if client.exists?(index: 'articles', id: id)
+  end
+
+  def reindex(id, body:)
+    client.index index: 'articles', id: id, body: body
+  end
+
+  def client
+    @client ||= Elasticsearch::Model.client
   end
 end
