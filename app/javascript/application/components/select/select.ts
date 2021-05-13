@@ -11,7 +11,7 @@ const DEFAULT_CONFIG = {
 
 export class Select {
   public selectize: any;
-  private initSource = new BehaviorSubject<void>(undefined);
+  private initSource = new BehaviorSubject<any>(undefined);
   initialized$ = this.initSource.asObservable();
 
   private changeSource = new ReplaySubject<string>(1);
@@ -28,7 +28,6 @@ export class Select {
     const config = this.prepareConfig();
     this.getSelect().select2(config);
     this.initSource.next(this.getValue());
-    // this.changeSource.next(this.getValue());
     this.setUpListeners();
   }
 
@@ -51,6 +50,7 @@ export class Select {
 
   clear() {
     this.getSelect().empty().trigger('change');
+    this.clearSimpleFormErrors();
   }
 
   disableWithClear() {
@@ -74,7 +74,27 @@ export class Select {
   }
 
   private onChange(value) {
+    if (value) {
+      this.clearSimpleFormErrors()
+    }
+
     this.changeSource.next(value);
+  }
+
+  clearSimpleFormErrors () {
+    const target = document.querySelector(this.selector);
+    const fieldWrapper = target.closest('.field_with_errors');
+
+    if (fieldWrapper) {
+      fieldWrapper.classList.remove('field_with_errors');
+      const error = fieldWrapper.querySelector('.app-input-error');
+
+      if (error) {
+        error.remove();
+      }
+
+      fieldWrapper.querySelector('select').removeAttribute('aria-invalid');
+    }
   }
 
   private prepareConfig() {

@@ -43,7 +43,7 @@ export function createSelect(selector, config) {
   });
 }
 
-function clearSimpleFormErrors (target) {
+export function clearSimpleFormErrors (target) {
   const fieldWrapper = target.closest('.field_with_errors');
 
   if (fieldWrapper) {

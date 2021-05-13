@@ -34,6 +34,12 @@ export class ArticleFormContext {
     this.articleSelect.clear();
   }
 
+  reset() {
+    this.subcategorySelect.clear();
+    this.teamSelect.clear();
+    this.articleSelect.clear();
+  }
+
   destroy() {
     this.categorySelect.destroy();
     this.subcategorySelect.destroy();
@@ -50,6 +56,16 @@ export class ArticleFormContext {
   }
 
   private enableSelectsSynchronization() {
+    this.categorySelect.initialized$
+      .pipe(
+        filter(value => !value),
+        tap(() => {
+          this.subcategorySelect.disable();
+          this.articleSelect.disable();
+          this.teamSelect.disable();
+        })
+      )
+      .subscribe()
     this.categorySelect.changed$.pipe(
       tap((value) => {
         if (!value) {

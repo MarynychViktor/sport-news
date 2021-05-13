@@ -38,7 +38,7 @@ function addArticlesForm() {
   $(formPrototype).after(cloned);
 
   [formPrototype, cloned].forEach(el => ArticleFormContextRegistry.addContext(el.getAttribute('id')));
-  ArticleFormContextRegistry.get(cloned.getAttribute('id')).clear();
+  ArticleFormContextRegistry.get(cloned.getAttribute('id')).reset();
 
   setToggleId(cloned, index + 1);
 
@@ -92,7 +92,7 @@ function addBreakdownForm() {
   $(formPrototype).after(cloned);
 
   [formPrototype, cloned].forEach(el => BreakdownFormContextRegistry.addContext(el.getAttribute('id')));
-  BreakdownFormContextRegistry.get(cloned.getAttribute('id')).clear();
+  BreakdownFormContextRegistry.get(cloned.getAttribute('id')).reset();
 
   setToggleId(cloned, index + 1);
 

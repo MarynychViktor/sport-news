@@ -21,10 +21,9 @@ module Home
     end
 
     def self.build_from(params)
-      params.dup.map do |param|
-        attributes = param.except(:show)
-        breakdown = attributes.empty? ? new : find_or_initialize_by(attributes)
-        breakdown.show = param[:show] || false
+      params.dup.map do |attributes|
+        attributes[:show] ||= false
+        breakdown = new(attributes)
         breakdown
       end
     end

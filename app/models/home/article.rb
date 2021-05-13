@@ -3,7 +3,7 @@ module Home
     belongs_to :article, class_name: '::Article'
     attr_writer :category_id, :subcategory_id, :team_id
 
-    validates :article_id, :category_id, presence: true
+    validates :article_id, presence: true
     validates_inclusion_of :show, in: [true, false]
 
     default_scope { includes(article: %i[category subcategory team]).order(:created_at) }
@@ -29,12 +29,10 @@ module Home
     end
 
     def self.build_from(params)
-      params.map do |attributes|
+      params.dup.map do |attributes|
         attributes[:show] ||= false
-        article = ::Article.find_by_id(attributes[:article_id])
-        home_article = find_or_initialize_by(article: article)
-        home_article.assign_attributes(attributes)
-        home_article
+        article = new(attributes)
+        article
       end
     end
 

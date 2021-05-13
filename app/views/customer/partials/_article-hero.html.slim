@@ -16,7 +16,7 @@
       - articles.each do |article|
         .hero-info
           .hero-info__published
-            | Published / article.published
+            | Published / #{article.published_at.strftime('%d.%m.%Y')}
 
           .hero-info__title
             = article.headline.truncate(30)

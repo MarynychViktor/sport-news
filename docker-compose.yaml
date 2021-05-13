@@ -36,15 +36,6 @@ services:
       - elastic
     volumes:
       - esdata:/usr/share/elasticsearch/data
-#  logstash:
-#    image: logstash:7.12.1
-#    container_name: logstash_container
-#    ports:
-#      - 5046:5046
-#    networks:
-#      - elastic
-#    volumes:
-#    - /home/vmaryn/Downloads/products:/products
 networks:
   elastic:
     driver: bridge

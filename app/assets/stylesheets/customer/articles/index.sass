@@ -1,6 +1,10 @@
 .articles-list
     margin-top: 40px
 
+.articles-empty
+  font-size: 16px
+  color: #b2b2b2
+
 .article-item
   display: flex
   padding: 12px 70px 12px 0
@@ -47,7 +51,7 @@
     background: #EDEDED
 
 .articles-trends
-  margin: 125px 0 50px
+  margin: 0 0 50px
   display: flex
   justify-content: space-between
 
@@ -56,3 +60,11 @@
 
   &-section
     margin-top: 34px
+
+.articles
+  &-list
+    & + .articles-trends
+      margin-top: 125px
+
+  & + .articles-trends
+    margin-top: 125px

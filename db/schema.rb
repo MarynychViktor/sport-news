@@ -16,15 +16,13 @@ ActiveRecord::Schema.define(version: 2021_05_10_134002) do
   enable_extension "plpgsql"
 
   create_table "articles", force: :cascade do |t|
-    t.string "conference"
-    t.string "team"
     t.string "location"
     t.string "headline", null: false
     t.string "alt", null: false
     t.string "caption", null: false
     t.text "content", null: false
     t.string "picture", null: false
-    t.boolean "display_comments", default: true
+    t.boolean "display_comments", default: true, null: false
     t.datetime "published_at"
     t.string "slug", null: false
     t.bigint "category_id", null: false

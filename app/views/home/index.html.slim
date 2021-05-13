@@ -8,45 +8,16 @@ div
   = render 'customer/partials/article-hero', articles: @articles
 
   .hero-articles-preview
-    .hero-article-preview
-      .hero-article-preview__logo-wrapper
-        img.hero-article-preview__logo alt=("article preview") src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmO5OO_bq3z3j__8HpYxph6lM31L3InVcyXA&usqp=CAU" /
-      .hero-article-preview__title
-        | Raiders release
-      .hero-article-preview__text
-        | After a five-year stint with the Oakland Raiders
-      .hero-article-preview__nav
-        span.material-icons east
-
-    .hero-article-preview
-      .hero-article-preview__logo-wrapper
-        img.hero-article-preview__logo alt=("article preview") src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmO5OO_bq3z3j__8HpYxph6lM31L3InVcyXA&usqp=CAU" /
-      .hero-article-preview__title
-        | Raiders release
-      .hero-article-preview__text
-        | After a five-year stint with the Oakland Raiders
-      .hero-article-preview__nav
-        span.material-icons east
-
-    .hero-article-preview
-      .hero-article-preview__logo-wrapper
-        img.hero-article-preview__logo alt=("article preview") src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmO5OO_bq3z3j__8HpYxph6lM31L3InVcyXA&usqp=CAU" /
-      .hero-article-preview__title
-        | Raiders release
-      .hero-article-preview__text
-        | After a five-year stint with the Oakland Raiders
-      .hero-article-preview__nav
-        span.material-icons east
-
-    .hero-article-preview
-      .hero-article-preview__logo-wrapper
-        img.hero-article-preview__logo alt=("article preview") src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmO5OO_bq3z3j__8HpYxph6lM31L3InVcyXA&usqp=CAU" /
-      .hero-article-preview__title
-        | Raiders release
-      .hero-article-preview__text
-        | After a five-year stint with the Oakland Raiders
-      .hero-article-preview__nav
-        span.material-icons east
+    - @highlighted_articles.each do |article|
+      = link_to article_path(article), class: 'hero-article-preview' do
+        .hero-article-preview__logo-wrapper
+          = image_tag article.picture.url, class: 'hero-article-preview__logo', alt: 'article preview'
+        .hero-article-preview__title
+          = article.headline.truncate(17)
+        .hero-article-preview__text
+          = strip_tags_with_spaces(article.content).truncate(40)
+        .hero-article-preview__nav
+          span.material-icons east
 
   - unless @breakdowns.empty?
     .breakdown

@@ -29,6 +29,11 @@ export class BreakdownFormContext {
     this.teamSelect.clear();
   }
 
+  reset() {
+    this.subcategorySelect.clear();
+    this.teamSelect.clear();
+  }
+
   destroy() {
     this.categorySelect.destroy();
     this.subcategorySelect.destroy();

@@ -68,3 +68,20 @@ en:
               too_long: "Content must not contain more than %{count} characters"
             picture:
               blank: "Picture is required"
+
+        home/article:
+          attributes:
+            article_id:
+              blank: "Article is required"
+        home/photo_of_the_day:
+          attributes:
+            picture:
+              blank: "Picture is required"
+            alt:
+              blank: "Alt is required"
+            title:
+              blank: "Title is required"
+            description:
+              blank: "Description is required"
+            author:
+              blank: "Author is required"
