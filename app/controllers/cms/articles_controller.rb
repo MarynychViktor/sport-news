@@ -3,7 +3,7 @@ module CMS
     before_action :find_category, :find_article
 
     def index
-      query_builder = @category.articles.from_query(search_query)
+      query_builder = @category.articles.find_all_by(search_params)
       @articles = paginate(query_builder)
 
       respond_to do |format|
@@ -16,7 +16,7 @@ module CMS
     end
 
     def page
-      query_builder = @category.articles.from_query(search_query)
+      query_builder = @category.articles.find_all_by(search_params)
       @articles = paginate(query_builder)
     end
 
@@ -74,24 +74,19 @@ module CMS
                                       :headline, :content, :display_comments)
     end
 
-    def search_query
-      search_query = { where: search_params.slice(:subcategory_id, :team_id), scopes: [] }
-
-      case search_params[:published]
-      when '1'
-        search_query[:scopes] << :published
-      when '0'
-        search_query[:scopes] << :unpublished
-      end
-
-      search_query
-    end
-
     def search_params
-      %i[subcategory_id team_id published].each_with_object({}) do |next_key, output|
-        param = params[next_key]
-        output[next_key] = param if param && !param.empty?
+      output = %i[subcategory_id team_id published].each_with_object({}) { |(k, v), res| res[k] = v if v && !v.empty? }
+
+      case output[:published]
+      when '1'
+        output[:published] = true
+      when '0'
+        output[:published] = false
+      else
+        output.delete(:published)
       end
+
+      output
     end
   end
 end

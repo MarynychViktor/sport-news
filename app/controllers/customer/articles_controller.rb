@@ -1,13 +1,13 @@
 module Customer
   class ArticlesController < ApplicationController
     def index
-      @most_commented = Article.most_commented(max: 3)
-      @most_popular = Article.most_popular(max: 3)
+      @articles = Article.find_public_by(search_params)
 
-      @articles = Article.from_query(search_params)
+      @most_commented = @articles.most_commented(max: 3)
+      @most_popular = @articles.most_popular(max: 3)
+
       @hero_articles = @articles.take(1)
       @other_articles = @articles.offset(1).take(4)
-      @article = Article.first
     end
 
     def show
@@ -17,8 +17,7 @@ module Customer
     private
 
     def search_params
-      query = params.permit(:category_id, :subcategory_id, :team_id).select { |k, v| v && !v.empty? }
-      { where: query, scopes: %i[published] }
+      params.permit(:category_id, :subcategory_id, :team_id).select { |k, v| v && !v.empty? }.to_hash
     end
   end
 end

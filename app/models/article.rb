@@ -15,6 +15,14 @@ class Article < ApplicationRecord
   scope :unpublished, -> { where(published_at: nil) }
   default_scope { includes(:category).order(updated_at: :desc) }
 
+  scope :with_visible_relations, lambda {
+    unscoped.published.includes(:category, :subcategory, :team)
+            .where(category: { hidden: [false, nil] },
+                   subcategory: { hidden: [false, nil] },
+                   team: { hidden: [false, nil] })
+            .order(updated_at: :desc)
+  }
+
   validates :headline, presence: true, length: { minimum: 10, maximum: 255 }
   validates :alt, :caption, presence: true, length: { minimum: 5, maximum: 255 }
   validates :content, presence: true, length: { minimum: 10, maximum: 4000 }
@@ -47,10 +55,17 @@ class Article < ApplicationRecord
     update!(published_at: nil)
   end
 
-  def self.from_query(params)
-    where_params = params.fetch(:where, {})
-    scopes = params.fetch(:scopes, [])
-    scopes.reduce(self) { |res, n| res.send(n) }.where(where_params)
+  def self.find_articles_by(query = {})
+    where_params = query.transform_keys(&:to_sym)
+                        .slice(:category_id, :subcategory_id, :team_id)
+    scopes = query[:published] ? %i[published] : []
+    find_by_scopes_and_query(where: where_params, scopes: scopes)
+  end
+
+  def self.find_public_articles_by(query = {})
+    where_params = query.transform_keys(&:to_sym)
+                        .slice(:category_id, :subcategory_id, :team_id)
+    find_by_scopes_and_query(where: where_params, scopes: [:with_visible_relations])
   end
 
   def self.most_popular(max: 3)
@@ -64,6 +79,13 @@ class Article < ApplicationRecord
   end
 
   private
+
+  def self.find_by_scopes_and_query(params)
+    where_params = params.fetch(:where, {})
+    scopes = params.fetch(:scopes, [])
+    scopes.unshift :unscoped
+    scopes.reduce(self) { |res, n| res.send(n) }.where(where_params)
+  end
 
   def refresh_picture_on_errors
     return if errors.empty?
