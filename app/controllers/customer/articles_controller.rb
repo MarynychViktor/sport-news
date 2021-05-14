@@ -1,7 +1,7 @@
 module Customer
   class ArticlesController < ApplicationController
     def index
-      @articles = Article.find_public_by(search_params)
+      @articles = Article.find_public_articles_by(search_params)
 
       @most_commented = @articles.most_commented(max: 3)
       @most_popular = @articles.most_popular(max: 3)

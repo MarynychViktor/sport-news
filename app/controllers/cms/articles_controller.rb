@@ -3,7 +3,7 @@ module CMS
     before_action :find_category, :find_article
 
     def index
-      query_builder = @category.articles.find_all_by(search_params)
+      query_builder = @category.articles.find_articles_by(search_params)
       @articles = paginate(query_builder)
 
       respond_to do |format|
@@ -16,7 +16,7 @@ module CMS
     end
 
     def page
-      query_builder = @category.articles.find_all_by(search_params)
+      query_builder = @category.articles.find_articles_by(search_params)
       @articles = paginate(query_builder)
     end
 
