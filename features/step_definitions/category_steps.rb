@@ -15,7 +15,7 @@ And(/^the category is not added/) do
   expect(Category.count).to be(categories_count)
 end
 
-And(/^I see this category with ([\w\s]+) at the top of the list/) do |name|
+And(/^I see this category with ([\w\s]+) name at the top of the list/) do |name|
   top_category = first('.categorized-item__content')
   expect(top_category.text).to eq(name)
 end
