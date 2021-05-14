@@ -3,8 +3,28 @@ import Sortable from 'sortablejs/modular/sortable.core.esm';
 declare const window: any;
 
 enableOrderingForCategories();
+registerCloseListener();
 window.enableOrderingForSubcategories = enableOrderingForSubcategories;
 window.enableOrderingForTeams = enableOrderingForTeams;
+window.registerCloseListener = registerCloseListener;
+
+function registerCloseListener() {
+  document.querySelectorAll('.categorized-item-wrapper').forEach(item => {
+    const onMouseLeave = () => {
+      const menu = item.querySelector('.dropdown-menu.show');
+
+      if (menu) {
+        menu.classList.remove('show');
+      }
+
+      item.removeEventListener('mouseleave', onMouseLeave);
+    };
+
+    item.addEventListener('mouseenter', () => {
+      item.addEventListener('mouseleave', onMouseLeave);
+    });
+  });
+}
 
 function enableOrderingForCategories() {
   makeCategorizedItemSortable({

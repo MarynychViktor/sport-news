@@ -13,9 +13,9 @@ html
     = stylesheet_link_tag 'application', media: 'all'
     = stylesheet_link_tag 'cms', media: 'all'
     = javascript_pack_tag 'application', media: 'all'
-    = javascript_pack_tag 'cms', media: 'all'
     = javascript_include_tag 'ckeditor.js'
     = yield :styles
+    // TODO: check if connected as npm
     script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
   body
     javascript:

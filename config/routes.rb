@@ -49,7 +49,7 @@ Rails.application.routes.draw do
     end
 
     resources :subcategories, only: [] do
-      resources :teams, shallow: true, only: %i[index new edit create update destroy] do
+      resources :teams, only: %i[index new edit create update destroy] do
         member do
           post 'hide', to: 'teams#hide'
           post 'appear', to: 'teams#appear'

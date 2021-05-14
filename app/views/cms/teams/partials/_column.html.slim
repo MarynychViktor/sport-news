@@ -29,16 +29,16 @@
 
                   - other_subcategories.each do |subcategory|
                     - category_link.link do
-                      = link_to subcategory.name, update_category_cms_team_path(team, params: { new_subcategory_id: subcategory.id }), class: 'multi-level-dropdown-link', method: :post, remote: true
+                      = link_to subcategory.name, update_category_cms_subcategory_team_path(@subcategory, team, params: { new_subcategory_id: subcategory.id }), class: 'multi-level-dropdown-link', method: :post, remote: true
 
         - menu.link do
           - if team.hidden?
-            = link_to 'SHOW', appear_cms_team_path(team), class: 'multi-level-dropdown-link', method: :post, remote: true
+            = link_to 'SHOW', appear_cms_subcategory_team_path(@subcategory, team), class: 'multi-level-dropdown-link', method: :post, remote: true
           - else
-            = link_to 'HIDE', hide_cms_team_path(team), class: 'multi-level-dropdown-link', method: :post, remote: true
+            = link_to 'HIDE', hide_cms_subcategory_team_path(@subcategory, team), class: 'multi-level-dropdown-link', method: :post, remote: true
 
         - menu.link do
-          = link_to 'EDIT', edit_cms_team_path(team), class: 'multi-level-dropdown-link', remote: true
+          = link_to 'EDIT', edit_cms_subcategory_team_path(@subcategory, team), class: 'multi-level-dropdown-link', remote: true
 
         - menu.link do
-          = link_to 'DELETE', cms_team_path(team), class: 'multi-level-dropdown-link', method: :delete, remote: true
+          = link_to 'DELETE', cms_subcategory_team_path(@subcategory, team), class: 'multi-level-dropdown-link', method: :delete, remote: true
