@@ -1,0 +1,15 @@
+.app-modal-title
+  = @comment.persisted? ? 'Edit comment' : 'Add new comment'
+
+.app-modal-form
+  = simple_form_for [@article, @comment], remote: true do |form|
+    = form.input :thread_id, as: :hidden
+    = form.input :parent_id, as: :hidden
+    = form.input :content, as: :text,\
+      label: false, input_html: {class: 'app-input comment-dialog-input', rows: 10}, error_html: { class: 'app-input-error' }
+
+    .app-modal-actions
+      button.button-plain data-dismiss="modal" type="button"
+        | Cancel
+      button.button type="submit"
+        | Save

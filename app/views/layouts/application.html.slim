@@ -6,7 +6,7 @@ html
     meta content="width=device-width,initial-scale=1" name="viewport" /
     = csrf_meta_tags
     = csp_meta_tag
-    link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /
+    link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet" /
     link href="https://fonts.gstatic.com" rel="preconnect" /
     link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet" /
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
@@ -28,6 +28,8 @@ html
           #main
             = yield
           .aside
+      = render 'partials/footer'
 
+    = yield :body_append
     = yield :scripts
     = any_login_here if defined?(AnyLogin)

@@ -26,15 +26,26 @@ Dropzone.autoDiscover = false;
 
 $(async () => {
     const [controller, action] = window.controllerContext;
-    import(`../application/pages/${controller}`);
+    (async () => {
+        try {
+            await import(`../application/pages/${controller}`);
+        } catch (e) {
+            console.log(`ooops. ../application/pages/${controller} not found`, action)
+        }
+    })()
 
-    // TODO: refactor!!!!
-    const container = document.querySelector('.categories-menu');
-    console.log('container', container);
-    const ps = new PerfectScrollbar(container);
-    document.querySelectorAll('.sidebar-sub-menu__content').forEach(content => {
-        new PerfectScrollbar(content);
-    });
+    try {
+        // TODO: refactor!!!!
+        const container = document.querySelector('.categories-menu');
+        console.log('container', container);
+        const ps = new PerfectScrollbar(container);
+        document.querySelectorAll('.sidebar-sub-menu__content').forEach(content => {
+            new PerfectScrollbar(content);
+        });
+    } catch (e) {
+        console.log('err', e)
+    }
+
     $('[data-toggle="tooltip"]').tooltip();
 
     document.querySelectorAll('.categories-menu > .sidebar-menu-item')

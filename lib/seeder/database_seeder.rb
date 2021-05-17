@@ -1,3 +1,4 @@
+# TODO: remove
 module Seeder
   class DatabaseSeeder
     def self.seed

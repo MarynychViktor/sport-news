@@ -3,3 +3,11 @@
 
 .article-content
   = raw @article.content
+
+  #comments-container
+
+javascript:
+  $.ajax({
+    url: "/articles/#{@article.id}/comments",
+    dataType: 'script'
+  });

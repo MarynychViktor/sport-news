@@ -40,6 +40,8 @@ gem 'simple_form', '~> 5.0'
 gem 'slim', '~> 4.1.0'
 gem 'view_component', require: 'view_component/engine'
 gem 'sidekiq', '~> 4.1', '>= 4.1.2'
+gem 'ancestry', '~> 2.1'
+gem 'annotate_models', '~> 0.0.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -59,6 +61,7 @@ group :development do
   gem 'any_login'
   gem 'pry-rails'
   gem 'spring'
+  gem 'nokogiri'
 end
 
 group :test do
@@ -73,6 +76,7 @@ group :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rails-controller-testing'
+  gem 'rspec-its'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

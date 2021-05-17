@@ -1,6 +1,10 @@
 module Articles
   class Searcher
-    def search_by_title(query, page: 1, limit: 5)
+    def initialize(query, page: 1, limit: 5)
+      #....
+    end
+
+    def call
       search_result = Elasticsearch::Model.search(build_query(query, page: page, limit: limit), [Article])
 
       total_results = search_result.response[:hits][:total][:value]

@@ -10,7 +10,6 @@ module Users
     end
 
     def after_sign_in_path_for(resource)
-      puts "------------resource"
       if resource.has_role?(:admin)
         cms_root_path
       else

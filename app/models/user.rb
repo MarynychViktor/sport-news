@@ -5,8 +5,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
-  mount_uploader :photo, PhotoUploader
   #  TODO: add uploader to S3
+  mount_uploader :photo, PhotoUploader
+  has_many :comments
 
   validates :first_name, :last_name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :photo, presence: true
@@ -22,5 +23,13 @@ class User < ApplicationRecord
 
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
+  end
+
+  def like_comment(comment)
+    comment.like(self)
+  end
+
+  def dislike_comment(comment)
+    comment.dislike(self)
   end
 end

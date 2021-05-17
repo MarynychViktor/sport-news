@@ -1,0 +1,7 @@
+- if @comment.parent_id
+  | $('.comment[data-id="#{@comment.id}"]').remove()
+- else
+  | $('.comment[data-id="#{@comment.id}"] + .comment-replies').remove()
+    $('.comment[data-id="#{@comment.id}"]').remove()
+
+

@@ -6,6 +6,7 @@ module Home
 
     validates :category_id, presence: true
 
+    # TODO: review, better avoid default
     default_scope { includes(:category, :subcategory, :team).order(:created_at) }
 
     scope :visible, -> { where(show: true) }

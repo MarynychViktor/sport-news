@@ -59,6 +59,6 @@ end
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
 Capybara.default_driver = :selenium_chrome
-Capybara.disable_animation = true
+Capybara.disable_animation = false
 
 World(FactoryBot::Syntax::Methods)

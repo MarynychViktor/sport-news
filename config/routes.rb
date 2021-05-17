@@ -11,7 +11,14 @@ Rails.application.routes.draw do
   end
 
   scope module: :customer do
-    resources :articles
+    resources :articles do
+      resources :comments do
+        member do
+          post 'like', to: 'comments#like'
+          post 'dislike', to: 'comments#dislike'
+        end
+      end
+    end
     resource :search, only: %i[show]
   end
 

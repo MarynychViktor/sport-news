@@ -7,6 +7,7 @@ class Article < ApplicationRecord
   attr_accessor :highlighted_headline
 
   has_many :home_articles, class_name: 'Home::Article', dependent: :destroy
+  has_many :comments, -> { order(updated_at: :desc) }, dependent: :destroy
   belongs_to :category
   belongs_to :subcategory, optional: true
   belongs_to :team, optional: true

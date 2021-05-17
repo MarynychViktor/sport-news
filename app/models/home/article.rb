@@ -28,6 +28,7 @@ module Home
       articles
     end
 
+    # TODO: move logic to builder, ArticleBuilder or etc
     def self.build_from(params)
       params.dup.map do |attributes|
         attributes[:show] ||= false

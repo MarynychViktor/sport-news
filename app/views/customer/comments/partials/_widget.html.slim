@@ -1,0 +1,52 @@
+.comments
+  .comments-container
+    .comments-header
+      .comments-title
+        | COMMENTS (#{@comments[:total]})
+
+      .comments-sort
+        .dropdown
+          button#comments-order.button-plain aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"
+            | Most popular
+          .dropdown-menu aria-labelledby="comments-order"
+            = link_to 'Most popular', article_comments_path(@article, params: {order: :popular}), remote: true, class: 'dropdown-item'
+            = link_to 'Oldest first', article_comments_path(@article, params: {order: :oldest}), remote: true, class: 'dropdown-item'
+            = link_to 'Newest first', article_comments_path(@article, params: {order: :newest}), remote: true, class: 'dropdown-item'
+
+    .comments-content
+      .comments-form
+        .comment-user
+          .comment-user-avatar-wrapper
+            = image_tag 'https://assets.entrepreneur.com/content/3x2/2000/20200429211042-GettyImages-1164615296.jpeg?width=700&crop=2:1', class: 'comment-user-avatar'
+
+        .comments-input-wrapper
+          .comments-input#comment-input contenteditable="true" placeholder="Write a comment"
+          .comments-input-actions.comment-meta-actions
+            = link_to '#', class: 'comment-meta-action comment-button comments-form-cancel' do
+              | Cancel
+            = form_with url: article_comments_path(@article.id), local: false do |f|
+              = f.hidden_field :content, id: 'content-field', name: 'comment[content]'
+              button type="submit" class='comment-meta-action comment-button comments-form-submit'
+                | Submit
+
+      .comments-list
+        - if @comments[:data].empty?
+          .comments-list-empty Comments list is empty
+        - else
+          - @comments[:data].reject { |c| c.parent_id }.each do |comment|
+            = render 'customer/comments/partials/comment-with-reply', comment: comment
+
+    .comments-toggle-container
+      = link_to '#', class: 'comments-toggle comment-button' do
+        .comments-toggle-icon.show-less.material-icons-outlined
+          | keyboard_arrow_up
+        | Show less
+
+      = link_to '#', class: 'comments-toggle comment-button' do
+        | Show more
+        .comments-toggle-icon.material-icons-outlined
+          | keyboard_arrow_down
+
+#modal.modal.fade aria-hidden="true" aria-labelledby="modal" role="dialog" tabindex="-1"
+  .modal-dialog.modal-dialog-centered  role="document"
+    .modal-content.app-modal-content#modal-content
