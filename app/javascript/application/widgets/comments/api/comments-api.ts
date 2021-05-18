@@ -19,6 +19,7 @@ export abstract class CommentsApi {
   abstract createComment(content: string, parentId?: plainParam, threadId?: plainParam): Observable<Comment> ;
   abstract likeComment(comment: Comment): Observable<Comment>;
   abstract dislikeComment(comment: Comment): Observable<Comment>;
+  abstract deleteComment(comment: Comment): Observable<void>;
 
   getCsrfToken() {
     if (!this.csrfToken) {

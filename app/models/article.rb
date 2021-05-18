@@ -56,6 +56,7 @@ class Article < ApplicationRecord
     update!(published_at: nil)
   end
 
+  # TODO: refactor into query object
   def self.find_articles_by(query = {})
     where_params = query.transform_keys(&:to_sym)
                         .slice(:category_id, :subcategory_id, :team_id)

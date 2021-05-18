@@ -36,6 +36,7 @@ export class CommentsComponent extends React.Component<CommentsProps, any> {
     this.handleHideModal = this.handleHideModal.bind(this);
     this.likeComment = this.likeComment.bind(this);
     this.dislikeComment = this.dislikeComment.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
   componentDidMount() {
@@ -112,6 +113,24 @@ export class CommentsComponent extends React.Component<CommentsProps, any> {
     this.setState({showModal: true});
   }
 
+  onDelete(comment: Comment) {
+    const {apiClient} = this.props;
+    const {comments} = this.state;
+
+    apiClient.deleteComment(comment)
+      .subscribe(() => {
+        if (comment.thread_id) {
+          const thread = comments.find(comment => comment.id == comment.thread_id);
+          const index = thread.children.findIndex(comment);
+          thread.splice(index, 1);
+        } else {
+          const index = comments.findIndex(comment);
+          comments.splice(index, 1);
+        }
+        this.setState({comments: comments});
+      })
+  }
+
   likeComment(comment: Comment) {
     const {apiClient} = this.props;
     const {comments} = this.state;
@@ -161,7 +180,9 @@ export class CommentsComponent extends React.Component<CommentsProps, any> {
                                    onEdit={this.onEdit}
                                    likeComment={this.likeComment}
                                    dislikeComment={this.dislikeComment}
-                                   onCreate={this.onCreate} key={comment.id}/>
+                                   onCreate={this.onCreate}
+                                   onDelete={this.onDelete}
+                                   key={comment.id}/>
     );
 
     return (

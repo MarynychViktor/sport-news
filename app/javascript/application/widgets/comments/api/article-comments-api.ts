@@ -70,6 +70,18 @@ export class ArticleCommentsApi extends CommentsApi {
     );
   }
 
+  deleteComment(comment: Comment): Observable<void> {
+    return this.wrapIntoObservable(
+      fetch(`/articles/${this.resource.id}/comments/${comment.id}`, {
+        method: 'DELETE',
+        headers: {
+          "X-CSRF-Token": this.getCsrfToken(),
+          'Content-Type': 'application/json'
+        },
+      })
+    );
+  }
+
   private wrapIntoObservable<T>(fetchRequest: Promise<any>): Observable<T> {
     return new Observable(observer => {
       fetchRequest

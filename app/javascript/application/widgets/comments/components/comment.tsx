@@ -10,6 +10,7 @@ export class Comment extends React.Component<any, any> {
     this.handleComment = this.handleComment.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.toggleReplies = this.toggleReplies.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
   handleComment(event) {
@@ -22,6 +23,12 @@ export class Comment extends React.Component<any, any> {
     event.preventDefault();
     const {onEdit, comment} = this.props;
     onEdit(comment);
+  }
+
+  onDelete(event) {
+    event.preventDefault();
+    const {onDelete, comment} = this.props;
+    onDelete(comment);
   }
 
   toggleReplies(event) {
@@ -71,7 +78,7 @@ export class Comment extends React.Component<any, any> {
               <div className="comment-meta-actions">
                 {authoredByCurrentUser && <a href="#" onClick={this.handleEdit} className="comment-meta-action comment-button">Edit</a>}
                 <a href="#" onClick={this.handleComment} className="comment-meta-action comment-button">Comment</a>
-                {authoredByCurrentUser && <a href="#" className="comment-meta-action comment-button">Delete</a>}
+                {authoredByCurrentUser && <a href="#" onClick={this.onDelete} className="comment-meta-action comment-button">Delete</a>}
               </div>
             </div>
           </div>
