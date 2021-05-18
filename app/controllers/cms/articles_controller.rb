@@ -4,13 +4,12 @@ module CMS
 
     def index
       query_builder = @category.articles.find_articles_by(search_params)
+      @subcategory = Subcategory.find(params[:subcategory_id]) if params[:subcategory_id]
+      @team = Team.find(params[:team_id]) if params[:team_id]
       @articles = paginate(query_builder)
 
       respond_to do |format|
-        format.html do
-          @subcategory = Subcategory.find(params[:subcategory_id]) if params[:subcategory_id]
-          @team = Team.find(params[:team_id]) if params[:team_id]
-        end
+        format.html
         format.json { render json: @articles }
       end
     end

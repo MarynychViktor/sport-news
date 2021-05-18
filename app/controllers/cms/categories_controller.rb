@@ -5,7 +5,8 @@ module CMS
     def index
       respond_to do |format|
         # TODO: refactor
-        format.html { @categories = Category.all }
+        # format.html { @categories = Category.all }
+        # TODO: do we need json
         format.json do
           render json: paginate(Category)
         end

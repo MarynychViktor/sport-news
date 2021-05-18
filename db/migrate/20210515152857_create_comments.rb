@@ -7,8 +7,8 @@ class CreateComments < ActiveRecord::Migration[6.1]
       t.references :parent, null: true, foreign_key: { to_table: :comments }
       t.references :thread, null: true, foreign_key: { to_table: :comments }
       t.references :user, null: false, foreign_key: true
-      # TODO: add polymorphic
-      t.references :article, null: false, foreign_key: true
+      t.bigint :commentable_id
+      t.string :commentable_type
 
       t.timestamps
     end

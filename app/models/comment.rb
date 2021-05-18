@@ -7,8 +7,7 @@ class Comment < ApplicationRecord
 
   has_many :feedbacks, as: :feedbackable
   belongs_to :user
-  #TODO: polymorphic
-  belongs_to :article
+  belongs_to :commentable, polymorphic: true
 
   validates :content, presence: true, length: { minimum: 1, maximum: 255 }
 

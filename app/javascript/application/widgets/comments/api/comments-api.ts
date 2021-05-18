@@ -11,6 +11,13 @@ export interface PaginatedResponse<T = any> {
   last_page: boolean
 }
 
+
+export interface CommentsQuery {
+  page: number,
+  limit?: number,
+  order: 'newest' | 'oldest' | 'popular'
+}
+
 export abstract class StreamableApi {
   protected source = new BehaviorSubject<Comment[]>([]);
   public stream$ = this.source.asObservable();

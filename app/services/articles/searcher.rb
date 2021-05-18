@@ -2,10 +2,14 @@ module Articles
   class Searcher
     def initialize(query, page: 1, limit: 5)
       #....
+      @query = query
+      @page = page
+      @limit = limit
     end
 
     def call
-      search_result = Elasticsearch::Model.search(build_query(query, page: page, limit: limit), [Article])
+      query = build_query(@query, page: @page, limit: @limit)
+      search_result = Elasticsearch::Model.search(query, [Article])
 
       total_results = search_result.response[:hits][:total][:value]
       items = search_result.results.map { |r| map_response_to_model(r) }

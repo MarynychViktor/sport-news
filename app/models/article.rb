@@ -7,13 +7,14 @@ class Article < ApplicationRecord
   attr_accessor :highlighted_headline
 
   has_many :home_articles, class_name: 'Home::Article', dependent: :destroy
-  has_many :comments, -> { order(updated_at: :desc) }, dependent: :destroy
+  has_many :comments, -> { order(updated_at: :desc) }, as: :commentable, dependent: :destroy
   belongs_to :category
   belongs_to :subcategory, optional: true
   belongs_to :team, optional: true
 
   scope :published, -> { where.not(published_at: nil) }
   scope :unpublished, -> { where(published_at: nil) }
+  #TODO: remove default scope
   default_scope { includes(:category).order(updated_at: :desc) }
 
   scope :with_visible_relations, lambda {

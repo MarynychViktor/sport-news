@@ -1,6 +1,7 @@
 module CMS
   class ApplicationController < ActionController::Base
     include Pagination
+    include AuthorizationErrorHandler
 
     layout 'cms'
 
@@ -10,7 +11,7 @@ module CMS
 
     def require_admin_role
       if user_signed_in?
-        head :forbidden unless current_user.has_role?(:admin)
+        head :forbidden unless current_user.admin?
       else
         authenticate_user!
       end

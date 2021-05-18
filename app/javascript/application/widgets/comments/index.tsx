@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { User } from "./model/user";
-import { CommentsApi } from "./api/comments-api";
+import { CommentsApi, CommentsQuery } from "./api/comments-api";
 import { CommentInputComponent } from "./components/comment-input-component";
 import { CommentList } from "./components/comment-list";
 import { Subscription } from "rxjs";
@@ -11,14 +11,15 @@ interface CommentsProps {
   apiClient: CommentsApi
 }
 
-export class CommentsComponent extends React.Component<CommentsProps, any> {
+
+export class CommentsComponent extends React.Component<CommentsProps, any & {query: CommentsQuery}> {
   private subscription: Subscription;
 
   constructor(props) {
     super(props);
     this.state = {
       comments: [],
-      query: {page: 1},
+      query: {page: 1, order: 'popular'},
       hasMoreComments: false,
       total: 0,
     };

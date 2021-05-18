@@ -12,6 +12,8 @@ module Customer
 
     def show
       @article = Article.friendly.find(params[:id])
+      # TODO: catch pundit error and render forbidden or not found
+      authorize @article
     end
 
     private
