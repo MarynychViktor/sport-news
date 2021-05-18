@@ -4,8 +4,8 @@ export class Comment {
   id: number;
   content: string;
   edited: boolean;
-  parent_id?: Comment;
-  thread_id?: Comment;
+  parent_id?: number;
+  thread_id?: number;
   user: User;
   feedbacks: [];
   children?: Comment[];

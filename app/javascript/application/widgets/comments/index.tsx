@@ -3,10 +3,8 @@ import React from 'react'
 import { User } from "./model/user";
 import { CommentsApi } from "./api/comments-api";
 import { CommentInputComponent } from "./components/comment-input-component";
-import { CommentFormComponent } from "./components/comment-form-component";
-import { Comment as CommentComponent } from "./components/comment";
-import { Comment } from "./model/comment";
-import { ModalComponent } from "./components/modal-component";
+import { CommentList } from "./components/comment-list";
+import { Subscription } from "rxjs";
 
 interface CommentsProps {
   currentUser?: User;
@@ -14,6 +12,8 @@ interface CommentsProps {
 }
 
 export class CommentsComponent extends React.Component<CommentsProps, any> {
+  private subscription: Subscription;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -21,169 +21,43 @@ export class CommentsComponent extends React.Component<CommentsProps, any> {
       query: {page: 1},
       hasMoreComments: false,
       total: 0,
-      threadId: null,
-      parentId: null,
-      errors: null,
-      showModal: false,
-      editedComment: null
     };
 
-    this.updateComment = this.updateComment.bind(this);
-    this.createComment = this.createComment.bind(this);
-    this.handleListComments = this.handleListComments.bind(this);
-    this.onCreate = this.onCreate.bind(this);
-    this.onEdit = this.onEdit.bind(this);
-    this.handleHideModal = this.handleHideModal.bind(this);
-    this.likeComment = this.likeComment.bind(this);
-    this.dislikeComment = this.dislikeComment.bind(this);
-    this.onDelete = this.onDelete.bind(this);
+    this.listComments = this.listComments.bind(this);
+    this.onCreateComment = this.onCreateComment.bind(this);
   }
 
   componentDidMount() {
-    this.handleListComments();
+    const {apiClient} = this.props;
+    this.subscription = apiClient.stream$.subscribe((comments) => this.setState({comments}));
+    this.listComments();
   }
 
-  handleHideModal() {
-    this.setState({showModal: false});
+  componentWillUnmount() {
+    this.subscription.unsubscribe();
   }
 
-  handleListComments() {
-    const {query, comments} = this.state;
+  onCreateComment(content: string) {
+    const {apiClient} = this.props;
+    apiClient.createComment(content).subscribe();
+  }
+
+  listComments() {
+    const {query} = this.state;
     const {apiClient} = this.props;
 
     apiClient.listComments(query)
-      .subscribe(({last_page, data, total}) => {
+      .subscribe(({last_page, total}) => {
+        this.setState({total, hasMoreComments: !last_page, query});
         if (!last_page) {
           query.page++;
         }
-
-        comments.push(...data);
-        this.setState({comments, total, hasMoreComments: !last_page, query});
       });
   }
 
-  createComment(content: string) {
-    const {apiClient} = this.props;
-    const {threadId, parentId, comments} = this.state;
-
-    apiClient.createComment(content, parentId, threadId)
-      .subscribe(
-        newComment => {
-          const thread = comments.find(comment => comment.id == newComment.thread_id);
-
-          if (thread) {
-            thread.children.push(newComment);
-          } else {
-            comments.push(newComment);
-          }
-
-          this.setState({comments, errors: null, showModal: false});
-        },
-        (response) => this.setState({errors: response}));
-  }
-
-  updateComment(newContent: string, comment: Comment) {
-    const {apiClient} = this.props;
-    const {comments} = this.state;
-
-    apiClient.updateComment(comment, newContent)
-      .subscribe(updatedComment => {
-          if (updatedComment.thread_id) {
-            const thread = comments.find(comment => comment.id == updatedComment.thread_id);
-            const index = thread.findIndex(comment => comment.id == updatedComment.id);
-            thread[index] = updatedComment
-          } else {
-            const index = comments.findIndex(comment => comment.id == updatedComment.id);
-            comments[index] = updatedComment
-          }
-
-          this.setState({comments, errors: null, showModal: false});
-        },
-        (response) => this.setState({errors: response}));
-  }
-
-  onCreate(comment: Comment) {
-    const threadId = comment.thread_id || comment.id;
-    const parentId = comment.id;
-    this.setState({threadId, parentId, showModal: true, editedComment: null});
-  }
-
-  onEdit(comment: Comment) {
-    this.setState({editedComment: comment});
-    this.setState({showModal: true});
-  }
-
-  onDelete(comment: Comment) {
-    const {apiClient} = this.props;
-    const {comments} = this.state;
-
-    apiClient.deleteComment(comment)
-      .subscribe(() => {
-        if (comment.thread_id) {
-          const thread = comments.find(comment => comment.id == comment.thread_id);
-          const index = thread.children.findIndex(comment);
-          thread.splice(index, 1);
-        } else {
-          const index = comments.findIndex(comment);
-          comments.splice(index, 1);
-        }
-        this.setState({comments: comments});
-      })
-  }
-
-  likeComment(comment: Comment) {
-    const {apiClient} = this.props;
-    const {comments} = this.state;
-
-    apiClient.likeComment(comment).subscribe(updatedComment => {
-        if (updatedComment.thread_id) {
-          const thread = comments.find(comment => comment.id == updatedComment.thread_id);
-          console.log('thread', thread, {...comments}, 'comments');
-          const index = thread.children.findIndex(comment => comment.id == updatedComment.id);
-          thread.children[index] = updatedComment
-        } else {
-          const index = comments.findIndex(comment => comment.id == updatedComment.id);
-          comments[index] = updatedComment
-        }
-
-        this.setState({comments, errors: null, showModal: false});
-      },
-      (response) => this.setState({errors: response}));
-  }
-
-  dislikeComment(comment: Comment) {
-    const {apiClient} = this.props;
-    const {comments} = this.state;
-
-    apiClient.dislikeComment(comment).subscribe(updatedComment => {
-        if (updatedComment.thread_id) {
-          const thread = comments.find(comment => comment.id == updatedComment.thread_id);
-          const index = thread.children.findIndex(comment => comment.id == updatedComment.id);
-          thread.children[index] = updatedComment
-        } else {
-          const index = comments.findIndex(comment => comment.id == updatedComment.id);
-          comments[index] = updatedComment
-        }
-
-        this.setState({comments, errors: null, showModal: false});
-      },
-      (response) => this.setState({errors: response}));
-  }
-
   render() {
-    const {comments, total, errors, showModal, editedComment, hasMoreComments} = this.state;
-    const {currentUser} = this.props;
-
-    const commentElements = comments.map(
-      comment => <CommentComponent currentUser={currentUser}
-                                   comment={comment}
-                                   onEdit={this.onEdit}
-                                   likeComment={this.likeComment}
-                                   dislikeComment={this.dislikeComment}
-                                   onCreate={this.onCreate}
-                                   onDelete={this.onDelete}
-                                   key={comment.id}/>
-    );
+    const {comments, total, hasMoreComments} = this.state;
+    const {currentUser, apiClient} = this.props;
 
     return (
       <div className='comments'>
@@ -206,10 +80,8 @@ export class CommentsComponent extends React.Component<CommentsProps, any> {
           </div>
 
           <div className="comments-content">
-            <CommentInputComponent initialValue='' onSubmit={this.createComment}/>
-            <div className='comments-list'>
-              {commentElements}
-            </div>
+            <CommentInputComponent initialValue='' onSubmit={this.onCreateComment}/>
+            <CommentList currentUser={currentUser} comments={comments} apiClient={apiClient}/>
             {/*TODO: add pagination with show more button*/}
             {
               hasMoreComments && (
@@ -223,22 +95,8 @@ export class CommentsComponent extends React.Component<CommentsProps, any> {
                 </div>
               )
             }
-
-            {/*= link_to '#', class: 'comments-toggle comment-button' do*/}
-            {/*.comments-toggle-icon.show-less.material-icons-outlined*/}
-            {/*| keyboard_arrow_up*/}
-            {/*| Show less*/}
-
-            {/*= link_to '#', class: 'comments-toggle comment-button' do*/}
-            {/*| Show more*/}
-            {/*.comments-toggle-icon.material-icons-outlined*/}
-            {/*| keyboard_arrow_down*/}
           </div>
         </div>
-          <ModalComponent show={showModal} onHide={this.handleHideModal} title={!!editedComment ? 'Edit comment' : 'Add comment'}>
-            <CommentFormComponent errors={errors} comment={editedComment} onSubmit={editedComment ? this.updateComment : this.createComment}
-                                  onCancel={this.handleHideModal}/>
-          </ModalComponent>
       </div>
     );
   }

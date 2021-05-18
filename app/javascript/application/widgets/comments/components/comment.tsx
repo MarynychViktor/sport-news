@@ -1,5 +1,8 @@
 import React from "react";
 import { formatDate } from "../utils/date";
+import { CommentAction } from "./comment-list";
+
+
 
 export class Comment extends React.Component<any, any> {
   constructor(props) {
@@ -7,28 +10,13 @@ export class Comment extends React.Component<any, any> {
     this.state = {
       showReplies: false
     };
-    this.handleComment = this.handleComment.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
     this.toggleReplies = this.toggleReplies.bind(this);
-    this.onDelete = this.onDelete.bind(this);
   }
 
-  handleComment(event) {
+  handleActionRequested(event, name) {
     event.preventDefault();
-    const {onCreate, comment} = this.props;
-    onCreate(comment);
-  }
-
-  handleEdit(event) {
-    event.preventDefault();
-    const {onEdit, comment} = this.props;
-    onEdit(comment);
-  }
-
-  onDelete(event) {
-    event.preventDefault();
-    const {onDelete, comment} = this.props;
-    onDelete(comment);
+    const {dispatchAction, comment} = this.props;
+    dispatchAction(name, comment);
   }
 
   toggleReplies(event) {
@@ -37,7 +25,7 @@ export class Comment extends React.Component<any, any> {
   }
 
   render() {
-    const {currentUser, comment: {user, children, ...comment}, onCreate, onEdit, likeComment, dislikeComment} = this.props;
+    const {currentUser, comment: {user, children, ...comment}, dispatchAction} = this.props;
     const {showReplies} = this.state;
     const authoredByCurrentUser = currentUser && currentUser.id == user.id;
     const hasChildren = children && children.length;
@@ -59,7 +47,7 @@ export class Comment extends React.Component<any, any> {
             <div className="comment-meta">
               <div className="comment-meta-feedback">
                 <div className={`comment-like ${comment.liked_by_current_user && 'is-active'}`}>
-                  <button className="comment-reactions" onClick={() => likeComment(comment)}>
+                  <button className="comment-reactions" onClick={event => this.handleActionRequested(event, CommentAction.Like)}>
                     <span className="material-icons-outlined comment-reactions-icon">
                       thumb_up
                     </span>
@@ -67,7 +55,7 @@ export class Comment extends React.Component<any, any> {
                   </button>
                 </div>
                 <div className={`comment-dislike ${comment.disliked_by_current_user && 'is-active'}`}>
-                  <button className="comment-reactions" onClick={() => dislikeComment(comment)}>
+                  <button className="comment-reactions" onClick={event => this.handleActionRequested(event, CommentAction.Dislike)}>
                     <span className="material-icons-outlined comment-reactions-icon">
                       thumb_down
                     </span>
@@ -76,9 +64,18 @@ export class Comment extends React.Component<any, any> {
                 </div>
               </div>
               <div className="comment-meta-actions">
-                {authoredByCurrentUser && <a href="#" onClick={this.handleEdit} className="comment-meta-action comment-button">Edit</a>}
-                <a href="#" onClick={this.handleComment} className="comment-meta-action comment-button">Comment</a>
-                {authoredByCurrentUser && <a href="#" onClick={this.onDelete} className="comment-meta-action comment-button">Delete</a>}
+                {
+                  authoredByCurrentUser &&
+                  <a href="#" className="comment-meta-action comment-button"
+                     onClick={event => this.handleActionRequested(event, CommentAction.Edit)}>Edit</a>
+                }
+                <a href="#" className="comment-meta-action comment-button"
+                   onClick={event => this.handleActionRequested(event, CommentAction.Reply)}>Comment</a>
+                {
+                  authoredByCurrentUser &&
+                  <a href="#" className="comment-meta-action comment-button"
+                     onClick={event => this.handleActionRequested(event, CommentAction.Delete)}>Delete</a>
+                }
               </div>
             </div>
           </div>
@@ -91,8 +88,8 @@ export class Comment extends React.Component<any, any> {
                 {showReplies && (
                   <React.Fragment>
                     { children.map(children =>
-                      <Comment currentUser={currentUser} onEdit={onEdit} comment={children} key={children.id}
-                               onCreate={onCreate} likeComment={likeComment} dislikeComment={dislikeComment}/>)}
+                      <Comment currentUser={currentUser} dispatchAction={dispatchAction} comment={children}
+                               key={children.id}/>)}
                     <a href='#' className='link' onClick={this.toggleReplies}>Hide replies</a>
                   </React.Fragment>
                 )}
@@ -104,7 +101,3 @@ export class Comment extends React.Component<any, any> {
     );
   }
 }
-//
-// export const CommentComponent = ({currentUser, comment, onClickComment}: any) => {
-//   console.log('comment', comment, currentUser)
-// }

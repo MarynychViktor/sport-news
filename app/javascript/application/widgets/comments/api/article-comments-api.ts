@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { Commentable } from "../model/commentable";
 import { CommentsApi, PaginatedResponse } from "./comments-api";
 import { Comment } from "../model/comment";
+import { tap } from "rxjs/operators";
 
 export class ArticleCommentsApi extends CommentsApi {
   constructor(private resource: Commentable) {
@@ -17,7 +18,11 @@ export class ArticleCommentsApi extends CommentsApi {
           "X-CSRF-Token": this.getCsrfToken(),
         },
       })
-    );
+    ).pipe(
+      tap(({data}) => {
+        const previous = query.page === 1 ? [] : this.source.value;
+        this.source.next([...previous, ...data]);
+      }));
   }
 
   updateComment(comment: Comment, content: string): Observable<any> {
@@ -30,7 +35,11 @@ export class ArticleCommentsApi extends CommentsApi {
         },
         body: JSON.stringify({comment: {content}}),
       })
-    );
+    ).pipe(
+      tap((comment) => {
+        this.replaceSteamComment(comment)
+      })
+    )
   }
 
   createComment(content: string, parentId = '', threadId = ''): Observable<any> {
@@ -43,6 +52,8 @@ export class ArticleCommentsApi extends CommentsApi {
         },
         body: JSON.stringify({comment: {content, parent_id: parentId, thread_id: threadId}}),
       })
+    ).pipe(
+      tap((comment) => this.addCommentToStream(comment))
     );
   }
 
@@ -55,6 +66,8 @@ export class ArticleCommentsApi extends CommentsApi {
           'Content-Type': 'application/json'
         },
       })
+    ).pipe(
+      tap((comment) => this.replaceSteamComment(comment))
     );
   }
 
@@ -67,6 +80,8 @@ export class ArticleCommentsApi extends CommentsApi {
           'Content-Type': 'application/json'
         },
       })
+    ).pipe(
+      tap((comment) => this.replaceSteamComment(comment))
     );
   }
 
@@ -79,28 +94,8 @@ export class ArticleCommentsApi extends CommentsApi {
           'Content-Type': 'application/json'
         },
       })
+    ).pipe(
+      tap(() => this.deleteCommentFromStream(comment))
     );
-  }
-
-  private wrapIntoObservable<T>(fetchRequest: Promise<any>): Observable<T> {
-    return new Observable(observer => {
-      fetchRequest
-        .then((response: any) => {
-          return response.json().then(result => {
-              if (response.status >= 400) {
-                return Promise.reject(result);
-              }
-
-              return Promise.resolve(result);
-            })
-        })
-        .then(result => {
-          observer.next(result);
-          observer.complete();
-        })
-        .catch(error => {
-          observer.error(error)
-        });
-    })
   }
 }
