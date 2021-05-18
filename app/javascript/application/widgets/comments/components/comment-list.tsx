@@ -83,7 +83,11 @@ export class CommentList extends React.Component<any, any> {
     return (
       <React.Fragment>
         <div className='comments-list'>
-          {commentItems}
+          {
+            comments.length ?
+              commentItems :
+              <h3 className='comments-list-empty'>Comments list is empty</h3>
+          }
         </div>
         <ModalComponent show={showModal}
                         onHide={this.handleHideModal}

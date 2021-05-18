@@ -11,6 +11,11 @@ interface CommentsProps {
   apiClient: CommentsApi
 }
 
+const SortingOrders = {
+  popular: 'Most Popular',
+  oldest: 'Oldest first',
+  newest: 'Newest first',
+}
 
 export class CommentsComponent extends React.Component<CommentsProps, any & {query: CommentsQuery}> {
   private subscription: Subscription;
@@ -26,6 +31,7 @@ export class CommentsComponent extends React.Component<CommentsProps, any & {que
 
     this.listComments = this.listComments.bind(this);
     this.onCreateComment = this.onCreateComment.bind(this);
+    this.loadMore = this.loadMore.bind(this);
   }
 
   componentDidMount() {
@@ -40,8 +46,20 @@ export class CommentsComponent extends React.Component<CommentsProps, any & {que
 
   onCreateComment(content: string) {
     const {apiClient} = this.props;
-    apiClient.createComment(content).subscribe(() => {
+    apiClient.createComment(content).subscribe();
+  }
 
+  loadMore(event) {
+    event.preventDefault();
+    this.listComments();
+  }
+
+  changeOrder(event, key: string) {
+    event.preventDefault();
+    const {query} = this.state;
+
+    this.setState({query: {...query, order: key, page: 1}}, () => {
+      this.listComments();
     });
   }
 
@@ -59,7 +77,7 @@ export class CommentsComponent extends React.Component<CommentsProps, any & {que
   }
 
   render() {
-    const {comments, total, hasMoreComments} = this.state;
+    const {comments, total, hasMoreComments, query} = this.state;
     const {currentUser, apiClient} = this.props;
 
     return (
@@ -72,12 +90,16 @@ export class CommentsComponent extends React.Component<CommentsProps, any & {que
             <div className="comments-sort">
               <button id="comments-order" className="button-plain" aria-expanded="false" aria-haspopup="true"
                       data-toggle="dropdown" type="button">
-                Most popular
+                { SortingOrders[query.order] }
               </button>
               <div className="dropdown-menu" aria-labelledby="comments-order">
-                <a href="#" className="dropdown-item">Most popular</a>
-                <a href="#" className="dropdown-item">Oldest first</a>
-                <a href="" className="dropdown-item">Newest first</a>
+                {
+                  Object.keys(SortingOrders).map(key => (
+                    <a href="#" className="dropdown-item" onClick={(event) => this.changeOrder(event, key)} key={key}>
+                      { SortingOrders[key] }
+                    </a>
+                  ))
+                }
               </div>
             </div>
           </div>
@@ -89,7 +111,7 @@ export class CommentsComponent extends React.Component<CommentsProps, any & {que
             {
               hasMoreComments && (
                 <div className="comments-toggle-container">
-                  <a href="#" className='comments-toggle comment-button'>
+                  <a href="#" className='comments-toggle comment-button' onClick={this.loadMore}>
                     Show more
                     <div className="comments-toggle-icon show-less material-icons-outlined">
                       keyboard_arrow_down

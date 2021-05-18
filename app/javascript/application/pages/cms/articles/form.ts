@@ -6,7 +6,6 @@ const categoryId = (document.querySelector('[name="category_id"]') as HTMLInputE
 renderRichTextEditor('#content-field');
 setupSubmitListeners();
 
-
 const subCategorySelect = new Select('#article-subcategory-select', {
   placeholder: 'Select a subcategory',
   ajax: {
@@ -47,12 +46,6 @@ function renderRichTextEditor(selector) {
 
 function setupSubmitListeners() {
   $('.articles-save-button').on('click', () => {
-    // const input = $('#article_picture.untouched');
-    //
-    // if (input) {
-    //   input.remove()
-    // }
-
     $('.articles-form form').submit();
   });
 }

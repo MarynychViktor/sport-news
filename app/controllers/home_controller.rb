@@ -8,6 +8,7 @@ class HomeController < ApplicationController
     @highlighted_articles = Article.published.offset(5).take(4)
 
     @popular_articles = Article.most_popular if @settings&.show_popular_articles
-    @commented_articles = Article.most_commented if @settings&.show_commented_articles
+
+    @commented_articles = Articles::FindMostCommentedQuery.call if @settings&.show_commented_articles
   end
 end

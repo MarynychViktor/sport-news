@@ -2,7 +2,7 @@ module Customer
   class ArticlesController < ApplicationController
     def index
       @articles = Articles::FindQuery.call(search_params, Article.visible.published)
-      @most_commented = Articles::FindMostCommentedQuery.call(4, @articles)
+      @most_commented = Articles::FindMostCommentedQuery.call(params: search_params)
       @most_popular = @articles.most_popular(max: 3)
 
       @hero_articles = @articles.take(1)

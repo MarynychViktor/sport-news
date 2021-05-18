@@ -3,16 +3,15 @@ module Comments
     include CallableQuery
 
     PREDEFINED_ORDERS = {
-      newest: { created_at: :asc },
-      oldest: { created_at: :desc },
+      newest: { created_at: :desc },
+      oldest: { created_at: :asc },
       popular: { children_count: :desc }
     }.freeze
 
     def initialize(relation = Comments.all, order: nil, direction: :desc)
       @relation = relation
-      @order = order
+      @order = order&.to_sym
       @direction = direction
-      super()
     end
 
     def call

@@ -1,9 +1,10 @@
 module CMS
   class ArticlesController < ApplicationController
-    before_action :find_category, :find_article
+    before_action :find_category
+    before_action :find_article, only: %i[update publish unpublish destroy]
 
     def index
-      @articles = Articles::FindQuery.call(search_params, category.articles)
+      result = Articles::FindQuery.call(search_params, @category.articles)
       @articles = paginate(result)
 
       respond_to do |format|
@@ -62,13 +63,12 @@ module CMS
 
     private
 
-    # TODO refactor ugly naming and conditional params check
-    def find_article
-      @article = Article.friendly.find(params[:id]) if params[:id]
+    def find_category
+      @category = Category.includes(subcategories: :teams).find(params[:category_id])
     end
 
-    def find_category
-      @category = Category.includes(subcategories: :teams).find(params[:category_id]) if params[:category_id]
+    def find_article
+      @article = Article.friendly.find(params[:id])
     end
 
     def article_params
@@ -76,11 +76,13 @@ module CMS
                                       :headline, :content, :display_comments)
     end
 
+    # TODO: refactor
     def search_params
       output = %i[subcategory_id team_id published].each_with_object({}) { |(k, v), res| res[k] = v if v && !v.empty? }
-      published_param = output.delete(:published)
 
-      return output if published_param.empty?
+      return output unless output.key? :published
+
+      published_param = output.extract!(:published).fetch(:published)
 
       case published_param
       when '1'

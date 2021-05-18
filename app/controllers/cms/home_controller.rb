@@ -1,4 +1,5 @@
 module CMS
+  # TODO: complete refactoring
   class HomeController < ApplicationController
     layout 'cms'
 

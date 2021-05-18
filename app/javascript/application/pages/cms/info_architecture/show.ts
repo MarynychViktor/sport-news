@@ -1,5 +1,4 @@
 import Sortable from 'sortablejs/modular/sortable.core.esm';
-import { Loader } from '@googlemaps/js-api-loader';
 declare const window: any;
 
 enableOrderingForCategories();
@@ -7,30 +6,6 @@ registerCloseListener();
 window.enableOrderingForSubcategories = enableOrderingForSubcategories;
 window.enableOrderingForTeams = enableOrderingForTeams;
 window.registerCloseListener = registerCloseListener;
-
-
-const loader = new Loader({
-  apiKey: "AIzaSyCfFlMDZQRZujYbOJDz8kJTGyl_BJVCYu8",
-  version: "weekly",
-  libraries: ["places"]
-});
-const mapOptions = {
-  center: {
-    lat: 0,
-    lng: 0
-  },
-  zoom: 4
-};
-loader
-  .load()
-  .then(() => {
-    new google.maps.Map(document.getElementById("map"), mapOptions);
-    console.log('map loaded')
-  })
-  .catch(e => {
-    console.log('err', e)
-    // do something
-  });
 
 function registerCloseListener() {
   document.querySelectorAll('.categorized-item-wrapper').forEach(item => {

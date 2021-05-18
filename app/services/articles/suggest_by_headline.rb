@@ -1,20 +1,21 @@
 module Articles
-  class Searcher
+  class SuggestByHeadline
+    include CallableService
+
     def initialize(query, page: 1, limit: 5)
-      #....
       @query = query
       @page = page
       @limit = limit
     end
 
     def call
-      query = build_query(@query, page: @page, limit: @limit)
-      search_result = Elasticsearch::Model.search(query, [Article])
+      elastic_query = build_elastic_query(@query, page: @page, limit: @limit)
+      search_result = Elasticsearch::Model.search(elastic_query, [Article])
 
       total_results = search_result.response[:hits][:total][:value]
       items = search_result.results.map { |r| map_response_to_model(r) }
 
-      { data: items, total: total_results, page: page, last_page: page * limit >= total_results }
+      { data: items, total: total_results, page: @page, last_page: @page * @limit >= total_results }
     end
 
     private
@@ -25,7 +26,7 @@ module Articles
       model
     end
 
-    def build_query(query_string, page:, limit:)
+    def build_elastic_query(query_string, page:, limit:)
       {
         query: {
           multi_match: {
@@ -46,5 +47,4 @@ module Articles
       }
     end
   end
-
 end

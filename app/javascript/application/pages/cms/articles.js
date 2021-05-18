@@ -1,9 +1,10 @@
 const {controller, action} = window.AppContext.request;
 
-if (!['index', 'show'].includes(action)) {
-  import('./articles1/form');
+console.log('action ***', action);
+if (['new', 'edit', 'create', 'update'].includes(action)) {
+  import('./articles/form');
 }
 
 if ('index' === action) {
-  import('./articles1/index');
+  import('./articles/index');
 }

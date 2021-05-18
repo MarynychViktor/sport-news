@@ -10,9 +10,9 @@ export class ArticleCommentsApi extends CommentsApi {
     super();
   }
 
-  listComments(query: { page: number }): Observable<PaginatedResponse<Comment>> {
+  listComments({page, order}: { page: number, order: string }): Observable<PaginatedResponse<Comment>> {
     return this.wrapIntoObservable(
-      fetch(`/articles/${this.resource.id}/comments`, {
+      fetch(`/articles/${this.resource.id}/comments?page=${page}&order=${order}&limit=10`, {
         method: 'GET',
         headers: {
           "X-CSRF-Token": this.getCsrfToken(),
@@ -20,7 +20,7 @@ export class ArticleCommentsApi extends CommentsApi {
       })
     ).pipe(
       tap(({data}) => {
-        const previous = query.page === 1 ? [] : this.source.value;
+        const previous = page === 1 ? [] : this.source.value;
         this.source.next([...previous, ...data]);
       }));
   }
