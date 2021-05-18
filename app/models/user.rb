@@ -25,11 +25,11 @@ class User < ApplicationRecord
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
-  def like_comment(comment)
-    comment.like(self)
+  def like_comment!(comment)
+    comment.like!(self)
   end
 
-  def dislike_comment(comment)
-    comment.dislike(self)
+  def dislike_comment!(comment)
+    comment.dislike!(self)
   end
 end

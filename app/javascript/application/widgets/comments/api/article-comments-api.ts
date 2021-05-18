@@ -46,6 +46,30 @@ export class ArticleCommentsApi extends CommentsApi {
     );
   }
 
+  likeComment(comment: Comment): Observable<Comment> {
+    return this.wrapIntoObservable(
+      fetch(`/articles/${this.resource.id}/comments/${comment.id}/like`, {
+        method: 'POST',
+        headers: {
+          "X-CSRF-Token": this.getCsrfToken(),
+          'Content-Type': 'application/json'
+        },
+      })
+    );
+  }
+
+  dislikeComment(comment: Comment): Observable<Comment> {
+    return this.wrapIntoObservable(
+      fetch(`/articles/${this.resource.id}/comments/${comment.id}/dislike`, {
+        method: 'POST',
+        headers: {
+          "X-CSRF-Token": this.getCsrfToken(),
+          'Content-Type': 'application/json'
+        },
+      })
+    );
+  }
+
   private wrapIntoObservable<T>(fetchRequest: Promise<any>): Observable<T> {
     return new Observable(observer => {
       fetchRequest

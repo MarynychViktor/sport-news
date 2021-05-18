@@ -12,13 +12,14 @@ Rails.application.routes.draw do
 
   scope module: :customer do
     resources :articles do
-      resources :comments do
+      resources :comments, except: %i[new edit] do
         member do
           post 'like', to: 'comments#like'
           post 'dislike', to: 'comments#dislike'
         end
       end
     end
+
     resource :search, only: %i[show]
   end
 
@@ -48,6 +49,7 @@ Rails.application.routes.draw do
         collection do
           get 'page', to: 'articles#page'
         end
+
         member do
           post 'publish', to: 'articles#publish'
           post 'unpublish', to: 'articles#unpublish'

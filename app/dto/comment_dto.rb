@@ -1,7 +1,8 @@
 class CommentDto
-  attr_accessor :children, :thread, :parent, :content,
+  attr_accessor :children, :thread, :parent, :content
 
-    def initialize(data)
-      @data = data
+  # comment.as_json(include: {user: {}, feedbacks: {}, children: {include: [:user, :feedbacks, :thread, :parent] }, thread: {}, parent: {}})
+    def initialize(comment)
+      @model = comment
     end
 end

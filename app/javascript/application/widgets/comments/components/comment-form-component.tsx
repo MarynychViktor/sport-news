@@ -1,8 +1,8 @@
 import React from "react";
+
 import { Comment } from "../model/comment";
 
-type CommentReplyProps = {comment?: Comment, parent: Comment, thread: Comment, errors?: any,
-  onReply: (content: string, comment?: Comment) => any};
+type CommentReplyProps = {comment?: Comment, errors?: any, onSubmit: (content: string, comment?: Comment) => any, onCancel: () => any};
 
 export class CommentFormComponent extends React.Component<CommentReplyProps, any> {
   constructor(props) {
@@ -24,9 +24,9 @@ export class CommentFormComponent extends React.Component<CommentReplyProps, any
   }
 
   handleSubmit(event) {
-    const {comment} = this.props;
+    const {comment, onSubmit} = this.props;
     event.preventDefault();
-    this.props.onReply(this.state.content, comment);
+    onSubmit(this.state.content, comment);
   }
 
   handleContentChange(event) {
@@ -35,21 +35,21 @@ export class CommentFormComponent extends React.Component<CommentReplyProps, any
 
   render() {
     const {errors} = this.state;
-    const {comment} = this.props;
+    const {comment, onCancel} = this.props;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className={`${errors && 'field_with_errors'}`}>
-          <textarea className={`app-input comment-dialog-input`} rows={10} aria-invalid={errors ? 'true' : 'false'}
-                    onInput={this.handleContentChange} defaultValue={comment && comment.content || ''}/>
-          {errors && <div className='app-input-error'>{ errors.content[0] }</div>}
-        </div>
+        <form onSubmit={this.handleSubmit}>
+          <div className={`${errors && 'field_with_errors'}`}>
+                <textarea className={`app-input comment-dialog-input`} rows={10} aria-invalid={errors ? 'true' : 'false'}
+                          onInput={this.handleContentChange} defaultValue={comment && comment.content || ''}/>
+            {errors && <div className='app-input-error'>{ errors.content[0] }</div>}
+          </div>
 
-        <div className="app-modal-actions">
-          <button className="button-plain" data-dismiss="modal" type="button">Cancel</button>
-          <button className="button">Add</button>
-        </div>
-      </form>
+          <div className="app-modal-actions">
+            <button type='button' className="button-plain" onClick={onCancel}>Cancel</button>
+            <button type='submit'  className="button">Submit</button>
+          </div>
+        </form>
     );
   }
 }

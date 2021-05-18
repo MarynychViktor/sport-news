@@ -15,8 +15,10 @@ export abstract class CommentsApi {
   private csrfToken: string;
 
   abstract listComments(query: {page: number}): Observable<PaginatedResponse<Comment>>;
-  abstract updateComment(comment: Comment, content: string): Observable<any>;
-  abstract createComment(content: string, parentId?: plainParam, threadId?: plainParam): Observable<any> ;
+  abstract updateComment(comment: Comment, content: string): Observable<Comment>;
+  abstract createComment(content: string, parentId?: plainParam, threadId?: plainParam): Observable<Comment> ;
+  abstract likeComment(comment: Comment): Observable<Comment>;
+  abstract dislikeComment(comment: Comment): Observable<Comment>;
 
   getCsrfToken() {
     if (!this.csrfToken) {

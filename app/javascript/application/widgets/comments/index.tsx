@@ -4,8 +4,9 @@ import { User } from "./model/user";
 import { CommentsApi } from "./api/comments-api";
 import { CommentInputComponent } from "./components/comment-input-component";
 import { CommentFormComponent } from "./components/comment-form-component";
-import { CommentComponent } from "./components/comment-component";
+import { Comment as CommentComponent } from "./components/comment";
 import { Comment } from "./model/comment";
+import { ModalComponent } from "./components/modal-component";
 
 interface CommentsProps {
   currentUser?: User;
@@ -18,25 +19,31 @@ export class CommentsComponent extends React.Component<CommentsProps, any> {
     this.state = {
       comments: [],
       query: {page: 1},
-      hasMoreComments: true,
+      hasMoreComments: false,
       total: 0,
-      thread: null,
-      parent: null,
+      threadId: null,
+      parentId: null,
       errors: null,
       showModal: false,
       editedComment: null
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateComment = this.updateComment.bind(this);
+    this.createComment = this.createComment.bind(this);
     this.handleListComments = this.handleListComments.bind(this);
-    this.openReplyForm = this.openReplyForm.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
+    this.onCreate = this.onCreate.bind(this);
     this.onEdit = this.onEdit.bind(this);
+    this.handleHideModal = this.handleHideModal.bind(this);
+    this.likeComment = this.likeComment.bind(this);
+    this.dislikeComment = this.dislikeComment.bind(this);
   }
 
   componentDidMount() {
     this.handleListComments();
-    $('#commentsModal').on('hidden.bs.modal', () => this.setState({showModal: false}));
+  }
+
+  handleHideModal() {
+    this.setState({showModal: false});
   }
 
   handleListComments() {
@@ -54,57 +61,107 @@ export class CommentsComponent extends React.Component<CommentsProps, any> {
       });
   }
 
-  handleSubmit(content: string, comment = null) {
+  createComment(content: string) {
     const {apiClient} = this.props;
-    const {thread, parent} = this.state;
+    const {threadId, parentId, comments} = this.state;
 
-    (
-      comment ?
-        apiClient.updateComment(comment, content) :
-        apiClient.createComment(content, parent && parent.id, thread && thread.id)
-    )
+    apiClient.createComment(content, parentId, threadId)
       .subscribe(
-        res => {
-          this.setState({errors: null});
-          this.toggleModal();
+        newComment => {
+          const thread = comments.find(comment => comment.id == newComment.thread_id);
+
+          if (thread) {
+            thread.children.push(newComment);
+          } else {
+            comments.push(newComment);
+          }
+
+          this.setState({comments, errors: null, showModal: false});
         },
-        (response) => {
-          this.setState({errors: response});
-        });
+        (response) => this.setState({errors: response}));
   }
 
-  // TODO: ugly naming fix
-  openReplyForm(comment: Comment) {
-    const thread = comment.thread || comment;
-    const parent = comment;
-    this.setState({thread, parent});
-    this.toggleModal();
+  updateComment(newContent: string, comment: Comment) {
+    const {apiClient} = this.props;
+    const {comments} = this.state;
+
+    apiClient.updateComment(comment, newContent)
+      .subscribe(updatedComment => {
+          if (updatedComment.thread_id) {
+            const thread = comments.find(comment => comment.id == updatedComment.thread_id);
+            const index = thread.findIndex(comment => comment.id == updatedComment.id);
+            thread[index] = updatedComment
+          } else {
+            const index = comments.findIndex(comment => comment.id == updatedComment.id);
+            comments[index] = updatedComment
+          }
+
+          this.setState({comments, errors: null, showModal: false});
+        },
+        (response) => this.setState({errors: response}));
+  }
+
+  onCreate(comment: Comment) {
+    const threadId = comment.thread_id || comment.id;
+    const parentId = comment.id;
+    this.setState({threadId, parentId, showModal: true, editedComment: null});
   }
 
   onEdit(comment: Comment) {
     this.setState({editedComment: comment});
-    this.toggleModal();
+    this.setState({showModal: true});
   }
 
-  toggleModal() {
-    const {showModal} = this.state;
+  likeComment(comment: Comment) {
+    const {apiClient} = this.props;
+    const {comments} = this.state;
 
-    if (showModal) {
-      ($('#commentsModal') as any).modal('hide');
-    } else {
-      ($('#commentsModal') as any).modal('show');
-    }
+    apiClient.likeComment(comment).subscribe(updatedComment => {
+        if (updatedComment.thread_id) {
+          const thread = comments.find(comment => comment.id == updatedComment.thread_id);
+          console.log('thread', thread, {...comments}, 'comments');
+          const index = thread.children.findIndex(comment => comment.id == updatedComment.id);
+          thread.children[index] = updatedComment
+        } else {
+          const index = comments.findIndex(comment => comment.id == updatedComment.id);
+          comments[index] = updatedComment
+        }
 
-    this.setState({showModal: !showModal});
+        this.setState({comments, errors: null, showModal: false});
+      },
+      (response) => this.setState({errors: response}));
+  }
+
+  dislikeComment(comment: Comment) {
+    const {apiClient} = this.props;
+    const {comments} = this.state;
+
+    apiClient.dislikeComment(comment).subscribe(updatedComment => {
+        if (updatedComment.thread_id) {
+          const thread = comments.find(comment => comment.id == updatedComment.thread_id);
+          const index = thread.children.findIndex(comment => comment.id == updatedComment.id);
+          thread.children[index] = updatedComment
+        } else {
+          const index = comments.findIndex(comment => comment.id == updatedComment.id);
+          comments[index] = updatedComment
+        }
+
+        this.setState({comments, errors: null, showModal: false});
+      },
+      (response) => this.setState({errors: response}));
   }
 
   render() {
-    const {comments, total, thread, parent, errors, showModal, editedComment} = this.state;
+    const {comments, total, errors, showModal, editedComment, hasMoreComments} = this.state;
     const {currentUser} = this.props;
 
     const commentElements = comments.map(
-      comment => <CommentComponent currentUser={currentUser} comment={comment} onEdit={this.onEdit}
-                                   onReply={this.openReplyForm} key={comment.id}/>
+      comment => <CommentComponent currentUser={currentUser}
+                                   comment={comment}
+                                   onEdit={this.onEdit}
+                                   likeComment={this.likeComment}
+                                   dislikeComment={this.dislikeComment}
+                                   onCreate={this.onCreate} key={comment.id}/>
     );
 
     return (
@@ -128,26 +185,39 @@ export class CommentsComponent extends React.Component<CommentsProps, any> {
           </div>
 
           <div className="comments-content">
-            <CommentInputComponent initialValue='' onSubmit={this.handleSubmit}/>
+            <CommentInputComponent initialValue='' onSubmit={this.createComment}/>
             <div className='comments-list'>
               {commentElements}
             </div>
+            {/*TODO: add pagination with show more button*/}
+            {
+              hasMoreComments && (
+                <div className="comments-toggle-container">
+                  <a href="#" className='comments-toggle comment-button'>
+                    Show more
+                    <div className="comments-toggle-icon show-less material-icons-outlined">
+                      keyboard_arrow_down
+                    </div>
+                  </a>
+                </div>
+              )
+            }
+
+            {/*= link_to '#', class: 'comments-toggle comment-button' do*/}
+            {/*.comments-toggle-icon.show-less.material-icons-outlined*/}
+            {/*| keyboard_arrow_up*/}
+            {/*| Show less*/}
+
+            {/*= link_to '#', class: 'comments-toggle comment-button' do*/}
+            {/*| Show more*/}
+            {/*.comments-toggle-icon.material-icons-outlined*/}
+            {/*| keyboard_arrow_down*/}
           </div>
         </div>
-        <div id="commentsModal" className="modal fade" aria-hidden="true" aria-labelledby="modal" role="dialog" tabIndex={-1}>
-          <div className="modal-dialog modal-dialog-centered" role="document">
-            <div className="modal-content app-modal-content" id="modal-content">
-              <div className='app-modal-title'>Add Comment</div>
-              <div className='app-modal-form'>
-                {
-                  showModal &&
-                  <CommentFormComponent errors={errors} parent={parent} thread={thread} comment={editedComment}
-                                        onReply={this.handleSubmit}/>
-                }
-              </div>
-            </div>
-          </div>
-        </div>
+          <ModalComponent show={showModal} onHide={this.handleHideModal} title={!!editedComment ? 'Edit comment' : 'Add comment'}>
+            <CommentFormComponent errors={errors} comment={editedComment} onSubmit={editedComment ? this.updateComment : this.createComment}
+                                  onCancel={this.handleHideModal}/>
+          </ModalComponent>
       </div>
     );
   }

@@ -4,22 +4,8 @@ module Customer
 
     def index
       @article = Article.friendly.find(params[:article_id])
-
-      builder = Comments::FindQuery.call({ article_id: @article.id }, order: params[:order])
-      result = paginate(builder)
-
-      # TODO: add response
-      render json: { **result, data: result[:data]
-          .map  do |comment|
-            comment.as_json(include: {user: {}, feedbacks: {}, children: {include: [:user, :feedbacks, :thread, :parent] }, thread: {}, parent: {}})
-            # comment.as_json(include: [:user, :feedbacks, [children: {include: [:user, :feedbacks, :thread, :parent] }], :thread, :parent])
-          end
-      }
-    end
-
-    def new
-      @article = Article.friendly.find(params[:article_id])
-      @comment = Comment.new(comment_params)
+      @comments = Comments::FindQuery.call({ article_id: @article.id }, order: params[:order])
+      @result = paginate(@comments)
     end
 
     def create
@@ -27,53 +13,41 @@ module Customer
       @comment = Comment.new({ **comment_params.to_hash, article: @article, user: current_user })
 
       if @comment.save
-        render json: @comment
+        render :show
       else
         render json: @comment.errors, status: 400
       end
-    end
-
-    def edit
-      @comment = Comment.find(params[:id])
-      @article = @comment.article
     end
 
     def update
       @comment = Comment.find(params[:id])
 
       if @comment.update(comment_params)
-        render :update
+        render :show
       else
-        head status: 400
+        render json: @comment.errors, status: 400
       end
     end
 
     def like
       @comment = Comment.find(params[:id])
+      current_user.like_comment!(@comment)
 
-      if @comment.like
-      else
-      end
+      render :show
     end
 
     def dislike
       @comment = Comment.find(params[:id])
+      current_user.dislike_comment!(@comment)
 
-      if @comment.dislike
-      else
-      end
+      render :show
     end
 
     def destroy
       @comment = Comment.find(params[:id])
+      @comment.destroy!
 
-      if @comment.destroy
-        respond_to do |format|
-          format.js
-        end
-      else
-        head status: 400
-      end
+      head :ok
     end
 
     private

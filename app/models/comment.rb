@@ -16,16 +16,25 @@ class Comment < ApplicationRecord
 
   scope :with_user_and_children, -> { includes(:user, children: [:user]) }
 
-  def like(user)
-    feedback = user_feedback(user_id: user.id)
-    feedback.positive = true
-    feedback.save
+  def like!(user)
+    feedback = user_feedback(user)
+
+    if !feedback.persisted? || !feedback.positive
+      feedback.positive = true
+      feedback.save!
+    else
+      feedback.destroy!
+    end
   end
 
-  def dislike(user)
-    feedback = user_feedback(user_id: user.id)
-    feedback.positive = false
-    feedback.save
+  def dislike!(user)
+    feedback = user_feedback(user)
+    if !feedback.persisted? || feedback.positive
+      feedback.positive = false
+      feedback.save!
+    else
+      feedback.destroy!
+    end
   end
 
   private
