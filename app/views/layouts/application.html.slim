@@ -10,12 +10,13 @@ html
     link href="https://fonts.gstatic.com" rel="preconnect" /
     link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet" /
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', media: 'all'
     = yield :styles
   body
     // TODO: remove duplications
     javascript:
-      window.controllerContext = ["#{controller_path}", "#{action_name}"]
+      window.setApplicationContext('#{{user: current_user, request: {controller: controller_path, action: action_name}}.to_json.html_safe }')
+
     #app-container
       = render 'partials/header'
       = flash_messages

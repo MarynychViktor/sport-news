@@ -4,7 +4,10 @@
 .article-content
   = raw @article.content
 
-  #comments-container
+  #comments commentable='#{@article.to_json(only: :id)}' commentable-type="article"
+
+- content_for :scripts do
+  = javascript_pack_tag 'comments'
 
 javascript:
   $.ajax({

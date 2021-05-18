@@ -11,7 +11,7 @@ Rails.start();
 ActiveStorage.start();
 
 // TODO: refactor!!!!
-window.$ = require('jquery');
+(window as any).$ = require('jquery');
 require('popper.js');
 require('bootstrap');
 require('slick-carousel');
@@ -22,13 +22,23 @@ require('dropzone');
 require('application');
 require('perfect-scrollbar');
 
-Dropzone.autoDiscover = false;
+(Dropzone as any).autoDiscover = false;
+
+(window as any).setApplicationContext = function (jsonData) {
+    const {user, request} = JSON.parse(jsonData);
+
+    (window as any).AppContext = {
+        user,
+        request
+    }
+}
 
 $(async () => {
-    const [controller, action] = window.controllerContext;
+    const {controller, action} = window.AppContext.request;
     (async () => {
         try {
             await import(`../application/pages/${controller}`);
+            console.log(`../application/pages/${controller}`);
         } catch (e) {
             console.log(`ooops. ../application/pages/${controller} not found`, action)
         }

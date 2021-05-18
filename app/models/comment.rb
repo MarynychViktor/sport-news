@@ -7,11 +7,14 @@ class Comment < ApplicationRecord
 
   has_many :feedbacks, as: :feedbackable
   belongs_to :user
+  #TODO: polymorphic
   belongs_to :article
 
   validates :content, presence: true, length: { minimum: 1, maximum: 255 }
 
   after_update { self.edited = true unless edited }
+
+  scope :with_user_and_children, -> { includes(:user, children: [:user]) }
 
   def like(user)
     feedback = user_feedback(user_id: user.id)

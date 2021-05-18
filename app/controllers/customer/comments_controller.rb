@@ -4,9 +4,17 @@ module Customer
 
     def index
       @article = Article.friendly.find(params[:article_id])
-      Comment.includes(:children).where(article_id: @article.id, parent_id: nil)
 
-      @comments = paginate(Comment.includes(:children).where(article_id: @article.id, parent_id: nil).order(orders(params[:order])))
+      builder = Comments::FindQuery.call({ article_id: @article.id }, order: params[:order])
+      result = paginate(builder)
+
+      # TODO: add response
+      render json: { **result, data: result[:data]
+          .map  do |comment|
+            comment.as_json(include: {user: {}, feedbacks: {}, children: {include: [:user, :feedbacks, :thread, :parent] }, thread: {}, parent: {}})
+            # comment.as_json(include: [:user, :feedbacks, [children: {include: [:user, :feedbacks, :thread, :parent] }], :thread, :parent])
+          end
+      }
     end
 
     def new
@@ -19,11 +27,9 @@ module Customer
       @comment = Comment.new({ **comment_params.to_hash, article: @article, user: current_user })
 
       if @comment.save
-        respond_to do |format|
-          format.js { render :create }
-        end
+        render json: @comment
       else
-        render :new
+        render json: @comment.errors, status: 400
       end
     end
 

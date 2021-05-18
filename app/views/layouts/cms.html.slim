@@ -19,7 +19,8 @@ html
     script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
   body
     javascript:
-      window.controllerContext = ["#{controller_path}", "#{action_name}"]
+      window.setApplicationContext('#{{user: current_user, request: {controller: controller_path, action: action_name}}.to_json.html_safe }')
+
     #admin-container
       - @admin_panel = true
       = render 'partials/header'
