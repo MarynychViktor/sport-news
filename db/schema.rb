@@ -53,10 +53,10 @@ ActiveRecord::Schema.define(version: 2021_05_16_075619) do
     t.bigint "parent_id"
     t.bigint "thread_id"
     t.bigint "user_id", null: false
-    t.bigint "article_id", null: false
+    t.bigint "commentable_id"
+    t.string "commentable_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["article_id"], name: "index_comments_on_article_id"
     t.index ["parent_id"], name: "index_comments_on_parent_id"
     t.index ["thread_id"], name: "index_comments_on_thread_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
@@ -186,7 +186,6 @@ ActiveRecord::Schema.define(version: 2021_05_16_075619) do
   add_foreign_key "articles", "categories"
   add_foreign_key "articles", "subcategories"
   add_foreign_key "articles", "teams"
-  add_foreign_key "comments", "articles"
   add_foreign_key "comments", "comments", column: "parent_id"
   add_foreign_key "comments", "comments", column: "thread_id"
   add_foreign_key "comments", "users"

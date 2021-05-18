@@ -3,20 +3,22 @@ module CMS
     before_action :find_category, :find_article
 
     def index
-      query_builder = @category.articles.find_articles_by(search_params)
-      @subcategory = Subcategory.find(params[:subcategory_id]) if params[:subcategory_id]
-      @team = Team.find(params[:team_id]) if params[:team_id]
-      @articles = paginate(query_builder)
+      @articles = Articles::FindQuery.call(search_params, category.articles)
+      @articles = paginate(result)
 
       respond_to do |format|
-        format.html
+        format.html do
+          @subcategory = Subcategory.find(params[:subcategory_id]) if params[:subcategory_id]
+          @team = Team.find(params[:team_id]) if params[:team_id]
+        end
+
         format.json { render json: @articles }
       end
     end
 
     def page
-      query_builder = @category.articles.find_articles_by(search_params)
-      @articles = paginate(query_builder)
+      result = Articles::FindQuery(search_params, @category.articles)
+      @articles = paginate(result)
     end
 
     def new
@@ -60,6 +62,7 @@ module CMS
 
     private
 
+    # TODO refactor ugly naming and conditional params check
     def find_article
       @article = Article.friendly.find(params[:id]) if params[:id]
     end
@@ -75,14 +78,15 @@ module CMS
 
     def search_params
       output = %i[subcategory_id team_id published].each_with_object({}) { |(k, v), res| res[k] = v if v && !v.empty? }
+      published_param = output.delete(:published)
 
-      case output[:published]
+      return output if published_param.empty?
+
+      case published_param
       when '1'
-        output[:published] = true
+        output[:published?] = :published
       when '0'
-        output[:published] = false
-      else
-        output.delete(:published)
+        output[:published?] = :unpublished
       end
 
       output

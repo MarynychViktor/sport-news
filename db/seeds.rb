@@ -82,26 +82,9 @@ categories.each do |c|
 
     s[:teams].each do |team|
       t = subcategory.teams.create!(name: team[:name])
-      if subcategory.name != 'Premier League'
         10.times do
           FactoryBot.create(:article, category: category, subcategory: subcategory, team: t, published_at: DateTime.current)
         end
-      else
-        article_data = JSON.parse(File.open(Rails.root.join('public', 'news.json')).read)
-        article_data.each do |data|
-          Article.create({
-                           headline: data['headline'],
-                           content: data['content'],
-                           remote_picture_url: data['image_url'],
-                           alt: '__placeholder__',
-                           caption: data['link'],
-                           category_id: subcategory.category_id,
-                           subcategory_id: subcategory.id,
-                           team_id: t.id,
-                           published_at: DateTime.current
-                         })
-        end
-      end
     end
   end
 end

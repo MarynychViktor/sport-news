@@ -2,10 +2,9 @@ module CMS
   class ApplicationController < ActionController::Base
     include Pagination
     include AuthorizationErrorHandler
+    before_action :require_admin_role
 
     layout 'cms'
-
-    before_action :require_admin_role
 
     private
 

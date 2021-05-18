@@ -3,14 +3,14 @@ class ArticleIndexerJob < ApplicationJob
 
   def perform(id)
     logger.info("Starting indexer for article: #{id}")
-    entity = Article.find_by_id(id)
+    article = Article.find_by_id(id)
 
-    if entity.nil? || !entity.published?
+    if article.nil? || !article.published?
       delete_if_exists(id)
       return
     end
 
-    reindex(id, body: entity.as_indexed_json)
+    reindex(id, body: build_body(article))
   end
 
   private
@@ -27,5 +27,11 @@ class ArticleIndexerJob < ApplicationJob
 
   def client
     @client ||= Elasticsearch::Model.client
+  end
+
+  def build_body(article)
+    content = article.as_json(only: %i[id location headline content])
+    content['content'] = ActionController::Base.helpers.strip_tags(content['content'].gsub('><', '> <')).strip
+    content
   end
 end

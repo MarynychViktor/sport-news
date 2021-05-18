@@ -40,7 +40,9 @@ export class CommentsComponent extends React.Component<CommentsProps, any & {que
 
   onCreateComment(content: string) {
     const {apiClient} = this.props;
-    apiClient.createComment(content).subscribe();
+    apiClient.createComment(content).subscribe(() => {
+
+    });
   }
 
   listComments() {

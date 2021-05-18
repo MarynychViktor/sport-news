@@ -7,6 +7,7 @@ class Category < ApplicationRecord
   has_many :teams, through: :subcategories
 
   validates :name, presence: true, length: { minimum: 2, maximum: 100 }, uniqueness: true
+  # todo: review
   scope :with_visible_subcategories_and_teams, lambda {
     visible.includes(subcategories: :teams)
            .where(subcategories: { hidden: [false, nil], teams: { hidden: [false, nil] } })

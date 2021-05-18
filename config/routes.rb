@@ -5,11 +5,6 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  # TODO: remove!
-  namespace :admin do
-    root 'home#index'
-  end
-
   scope module: :customer do
     resources :articles do
       resources :comments, except: %i[new edit] do

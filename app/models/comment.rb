@@ -11,34 +11,10 @@ class Comment < ApplicationRecord
 
   validates :content, presence: true, length: { minimum: 1, maximum: 255 }
 
+  scope :root, -> { where(parent_id: nil) }
+  scope :with_author, -> { includes(:user) }
+  scope :with_children, -> { includes(children: %i[user feedbacks parent thread]) }
+  scope :with_feedbacks, -> { includes(:feedbacks) }
+
   after_update { self.edited = true unless edited }
-
-  scope :with_user_and_children, -> { includes(:user, children: [:user]) }
-
-  def like!(user)
-    feedback = user_feedback(user)
-
-    if !feedback.persisted? || !feedback.positive
-      feedback.positive = true
-      feedback.save!
-    else
-      feedback.destroy!
-    end
-  end
-
-  def dislike!(user)
-    feedback = user_feedback(user)
-    if !feedback.persisted? || feedback.positive
-      feedback.positive = false
-      feedback.save!
-    else
-      feedback.destroy!
-    end
-  end
-
-  private
-
-  def user_feedback(user)
-    feedbacks.find_or_initialize_by(user_id: user.id)
-  end
 end

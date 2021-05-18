@@ -29,6 +29,7 @@ export class CommentInputComponent extends React.Component<CommentFormProps, { c
   handleSubmit(e) {
     e.preventDefault();
     this.props.onSubmit(this.state.content);
+    this.input.current.innerHTML = '';
     this.setState({content: ''});
   }
 
