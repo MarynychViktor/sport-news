@@ -1,6 +1,6 @@
 module Articles
   class VisibleQuery
-    include CallableQuery
+    include Callable
 
     def initialize(relation = Article.all)
       @relation = relation
@@ -8,9 +8,9 @@ module Articles
 
     def call
       @relation.includes(:category, :subcategory, :team)
-              .where(category: { hidden: [false, nil] },
-                     subcategory: { hidden: [false, nil] },
-                     team: { hidden: [false, nil] })
+               .where(category: { hidden: [false, nil] },
+                      subcategory: { hidden: [false, nil] },
+                      team: { hidden: [false, nil] })
     end
   end
 end

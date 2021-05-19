@@ -1,6 +1,6 @@
 module Articles
   class FindQuery
-    include CallableQuery
+    include Callable
 
     def initialize(params, relation = Article.all, order_by: { created_at: :desc })
       @params = params.dup

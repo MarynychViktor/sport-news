@@ -1,6 +1,6 @@
 module Articles
   class FindMostCommentedQuery
-    include CallableQuery
+    include Callable
 
     def initialize(params: {}, limit: 3)
       @relation = Article.all
@@ -12,7 +12,7 @@ module Articles
       @relation.left_joins(:comments)
                .group(:id)
                .where(@params)
-               .order('count(comments.id) desc')
+               .order('COUNT(comments.id) desc')
                .limit(@limit)
     end
   end

@@ -1,7 +1,7 @@
 module CMS
   class ArticlesController < ApplicationController
     before_action :find_category
-    before_action :find_article, only: %i[update publish unpublish destroy]
+    before_action :find_article, only: %i[edit update publish unpublish destroy]
 
     def index
       result = Articles::FindQuery.call(search_params, @category.articles)
@@ -76,7 +76,7 @@ module CMS
                                       :headline, :content, :display_comments)
     end
 
-    # TODO: refactor
+    # TODO: review
     def search_params
       output = %i[subcategory_id team_id published].each_with_object({}) { |(k, v), res| res[k] = v if v && !v.empty? }
 

@@ -1,6 +1,6 @@
 module Articles
   class SuggestByHeadline
-    include CallableService
+    include Callable
 
     def initialize(query, page: 1, limit: 5)
       @query = query
@@ -31,6 +31,7 @@ module Articles
         query: {
           multi_match: {
             query: query_string,
+            # Maybe enable fuzzy search?
             # fuzziness: 1,
             fields: ['headline']
           }

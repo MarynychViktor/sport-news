@@ -1,4 +1,4 @@
-module CallableService
+module Callable
   extend ActiveSupport::Concern
 
   class_methods do

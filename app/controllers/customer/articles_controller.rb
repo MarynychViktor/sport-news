@@ -3,6 +3,8 @@ module Customer
     def index
       @articles = Articles::FindQuery.call(search_params, Article.visible.published)
       @most_commented = Articles::FindMostCommentedQuery.call(params: search_params)
+
+      # TODO: add logic to resolve most popular articles
       @most_popular = @articles.most_popular(max: 3)
 
       @hero_articles = @articles.take(1)

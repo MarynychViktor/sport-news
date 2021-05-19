@@ -2,13 +2,11 @@ module CMS
   class SubcategoriesController < ApplicationController
     before_action :find_category_and_subcategory
 
+    # TODO: review action. Do we need all categories?
     def index
       respond_to do |format|
-        # TODO: refactor
         format.html { @categories = Category.all }
-        format.json do
-          render json: paginate(@category.subcategories)
-        end
+        format.json { render json: paginate(@category.subcategories) }
         format.js do
           @categories = Category.all
           render :column

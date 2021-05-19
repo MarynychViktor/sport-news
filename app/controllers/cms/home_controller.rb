@@ -1,55 +1,27 @@
 module CMS
-  # TODO: complete refactoring
   class HomeController < ApplicationController
     layout 'cms'
 
-    before_action :build_models, :validate_models, only: :create
-
     def index
-      @articles = Home::Article.resolve
-      @breakdowns = Home::Breakdown.resolve
-      @photo_of_the_day = Home::PhotoOfTheDay.instance_or_new
-      @settings = Home::Setting.instance_or_new
+      @main_page = Home::ResolveMainPage.call.result
       @default_category = Category.first
     end
 
     def create
-      ActiveRecord::Base.transaction do
-        Home::Article.upsert_home_articles(@articles)
-        Home::Breakdown.upsert_home_breakdowns(@breakdowns)
-        @photo_of_the_day.save!
-        @settings.save!
-      end
+      response = Home::PersistMainPage.call(page_params[:articles],
+                                            page_params[:breakdowns],
+                                            page_params[:photo_of_the_day],
+                                            page_params[:settings])
 
-      redirect_to cms_root_path
-    end
+      redirect_to cms_root_path and return if response.success?
 
-    private
-
-    def build_models
-      @articles = Home::Article.build_from(page_params[:articles])
-      @breakdowns = Home::Breakdown.build_from(page_params[:breakdowns])
-
-      @photo_of_the_day = Home::PhotoOfTheDay.instance_or_new
-      @photo_of_the_day.assign_attributes(page_params[:photo_of_the_day])
-
-      @settings = Home::Setting.instance_or_new
-      @settings.assign_attributes(page_params[:settings])
-    end
-
-    def validate_models
-      if @articles.all?(&:valid?) &&
-         @breakdowns.all?(&:valid?) &&
-         @photo_of_the_day.valid? &&
-         @settings.valid?
-
-        return
-      end
-
+      @main_page = response.result
       @default_category = Category.first
 
       render :index
     end
+
+    private
 
     def page_params
       params.require(:main_page).permit(

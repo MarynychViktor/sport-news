@@ -1,6 +1,6 @@
 module Comments
   class FindQuery
-    include CallableQuery
+    include Callable
 
     PREDEFINED_ORDERS = {
       newest: { created_at: :desc },

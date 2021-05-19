@@ -11,7 +11,7 @@
     .main-articles
       = render 'partials/section-divider', content: 'MAIN ARTICLES'
       .main-articles-content
-        - @articles.each_with_index do |home_article, index|
+        - @main_page.articles.each_with_index do |home_article, index|
           - article = home_article.article
           - category = article&.category
           - subcategory = article&.subcategory
@@ -59,7 +59,7 @@
     .main-breakdowns
       = render 'partials/section-divider', content: 'BREAKDOWNS'
       .main-breakdowns-content
-        - @breakdowns.each_with_index do |breakdown, index|
+        - @main_page.breakdowns.each_with_index do |breakdown, index|
           = form.simple_fields_for 'breakdowns[]', breakdown do |breakdown_form|
             .main-form.breakdowns-form id="breakdown-form-#{index}" data-index="#{index}"
               .main-form-group.main-form-group--multi
@@ -95,7 +95,7 @@
 
     .main-photo
       = render 'partials/section-divider', content: 'PHOTO OF THE DAY'
-      = form.simple_fields_for :photo_of_the_day, @photo_of_the_day do |photo_form|
+      = form.simple_fields_for :photo_of_the_day, @main_page.photo_of_the_day do |photo_form|
         .main-photo-content
           .main-form-group
             label.app-label
@@ -129,7 +129,7 @@
               label.custom-control-label for="showPhoto" Show on the main page
 
     .main-settings
-      = form.simple_fields_for :settings, @settings do |settings_form|
+      = form.simple_fields_for :settings, @main_page.settings do |settings_form|
         .main-settings-form-content
           .main-settings-form-group.main-form-group
             .main-settings-visibility

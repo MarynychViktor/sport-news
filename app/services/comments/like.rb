@@ -1,6 +1,6 @@
 module Comments
   class Like
-    include CallableService
+    include Callable
 
     def initialize(user:, comment:)
       @user = user
