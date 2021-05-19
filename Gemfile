@@ -41,7 +41,6 @@ gem 'slim', '~> 4.1.0'
 gem 'view_component', require: 'view_component/engine'
 gem 'sidekiq', '~> 4.1', '>= 4.1.2'
 gem 'ancestry', '~> 2.1'
-gem 'annotate_models', '~> 0.0.4'
 gem 'pundit', '~> 1.1'
 
 group :development, :test do
@@ -49,6 +48,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'dotenv-rails'
   gem 'rspec-rails'
+  gem 'annotate', '~> 3.1', '>= 3.1.1'
 end
 
 group :development do
@@ -63,6 +63,8 @@ group :development do
   gem 'pry-rails'
   gem 'spring'
   gem 'nokogiri'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 end
 
 group :test do

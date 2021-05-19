@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_16_075619) do
+ActiveRecord::Schema.define(version: 2021_05_19_171702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,12 @@ ActiveRecord::Schema.define(version: 2021_05_16_075619) do
     t.index ["slug"], name: "index_articles_on_slug", unique: true
     t.index ["subcategory_id"], name: "index_articles_on_subcategory_id"
     t.index ["team_id"], name: "index_articles_on_team_id"
+  end
+
+  create_table "articles_locations", force: :cascade do |t|
+    t.bigint "article_id", null: false
+    t.bigint "location_id", null: false
+    t.index ["article_id", "location_id"], name: "index_articles_locations_on_article_id_and_location_id", unique: true
   end
 
   create_table "categories", force: :cascade do |t|
@@ -121,6 +127,14 @@ ActiveRecord::Schema.define(version: 2021_05_16_075619) do
     t.string "commented_articles_period", default: "day", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "place_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["place_id"], name: "index_locations_on_place_id", unique: true
   end
 
   create_table "roles", force: :cascade do |t|

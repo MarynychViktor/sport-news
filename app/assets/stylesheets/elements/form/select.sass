@@ -1,7 +1,19 @@
 .selectize-input
   border: 1px solid #D4D9E2
   box-shadow: none
+  height: 35px
   border-radius: 0
+  padding: 7px 35px 5px 20px
+
+  .item
+    white-space: nowrap
+    text-overflow: ellipsis
+    overflow: hidden
+    max-width: 92%
+
+  &.full
+    input
+      top: -2px
 
   &.dropdown-active
     border-radius: 0

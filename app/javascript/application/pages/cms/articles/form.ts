@@ -27,8 +27,39 @@ const teamSelect = new Select('#article-team-select', {
     },
   },
 });
-const locationSelect = new Select('#article_location');
-subCategorySelect.changed$.subscribe(() => teamSelect.clear());
+// const locationSelect = new Select('#article_location');
+// subCategorySelect.changed$.subscribe(() => teamSelect.clear());
+let locationSelectize = null;
+const articleSelect = $('#article_location').selectize({
+  valueField: 'place_id',
+  labelField: 'description',
+  searchField: 'description',
+  create: false,
+  options: [],
+  initialize: function () {
+    console.log('ocation selectize', this);
+    locationSelectize = this;
+  },
+  onLoad: function () {
+    console.log('on load fired')
+    locationSelectize.open();
+  },
+  load: (query, callback) => {
+    if (!query.length) {
+      callback();
+    }
+    fetch(`/cms/places?query=${query}`)
+      .then(res => res.json())
+      .then(res => {
+          console.log('res', res);
+          locationSelectize.clearOptions();
+          callback(res);
+        }
+      );
+    console.log('query selectize', query)
+  }
+});
+locationSelectize = articleSelect[0].selectize;
 
 function renderRichTextEditor(selector) {
   const field  = document.querySelector('#article_content') as HTMLInputElement;

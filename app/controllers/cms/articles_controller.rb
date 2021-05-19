@@ -18,7 +18,7 @@ module CMS
     end
 
     def page
-      result = Articles::FindQuery(search_params, @category.articles)
+      result = Articles::FindQuery.call(search_params, @category.articles)
       @articles = paginate(result)
     end
 
@@ -27,9 +27,10 @@ module CMS
     end
 
     def create
-      @article = @category.articles.create(article_params)
+      response = Articles::Create.call(@category, article_params)
+      @article = response.result
 
-      if @article.valid?
+      if response.success?
         redirect_to cms_category_articles_url(@category)
       else
         render :new
@@ -37,9 +38,10 @@ module CMS
     end
 
     def update
-      @article.update(article_params)
+      response = Articles::Update.call(@category, @article, article_params)
+      @article = response.result
 
-      if @article.valid?
+      if response.success?
         redirect_to cms_category_articles_url(@category)
       else
         render :edit

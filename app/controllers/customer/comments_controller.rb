@@ -1,4 +1,10 @@
 module Customer
+  # TODOS:
+  # 1. Show login dialog on guest comment attempt
+  # 2. Setup article `disable comments functionality`
+  # 3. Article autocomplete google functionality
+  # 4. Delete resource confirmation dialog
+  # 5. Notifications on event/errors
   class CommentsController < ApplicationController
     before_action :authenticate_user!, except: %i[index]
     before_action :find_comment, only: %i[update like dislike destroy]

@@ -1,3 +1,27 @@
+# == Schema Information
+#
+# Table name: home_breakdowns
+#
+#  id             :bigint           not null, primary key
+#  show           :boolean          default(TRUE), not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  category_id    :bigint           not null
+#  subcategory_id :bigint
+#  team_id        :bigint
+#
+# Indexes
+#
+#  index_home_breakdowns_on_category_id     (category_id)
+#  index_home_breakdowns_on_subcategory_id  (subcategory_id)
+#  index_home_breakdowns_on_team_id         (team_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (category_id => categories.id)
+#  fk_rails_...  (subcategory_id => subcategories.id)
+#  fk_rails_...  (team_id => teams.id)
+#
 module Home
   class Breakdown < ApplicationRecord
     belongs_to :category

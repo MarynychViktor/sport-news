@@ -10,6 +10,6 @@ class CommentPolicy < ApplicationPolicy
   private
 
   def author?
-    @record.user_id == @user.id
+    @record.user_id == @user&.id
   end
 end

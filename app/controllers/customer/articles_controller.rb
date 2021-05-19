@@ -13,7 +13,7 @@ module Customer
 
     def show
       @article = Article.friendly.find(params[:id])
-      authorize @article
+      authorize @article, :show?
     end
 
     private

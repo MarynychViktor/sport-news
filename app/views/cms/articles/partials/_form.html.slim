@@ -23,7 +23,7 @@
 
     .multi-item
       = form.input :location, input_html: { class: 'app-form-select app-form-select--selectize'},\
-        collection: [["Select", nil], ["opt1", "1"],["opt2","2"],["opt3", "3"]],\
+        collection: [@article.location ? [@article.location.title.truncate(35), @article.location.place_id] : ['Type location', nil]],\
         label_html: { class: "app-label" }, \
         include_blank: false, error_html: { class: 'app-input-error' }
 

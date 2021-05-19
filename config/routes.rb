@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     post '/', to: 'home#create'
     post '/add_article/:index', to: 'home#add_new_article'
 
+    resources :places, only: %i[index]
+
     resources :categories, only: %i[index new create edit update destroy] do
       member do
         post 'hide', to: 'categories#hide'
