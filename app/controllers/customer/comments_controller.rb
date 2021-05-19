@@ -13,9 +13,11 @@ module Customer
     def create
       @article = Article.friendly.find(params[:article_id])
       authorize @article, :comment?
-      @comment = Comment.new({ **comment_params.to_hash, commentable: @article, user: current_user })
+      response = Comments::Add.call(to: @article, user: current_user, content: comment_params[:content],
+                                    parent_id: comment_params[:parent_id])
+      @comment = response.result
 
-      if @comment.save
+      if response.success?
         render :show
       else
         render json: @comment.errors, status: 400
@@ -57,7 +59,7 @@ module Customer
     end
 
     def comment_params
-      params.require(:comment).permit(:content, :parent_id, :thread_id)
+      params.require(:comment).permit(:content, :parent_id)
     end
   end
 end
