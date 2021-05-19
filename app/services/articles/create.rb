@@ -12,7 +12,8 @@ module Articles
 
     def call
       ActiveRecord::Base.transaction do
-        @article = @category.articles.create!(@params)
+        @article = @category.articles.new(@params)
+        @article.save!
         resolve_location
       end
       success(@article)
