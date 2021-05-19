@@ -43,9 +43,8 @@ class Article < ApplicationRecord
     update!(published_at: nil)
   end
 
-  # TODO: refactor to query object
+  # TODO: refactor to query object and add logic to track popularity
   def self.most_popular(max: 3)
-    # TODO: add comments and provide
     published.take(max)
   end
 
