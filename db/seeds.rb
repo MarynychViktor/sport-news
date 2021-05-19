@@ -6,10 +6,12 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 #
-# TODO: refactor
+
 ['Lifestyle', 'Dealbook', 'Video', 'Team hub'].each do |name|
   Category.create!(name: name, static: true)
 end
+
+# TODO: refactor and remove after testing
 categories = [
   {
     category: 'NBA',
@@ -75,31 +77,21 @@ categories = [
     ]
   }
 ]
-categories.each do |c|
-  category = Category.create!(name: c[:category])
-  c[:subcategories].each do |s|
-    subcategory = category.subcategories.create!(name: s[:name])
 
-    s[:teams].each do |team|
-      t = subcategory.teams.create!(name: team[:name])
-        10.times do
-          FactoryBot.create(:article, category: category, subcategory: subcategory, team: t, published_at: DateTime.current)
-        end
+categories.each do |category_descriptor|
+  category = Category.create!(name: category_descriptor[:category])
+  category_descriptor[:subcategories].each do |subcategory_descriptor|
+    subcategory = category.subcategories.create!(name: subcategory_descriptor[:name])
+
+    subcategory_descriptor[:teams].each do |team_descriptor|
+      team = subcategory.teams.create!(name: team_descriptor[:name])
+      15.times do
+        FactoryBot.create(:article, category: category, subcategory: subcategory, team: team,
+                                    published_at: DateTime.current)
+      end
     end
   end
 end
-
-# Team.all.each do |team|
-#   subcategory = team.subcategory
-#   category = subcategory.category
-#   next if subcategory.name == 'Premier League'
-#
-#   25.times do
-#     FactoryBot.create(:article, category: category, subcategory: subcategory, team: team)
-#   end
-# end
-
-
 
 
 User.create!(

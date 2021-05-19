@@ -42,6 +42,12 @@ gem 'view_component', require: 'view_component/engine'
 gem 'sidekiq', '~> 4.1', '>= 4.1.2'
 gem 'ancestry', '~> 2.1'
 gem 'pundit', '~> 1.1'
+# Latest stable version has error with Google::Apis::StorageV1::StorageService#copy_object
+gem 'fog-google', git: 'git://github.com/fog/fog-google', branch: "master"
+# Enabled faked and factory_bot_rails in production to seed demo with fake data
+# TODO: move to test group
+gem 'factory_bot_rails'
+gem 'faker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -76,8 +82,6 @@ group :test do
   gem 'webdrivers'
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
-  gem 'factory_bot_rails'
-  gem 'faker'
   gem 'rails-controller-testing'
   gem 'rspec-its'
 end
