@@ -9,7 +9,7 @@ module Articles
     end
 
     def call
-      published = @params.extract!(:published).fetch(:published, nil)
+      published = @params.delete(:published?)
       query = @relation.where(@params)
       query = published ? query.public_send(published) : query
       query.order(@order_by)

@@ -80,20 +80,22 @@ module CMS
 
     # TODO: review
     def search_params
-      output = %i[subcategory_id team_id published].each_with_object({}) { |(k, v), res| res[k] = v if v && !v.empty? }
+      search_query = params.permit(:subcategory_id, :team_id, :published)
+                           .select {|k, v| v && !v.empty? }
+      published_param = search_query.delete(:published)
 
-      return output unless output.key? :published
 
-      published_param = output.extract!(:published).fetch(:published)
+      return search_query unless published_param
+
 
       case published_param
       when '1'
-        output[:published?] = :published
+        search_query[:published?] = :published
       when '0'
-        output[:published?] = :unpublished
+        search_query[:published?] = :unpublished
       end
 
-      output
+      search_query
     end
   end
 end
