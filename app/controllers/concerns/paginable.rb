@@ -1,4 +1,4 @@
-module Pagination
+module Paginable
   extend ActiveSupport::Concern
 
   # TODO: review. Maybe provide more comfortable api

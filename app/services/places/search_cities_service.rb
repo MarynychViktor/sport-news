@@ -1,5 +1,6 @@
+# frozen_string_literal: true
 module Places
-  class SearchCities
+  class SearchCitiesService
     include Service
 
     def initialize(query)

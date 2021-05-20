@@ -1,6 +1,6 @@
 module CMS
   class ApplicationController < ActionController::Base
-    include Pagination
+    include Paginable
     include AuthorizationErrorHandler
     before_action :require_admin_role
 

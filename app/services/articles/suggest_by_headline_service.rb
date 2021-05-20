@@ -1,5 +1,5 @@
 module Articles
-  class SuggestByHeadline
+  class SuggestByHeadlineService
     include Callable
 
     def initialize(query, page: 1, limit: 5)

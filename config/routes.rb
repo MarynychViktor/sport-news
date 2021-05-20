@@ -3,9 +3,9 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
 
-  root 'home#index'
+  # scope '/:locale' do
+    root 'home#index'
 
-  scope module: :customer do
     resources :articles do
       resources :comments, except: %i[new edit] do
         member do
@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     end
 
     resource :search, only: %i[show]
-  end
+  # end
 
   namespace :cms do
     root 'home#index'

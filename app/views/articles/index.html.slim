@@ -4,7 +4,7 @@
       | No matched articles
 - else
   .articles
-    = render 'customer/partials/article-hero', articles: @hero_articles
+    = render 'partials/article-hero', articles: @hero_articles
 
   - unless @other_articles.empty?
     .articles-list
@@ -33,7 +33,7 @@
 
         .articles-trends-section.trending-item-group
           - @most_popular.each do |article|
-            = render 'customer/partials/trending-article', article: article
+            = render 'partials/trending-article', article: article
 
     - unless @most_commented.empty?
       .articles-trends-commented
@@ -44,4 +44,4 @@
 
         .articles-trends-section.trending-item-group
           - @most_commented.each do |article|
-            = render 'customer/partials/trending-article', article: article
+            = render 'partials/trending-article', article: article

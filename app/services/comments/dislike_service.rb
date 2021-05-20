@@ -1,5 +1,5 @@
 module Comments
-  class Like
+  class DislikeService
     include Callable
 
     def initialize(user:, comment:)
@@ -10,8 +10,8 @@ module Comments
     def call
       feedback = @comment.feedbacks.find_or_initialize_by(user_id: @user.id)
 
-      if !feedback.persisted? || !feedback.positive
-        feedback.positive = true
+      if !feedback.persisted? || feedback.positive
+        feedback.positive = false
         feedback.save!
       else
         feedback.destroy!

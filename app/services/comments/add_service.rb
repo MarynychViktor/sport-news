@@ -1,5 +1,5 @@
 module Comments
-  class Add
+  class AddService
     include Service
 
     def initialize(to:, user:, content:, parent_id: nil)

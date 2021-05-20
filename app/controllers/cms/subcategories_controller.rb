@@ -1,16 +1,14 @@
 module CMS
   class SubcategoriesController < ApplicationController
     before_action :find_category_and_subcategory
+    before_action :retrieve_categories, only: %i[index create appear hide update update_category destroy]
 
     # TODO: review action. Do we need all categories?
     def index
       respond_to do |format|
-        format.html { @categories = Category.all }
+        format.html
         format.json { render json: paginate(@category.subcategories) }
-        format.js do
-          @categories = Category.all
-          render :column
-        end
+        format.js { render :column }
       end
     end
 
@@ -23,7 +21,7 @@ module CMS
       @subcategory = Subcategory.create(subcategory_params)
 
       if @subcategory.valid?
-        render_column
+        render :column
       else
         render :form
       end
@@ -31,12 +29,12 @@ module CMS
 
     def appear
       @subcategory.appear!
-      render_column
+      render :column
     end
 
     def hide
       @subcategory.hide!
-      render_column
+      render :column
     end
 
     def edit
@@ -47,7 +45,7 @@ module CMS
       @subcategory.update(subcategory_params)
 
       if @subcategory.valid?
-        render_column
+        render :column
       else
         render :form
       end
@@ -58,7 +56,7 @@ module CMS
 
       if @subcategory.category_id != @new_category.id
         @subcategory.update!(category_id: @new_category.id)
-        render_column
+        render :column
       else
         head status: 403
       end
@@ -71,7 +69,7 @@ module CMS
 
     def destroy
       @subcategory.destroy!
-      render_column
+      render :column
     end
 
     private
@@ -80,9 +78,8 @@ module CMS
       params.require(:subcategory).permit(:name, :category_id)
     end
 
-    def render_column
+    def retrieve_categories
       @categories = Category.all
-      render :column
     end
 
     def find_category_and_subcategory

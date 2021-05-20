@@ -27,7 +27,7 @@ module CMS
     end
 
     def create
-      response = Articles::Create.call(@category, article_params)
+      response = Articles::CreateService.call(@category, article_params)
       @article = response.result
 
       if response.success?
@@ -38,7 +38,7 @@ module CMS
     end
 
     def update
-      response = Articles::Update.call(@category, @article, article_params)
+      response = Articles::UpdateService.call(@category, @article, article_params)
       @article = response.result
 
       if response.success?
