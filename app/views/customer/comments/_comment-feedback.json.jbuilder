@@ -1,5 +1,5 @@
-json.likes comment.feedbacks.select {|f| f.positive}.count
-json.dislikes comment.feedbacks.reject {|f| f.positive}.count
+json.likes comment.feedbacks.select(&:positive).count
+json.dislikes comment.feedbacks.reject(&:positive).count
 
 if user_signed_in?
   current_user_feedback = comment.feedbacks.find { |feedback| feedback.user_id == current_user.id }

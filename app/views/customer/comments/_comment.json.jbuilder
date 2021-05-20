@@ -4,18 +4,10 @@ json.edited comment.edited
 json.created_at comment.created_at
 json.thread_id comment.thread_id
 json.parent_id comment.parent_id
-json.likes comment.feedbacks.select {|f| f.positive}.count
-json.dislikes comment.feedbacks.reject {|f| f.positive}.count
+json.likes comment.feedbacks.select(&:positive).count
+json.dislikes comment.feedbacks.reject(&:positive).count
 
 json.partial! 'comment-feedback', comment: comment
-# if user_signed_in?
-#   current_user_feedback = comment.feedbacks.find { |feedback| feedback.user_id == current_user.id }
-#   if current_user_feedback
-#     json.liked_by_current_user current_user_feedback.positive
-#     json.disliked_by_current_user !current_user_feedback.positive
-#   end
-# end
-
 json.partial! 'comment-user', user: comment.user
 
 json.children comment.children do |children|

@@ -4,7 +4,8 @@ module Home
 
     attr_accessor :articles, :breakdowns, :photo_of_the_day, :settings
 
-    validates_with ActiveRecord::Validations::AssociatedValidator, attributes: %i[articles breakdowns photo_of_the_day settings]
+    validates_with ActiveRecord::Validations::AssociatedValidator,
+                   attributes: %i[articles breakdowns photo_of_the_day settings]
 
     def initialize
       @articles = []

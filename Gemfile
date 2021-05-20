@@ -40,7 +40,6 @@ gem 'simple_form', '~> 5.0'
 gem 'slim', '~> 4.1.0'
 gem 'view_component', require: 'view_component/engine'
 gem 'sidekiq', '~> 4.1', '>= 4.1.2'
-gem 'ancestry', '~> 2.1'
 gem 'pundit', '~> 1.1'
 # Latest stable version has error with Google::Apis::StorageV1::StorageService#copy_object
 gem 'fog-google', git: 'git://github.com/fog/fog-google', branch: "master"
