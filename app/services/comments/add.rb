@@ -6,7 +6,7 @@ module Comments
       @commentable = to
       @user = user
       @content = content
-      @parent_id = parent_id
+      @parent_id = parent_id if parent_id && !parent_id.to_s.empty?
     end
 
     def call
