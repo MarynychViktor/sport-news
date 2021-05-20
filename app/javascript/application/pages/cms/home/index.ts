@@ -10,15 +10,16 @@ function initArticleForms() {
       .forEach(form => ArticleFormContextRegistry.addContext(form.getAttribute('id')));
 
   document.querySelector('.main-articles-form-add').addEventListener('click', addArticlesForm);
+  toggleAddFormButton('.main-articles-form-add-wrapper', document.querySelectorAll('.main-articles-form').length < 5);
 
   $(document).on('click', '.main-articles-form-remove', (e) => {
     e.target.closest('.main-articles-form').remove();
-    toggleAddFormButton(true);
+    toggleAddFormButton('.main-articles-form-add-wrapper', true);
   });
 }
 
-function toggleAddFormButton(show: boolean) {
-  const addLinkWrapper = document.querySelector('.main-articles-form-add-wrapper') as HTMLElement;
+function toggleAddFormButton(selector, show: boolean) {
+  const addLinkWrapper = document.querySelector(selector) as HTMLElement;
   if (show) {
     addLinkWrapper.style.display = 'block';
   } else if (addLinkWrapper.style.display !== 'none') {
@@ -42,7 +43,7 @@ function addArticlesForm() {
 
   setToggleId(cloned, index + 1);
 
-  toggleAddFormButton(forms.length < 4);
+  toggleAddFormButton('.main-articles-form-add-wrapper', forms.length < 4);
 }
 
 function setToggleId(target: HTMLElement, id: number) {
@@ -62,22 +63,14 @@ function initBreakdownForms() {
       .forEach(form => BreakdownFormContextRegistry.addContext(form.getAttribute('id')));
 
   document.querySelector('.breakdown-form-add').addEventListener('click', addBreakdownForm);
+  toggleAddFormButton('.breakdowns-form-add-wrapper', document.querySelectorAll('.breakdowns-form').length < 3);
 
   $(document).on('click', '.breakdown-form-remove', (e) => {
     e.target.closest('.breakdowns-form').remove();
-    toggleAddBreakdownFormButton(true);
+    toggleAddFormButton('.breakdowns-form-add-wrapper', true);
   });
 }
 
-
-function toggleAddBreakdownFormButton(show: boolean) {
-  const addLinkWrapper = document.querySelector('.breakdowns-form-add-wrapper') as HTMLElement;
-  if (show) {
-    addLinkWrapper.style.display = 'block';
-  } else if (addLinkWrapper.style.display !== 'none') {
-    addLinkWrapper.style.display = 'none';
-  }
-}
 
 function addBreakdownForm() {
   const forms = document.querySelectorAll('.breakdowns-form');
@@ -93,7 +86,6 @@ function addBreakdownForm() {
   [formPrototype, cloned].forEach(el => BreakdownFormContextRegistry.addContext(el.getAttribute('id')));
   BreakdownFormContextRegistry.get(cloned.getAttribute('id')).reset();
 
-  setToggleId(cloned, index + 1);
-
-  toggleAddFormButton(forms.length < 2);
+  setToggleId(cloned, index + 1);``
+  toggleAddFormButton('.breakdowns-form-add-wrapper', forms.length < 2);
 }
