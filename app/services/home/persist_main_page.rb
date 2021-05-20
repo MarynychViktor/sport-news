@@ -1,4 +1,5 @@
 module Home
+  # TODO: move to builders ref https://github.com/MarinichViktor/sport-news/pull/4#discussion_r636088890
   class PersistMainPage
     include Callable
     include Result::Helpers

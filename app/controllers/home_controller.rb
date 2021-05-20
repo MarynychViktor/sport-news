@@ -10,6 +10,7 @@ class HomeController < ApplicationController
     @photo_of_the_day = @main_page.photo_of_the_day
     @settings = @main_page.settings
 
+    # TODO: remove magic constants ref https://github.com/MarinichViktor/sport-news/pull/4#discussion_r636073537
     @highlighted_articles = Article.published.offset(5).take(4)
 
     @popular_articles = Article.most_popular if @settings&.show_popular_articles

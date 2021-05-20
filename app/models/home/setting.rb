@@ -11,6 +11,7 @@
 #  updated_at                :datetime         not null
 #
 module Home
+  # TODO: apply singleton pattern
   class Setting < ApplicationRecord
     validates_inclusion_of :show_popular_articles, :show_commented_articles, in: [true, false]
   end
