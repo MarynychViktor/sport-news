@@ -45,7 +45,14 @@ export class CommentsComponent extends React.Component<CommentsProps, any & {que
   }
 
   onCreateComment(content: string) {
-    const {apiClient} = this.props;
+    const {apiClient, currentUser} = this.props;
+
+    // TODO: add dialogs instead
+    if (!currentUser) {
+      window.location.href = '/users/sign_in'
+      return;
+    }
+
     apiClient.createComment(content).subscribe();
   }
 

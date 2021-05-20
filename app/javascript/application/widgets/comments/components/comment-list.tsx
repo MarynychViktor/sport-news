@@ -26,7 +26,13 @@ export class CommentList extends React.Component<any, any> {
   }
 
   handleCommentAction(action: CommentAction, comment: Comment) {
-    const {apiClient} = this.props;
+    const {apiClient, currentUser} = this.props;
+
+    // TODO: add dialogs instead
+    if (!currentUser) {
+      window.location.href = '/users/sign_in'
+      return;
+    }
 
     switch (action) {
       case CommentAction.Reply:
