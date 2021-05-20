@@ -1,4 +1,6 @@
+// @ts-ignore
 import { ArticleFormContextRegistry } from "application/pages/cms/home/article-form-context";
+// @ts-ignore
 import { BreakdownFormContextRegistry } from "application/pages/cms/home/breakdown-form-context";
 
 initArticleForms();

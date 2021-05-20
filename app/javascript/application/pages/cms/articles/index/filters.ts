@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Select } from "application/components/select";
 import { merge } from "rxjs";
 import { skip, tap } from "rxjs/operators";

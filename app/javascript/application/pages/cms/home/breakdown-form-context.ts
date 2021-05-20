@@ -1,5 +1,6 @@
 import { filter, tap } from "rxjs/operators";
 
+// @ts-ignore
 import { Select } from "application/components/select";
 
 export class BreakdownFormContextRegistry {

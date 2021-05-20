@@ -2,8 +2,6 @@ import React from "react";
 import { formatDate } from "../utils/date";
 import { CommentAction } from "./comment-list";
 
-
-
 export class Comment extends React.Component<any, any> {
   constructor(props) {
     super(props);

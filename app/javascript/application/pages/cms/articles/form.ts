@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Select } from "application/components/select";
 declare const ClassicEditor: any;
 
@@ -29,7 +30,7 @@ const teamSelect = new Select('#article-team-select', {
 });
 
 let locationSelectize = null;
-const articleSelect = $('#article_location').selectize({
+const articleSelect = ($('#article_location') as any).selectize({
   valueField: 'place_id',
   labelField: 'description',
   searchField: 'description',
