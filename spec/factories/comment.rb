@@ -8,11 +8,11 @@ FactoryBot.define do
 
     content { Faker::Lorem.paragraph(sentence_count: 2) }
     user
-    # for_article
-    #
-    # trait :for_article do
-    #   association :commentable, factory: :article
-    # end
+    for_article
+
+    trait :for_article do
+      association :commentable, factory: :article
+    end
 
     after(:build) do |comment, evaluator|
       if evaluator.parent
