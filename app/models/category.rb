@@ -19,7 +19,7 @@ class Category < ApplicationRecord
   include Ranked
 
   has_many :subcategories, dependent: :destroy
-  has_many :articles
+  has_many :articles, dependent: :destroy
   has_many :teams, through: :subcategories
 
   validates :name, presence: true, length: { minimum: 2, maximum: 100 }, uniqueness: true

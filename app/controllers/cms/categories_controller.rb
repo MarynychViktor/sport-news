@@ -50,7 +50,7 @@ module CMS
         @category.destroy!
         render_column
       else
-        head status: 403
+        head :forbidden
       end
     end
 

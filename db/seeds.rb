@@ -85,7 +85,7 @@ categories.each do |category_descriptor|
 
     subcategory_descriptor[:teams].each do |team_descriptor|
       team = subcategory.teams.create!(name: team_descriptor[:name])
-      15.times do
+      10.times do
         FactoryBot.create(:article, category: category, subcategory: subcategory, team: team,
                                     published_at: DateTime.current)
       end
