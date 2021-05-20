@@ -24,7 +24,7 @@ export class CommentsComponent extends React.Component<CommentsProps, any & {que
     super(props);
     this.state = {
       comments: [],
-      query: {page: 1, order: 'popular'},
+      query: {page: 1, order: 'newest'},
       hasMoreComments: false,
       total: 0,
     };

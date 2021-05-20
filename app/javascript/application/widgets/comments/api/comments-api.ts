@@ -52,7 +52,7 @@ export abstract class StreamableApi {
       const threadIndex = comments.findIndex(c => c.id === comment.thread_id);
       comments[threadIndex].children.push(comment);
     } else {
-      comments.push(comment);
+      comments.unshift(comment);
     }
 
     this.source.next(comments);

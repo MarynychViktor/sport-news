@@ -4,7 +4,8 @@
 .article-content
   = raw @article.content
 
-  .article-content-comments#comments commentable='#{@article.to_json(only: :id)}' commentable-type="article"
+  - if @article.display_comments
+    .article-content-comments#comments commentable='#{@article.to_json(only: :id)}' commentable-type="article"
 
 .article-suggestions
   = render 'partials/section-divider', content: 'MORE ARTICLES'
@@ -16,7 +17,7 @@
     .block-group
       - Article.all.take(3).each do |article|
         = render 'home/partials/block-item', article: article
-
+- if @article.display_comments
 - content_for :scripts do
   = javascript_pack_tag 'comments'
 
