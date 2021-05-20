@@ -42,7 +42,6 @@ module Articles
             headline: {}
           }
         },
-        _source: ['_id'],
         size: limit,
         from: (page - 1) * limit
       }

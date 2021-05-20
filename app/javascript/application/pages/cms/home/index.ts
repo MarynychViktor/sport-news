@@ -64,7 +64,6 @@ function initBreakdownForms() {
   document.querySelector('.breakdown-form-add').addEventListener('click', addBreakdownForm);
 
   $(document).on('click', '.breakdown-form-remove', (e) => {
-    console.log('e.target.closest(\'.breakdowns-form\')', e.target.closest('.breakdowns-form'));
     e.target.closest('.breakdowns-form').remove();
     toggleAddBreakdownFormButton(true);
   });

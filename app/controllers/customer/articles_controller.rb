@@ -4,9 +4,10 @@ module Customer
       @articles = Articles::FindQuery.call(search_params, Article.visible.published)
       @most_commented = Articles::FindMostCommentedQuery.call(params: search_params)
 
+      # Since articles current dont have popularity tracking functionality
+      # use `stub` articles instead
       # TODO: add logic to resolve most popular articles
       @most_popular = @articles.most_popular(max: 3)
-
       @hero_articles = @articles.take(1)
       @other_articles = @articles.offset(1).take(4)
     end

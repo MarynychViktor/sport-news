@@ -48,6 +48,10 @@ gem 'fog-google', git: 'git://github.com/fog/fog-google', branch: "master"
 # TODO: move to test group
 gem 'factory_bot_rails'
 gem 'faker'
+# Add possibility for quick login on production demo
+# TODO: move to development group
+gem 'any_login'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -65,7 +69,6 @@ group :development do
   gem 'listen', '~> 3.3'
   gem 'rack-mini-profiler', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'any_login'
   gem 'pry-rails'
   gem 'spring'
   gem 'nokogiri'

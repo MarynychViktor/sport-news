@@ -36,7 +36,6 @@
                     input_html: { name: "main_page[articles][][team_id]", class: 'main-articles-form__team-field', id: nil }, \
                     label_html: { class: 'app-label' },\
                     error_html: { class: 'app-input-error' }
-                / input name="main_page[articles][][_placeholder]" type="hidden"
 
               .main-form-group.main-form-group--full
                 = article_form.input :article_id, collection: article ? [[article.headline, article.id]] : [], \

@@ -27,8 +27,7 @@ const teamSelect = new Select('#article-team-select', {
     },
   },
 });
-// const locationSelect = new Select('#article_location');
-// subCategorySelect.changed$.subscribe(() => teamSelect.clear());
+
 let locationSelectize = null;
 const articleSelect = $('#article_location').selectize({
   valueField: 'place_id',
@@ -36,12 +35,7 @@ const articleSelect = $('#article_location').selectize({
   searchField: 'description',
   create: false,
   options: [],
-  initialize: function () {
-    console.log('ocation selectize', this);
-    locationSelectize = this;
-  },
   onLoad: function () {
-    console.log('on load fired')
     locationSelectize.open();
   },
   load: (query, callback) => {
@@ -51,12 +45,10 @@ const articleSelect = $('#article_location').selectize({
     fetch(`/cms/places?query=${query}`)
       .then(res => res.json())
       .then(res => {
-          console.log('res', res);
           locationSelectize.clearOptions();
           callback(res);
         }
       );
-    console.log('query selectize', query)
   }
 });
 locationSelectize = articleSelect[0].selectize;

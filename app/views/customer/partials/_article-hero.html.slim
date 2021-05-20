@@ -18,7 +18,7 @@
           .hero-info__published
             | Published / #{article.published_at&.strftime('%d.%m.%Y')}
 
-          .hero-info__title
+          .hero-info__title data-toggle="tooltip" data-placement="bottom" title="#{article.headline}"
             = article.headline.truncate(30)
 
           .hero-info__text

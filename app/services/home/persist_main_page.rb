@@ -16,7 +16,7 @@ module Home
       build_main_page
 
       if @main_page.save
-        success
+        success(@main_page)
       else
         failed(@main_page)
       end

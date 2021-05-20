@@ -33,14 +33,3 @@ merge(
   teamsFilter.changed$,
   publishedFilter.changed$
 ).subscribe(() => filtersForm.submit());
-
-
-// createSelect('#published-filter', {
-//   allowEmptyOption: true,
-//   onChange(value) {
-//     if (value !== undefined) {
-//       const form = this.$input.closest('form');
-//       form.submit();
-//     }
-//   }
-// });
