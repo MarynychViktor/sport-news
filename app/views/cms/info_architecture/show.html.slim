@@ -14,10 +14,4 @@
   #modal.modal.fade aria-hidden="true" aria-labelledby="modal" role="dialog" tabindex="-1"
     .modal-dialog.modal-dialog-centered  role="document"
       .modal-content.app-modal-content#modal-content
-// TODO: move to js file
-javascript:
-  fetch('/cms/categories')
-    .then(response => response.text())
-    .then(data => {
-      $('#categories-list').append(data)
-    });
+
