@@ -14,6 +14,14 @@ module ApplicationHelper
   end
 
   def strip_tags_with_spaces(str)
-    strip_tags(str.gsub('><', '> <'))
+    strip_tags(str&.gsub('><', '> <'))
+  end
+
+  def non_en_locales
+    I18n.available_locales.reject { |locale| locale == :en }
+  end
+
+  def locale_name(locale)
+    { en: 'English', ru: 'Russian', ua: 'Ukrainian' }.fetch(locale.to_sym)
   end
 end
