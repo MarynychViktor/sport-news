@@ -3,22 +3,23 @@ module CMS
     layout 'cms'
 
     def index
-      @main_page = Home::ResolveMainPage.call.result
+      @main_page = MainPages::ResolvePageService.call(prefill_on_empty: true).result
       @default_category = Category.first
     end
 
     def create
-      response = Home::PersistMainPage.call(page_params[:articles],
-                                            page_params[:breakdowns],
-                                            page_params[:photo_of_the_day],
-                                            page_params[:settings])
+      @main_page = MainPages::PageFromParamsFactory.call(page_params[:articles],
+                                                         page_params[:breakdowns],
+                                                         page_params[:photo_of_the_day],
+                                                         page_params[:settings])
 
-      redirect_to cms_root_path and return if response.success?
+      if @main_page.save
+        redirect_to cms_root_path
+      else
+        @default_category = Category.first
 
-      @main_page = response.result
-      @default_category = Category.first
-
-      render :index
+        render :index
+      end
     end
 
     private

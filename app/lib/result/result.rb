@@ -1,4 +1,5 @@
 module Result
+  # TODO: check OpenStruct
   class Result
     attr_reader :result
 

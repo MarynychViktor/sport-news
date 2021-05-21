@@ -19,5 +19,9 @@ module Home
     validates :image, :alt, :title, :description, :author, presence: true
     validates :alt, :title, :description, :author, presence: true, length: { maximum: 255 }
     validates_inclusion_of :show, in: [true, false]
+
+    def self.instance
+      first_or_initialize
+    end
   end
 end

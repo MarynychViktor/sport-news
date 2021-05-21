@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   # TODO: refactor
   def index
     @breakdowns = Home::Breakdown.visible
-    @main_page = Home::ResolveMainPage.call(new_on_empty: false).result
+    @main_page = MainPages::ResolvePageService.call.result
 
     @articles = @main_page.articles.select(&:show?).map(&:article)
     @breakdowns = @main_page.breakdowns.select(&:show?)
