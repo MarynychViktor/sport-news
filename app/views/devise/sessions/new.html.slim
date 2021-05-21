@@ -1,5 +1,10 @@
 .auth-form-container
   h2.auth-form__title Log in to Sports Hub
+  .auth-oauth
+    .auth-oauth-provider.auth-oauth-provider--google
+      = link_to user_google_oauth2_omniauth_authorize_path, method: :post do
+       .auth-oauth-provider-icon
+        = inline_svg_tag 'social/google.svg'
 
   - sign_in_failed = !!flash[:alert]
   - flash.select {|type, msg| [:notice, :alert].include?(type.to_sym)}.each do |type, msg|
