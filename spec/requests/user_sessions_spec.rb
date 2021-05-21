@@ -18,7 +18,7 @@ describe 'UserSessions', type: :request do
 
       get new_user_session_path
 
-      expect(response).to redirect_to('/')
+      expect(response).to redirect_to(root_path)
     end
   end
 
@@ -29,7 +29,7 @@ describe 'UserSessions', type: :request do
     it 'creates new session for non logged in user' do
       post new_user_session_path, params: { user: { email: user.email, password: 'secret123' } }
 
-      expect(response).to redirect_to('/')
+      expect(response).to redirect_to(root_path)
     end
 
     it 'not creates new session with invalid credentials' do
