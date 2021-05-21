@@ -3,11 +3,11 @@
 # Table name: articles
 #
 #  id               :bigint           not null, primary key
-#  alt              :string           not null
-#  caption          :string           not null
-#  content          :text             not null
+#  alt              :string
+#  caption          :string
+#  content          :text
 #  display_comments :boolean          default(TRUE), not null
-#  headline         :string           not null
+#  headline         :string
 #  location         :string
 #  picture          :string           not null
 #  published_at     :datetime
@@ -34,6 +34,10 @@
 class Article < ApplicationRecord
   include Elasticsearch::Model
   extend FriendlyId
+  extend Mobility
+
+  translates :headline, :alt, :caption, type: :string
+  translates :content, type: :text
 
   friendly_id :headline, use: :slugged
   mount_base64_uploader :picture, PhotoUploader

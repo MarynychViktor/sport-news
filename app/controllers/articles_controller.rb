@@ -15,6 +15,7 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.friendly.find(params[:id])
     authorize @article, :show?
+    render :show
   end
 
   private

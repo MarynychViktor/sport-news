@@ -11,9 +11,11 @@
 #  first_name             :string           not null
 #  last_name              :string           not null
 #  photo                  :string           not null
+#  provider               :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  uid                    :string
 #  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null

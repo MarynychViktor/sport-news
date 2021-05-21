@@ -54,7 +54,7 @@ const articleSelect = ($('#article_location') as any).selectize({
 });
 locationSelectize = articleSelect[0].selectize;
 
-function renderRichTextEditor(selector) {
+export function renderRichTextEditor(selector) {
   const field  = document.querySelector('#article_content') as HTMLInputElement;
   ClassicEditor
     .create(document.querySelector(selector), {

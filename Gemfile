@@ -29,7 +29,7 @@ gem 'inline_svg'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'carrierwave', '~> 2.0'
 gem 'carrierwave-base64', '~> 2.10'
-gem 'devise', '~> 4.2'
+gem 'devise', '~> 4.8'
 gem 'elasticsearch-model', '~> 7.1', '>= 7.1.1'
 gem 'elasticsearch-rails', '~> 7.1', '>= 7.1.1'
 gem 'friendly_id', '~> 5.4.0'
@@ -50,7 +50,10 @@ gem 'faker'
 # Add possibility for quick login on production demo
 # TODO: move to development group
 gem 'any_login'
-
+gem 'omniauth-google-oauth2', '~> 1.0'
+gem 'omniauth', '~> 2.0'
+gem 'omniauth-rails_csrf_protection'
+gem 'mobility', '~> 1.1.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

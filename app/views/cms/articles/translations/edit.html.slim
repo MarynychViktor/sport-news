@@ -1,0 +1,36 @@
+= content_for :admin_page_menu do
+  .admin-page-menu
+    .admin-page-menu__name
+      = "#{locale_name(@locale)} translation"
+    .admin-page-menu__actions
+      = link_to 'Cancel', edit_cms_category_article_path(@category, @article), class: 'button-outline'
+      button.articles-save-button.button Save
+
+.articles-container
+  .app-form.articles-form
+    = simple_form_for @article, url: cms_article_translation_path(@article, @locale) do |form|
+      input type="hidden" name="category_id" value="#{@category.id}"
+      .articles-new__preview
+        = render 'partials/preview', path: '#'
+
+      .app-form-group
+        = form.input :alt, input_html: { class: "app-input", placeholder: 'Email@gmail.com', value: @article.alt(fallback: false, default: nil) }, \
+            label_html: { class: "app-label" }, \
+            error_html: { class: 'app-input-error' }
+
+      / TODO: fix placeholdres everywhere
+      .app-form-group
+        = form.input :headline, input_html: { class: "app-input", placeholder: 'Email@gmail.com', value: @article.headline(fallback: false, default: nil) }, \
+            label_html: { class: "app-label" }, \
+            error_html: { class: 'app-input-error' }
+
+      .app-form-group
+        = form.input :caption, input_html: { class: "app-input", placeholder: 'Email@gmail.com', value: @article.caption(fallback: false, default: nil) }, \
+            label_html: { class: "app-label" }, \
+            error_html: { class: 'app-input-error' }
+
+      .app-form-group.app-form-group--with-rich-editor
+        label.app-label Content
+        = form.input :content, as: :hidden, input_html: { value: @article.content(fallback: false, default: nil) }, error_html: { class: 'app-input-error' }
+        #content-field
+

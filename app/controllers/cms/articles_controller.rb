@@ -4,7 +4,7 @@ module CMS
     before_action :find_article, only: %i[edit update publish unpublish destroy]
 
     def index
-      result = Articles::FindQuery.call(search_params, @category.articles)
+      result = ::Articles::FindQuery.call(search_params, @category.articles)
       @articles = paginate(result)
 
       respond_to do |format|
@@ -18,7 +18,7 @@ module CMS
     end
 
     def page
-      result = Articles::FindQuery.call(search_params, @category.articles)
+      result = ::Articles::FindQuery.call(search_params, @category.articles)
       @articles = paginate(result)
     end
 
@@ -27,7 +27,7 @@ module CMS
     end
 
     def create
-      response = Articles::CreateService.call(@category, article_params)
+      response = ::Articles::CreateService.call(@category, article_params)
       @article = response.result
 
       if response.success?
@@ -38,7 +38,7 @@ module CMS
     end
 
     def update
-      response = Articles::UpdateService.call(@category, @article, article_params)
+      response = ::Articles::UpdateService.call(@category, @article, article_params)
       @article = response.result
 
       if response.success?

@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    passwords: 'users/passwords'
+    passwords: 'users/passwords',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
-  # scope '/:locale' do
+  scope '(:locale)', constraints: { locale: Regexp.new(I18n.available_locales.join('|')) } do
     root 'home#index'
 
     resources :articles do
@@ -16,7 +17,7 @@ Rails.application.routes.draw do
     end
 
     resource :search, only: %i[show]
-  # end
+  end
 
   namespace :cms do
     root 'home#index'
@@ -51,6 +52,12 @@ Rails.application.routes.draw do
           post 'publish', to: 'articles#publish'
           post 'unpublish', to: 'articles#unpublish'
         end
+
+      end
+    end
+    scope module: :articles do
+      resources :articles do
+        resources :translations, only: %i[edit update]
       end
     end
 
