@@ -1,0 +1,47 @@
+- if @hero_articles.empty?
+  .articles
+    .articles-empty
+      | No matched articles
+- else
+  .articles
+    = render 'partials/article-hero', articles: @hero_articles
+
+  - unless @other_articles.empty?
+    .articles-list
+      - @other_articles.each_with_index do |article, index|
+        = link_to article_path(article), class: 'article-item'
+          .article-item__logo-wrapper
+            // TODO: add alt
+            = image_tag article.picture.url, alt: 'qweqwe', class: 'article-item__logo'
+
+          .article-item__content
+            .article-item__title
+              = article.headline.truncate(100)
+
+            .article-item__text
+              = strip_tags_with_spaces(article.content).truncate(200)
+        - if @other_articles.count - index > 1
+          hr.article-item-divider
+
+  .articles-trends
+    - unless @most_popular.empty?
+      .articles-trends-popular
+        .aside-divider
+          .aside-divider__content
+            | MOST POPULAR
+          .aside-divider__line
+
+        .articles-trends-section.trending-item-group
+          - @most_popular.each do |article|
+            = render 'partials/trending-article', article: article
+
+    - unless @most_commented.empty?
+      .articles-trends-commented
+        .aside-divider
+          .aside-divider__content
+            | MOST COMMENTED
+          .aside-divider__line
+
+        .articles-trends-section.trending-item-group
+          - @most_commented.each do |article|
+            = render 'partials/trending-article', article: article

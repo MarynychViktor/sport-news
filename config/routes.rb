@@ -3,15 +3,27 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
 
-  root 'home#index'
-
-  namespace :admin do
+  # scope '/:locale' do
     root 'home#index'
-  end
 
+    resources :articles do
+      resources :comments, except: %i[new edit] do
+        member do
+          post 'like', to: 'comments#like'
+          post 'dislike', to: 'comments#dislike'
+        end
+      end
+    end
+
+    resource :search, only: %i[show]
+  # end
 
   namespace :cms do
     root 'home#index'
+    post '/', to: 'home#create'
+    post '/add_article/:index', to: 'home#add_new_article'
+
+    resources :places, only: %i[index]
 
     resources :categories, only: %i[index new create edit update destroy] do
       member do
@@ -29,6 +41,17 @@ Rails.application.routes.draw do
           post 'update_category', to: 'subcategories#update_category'
         end
       end
+
+      resources :articles do
+        collection do
+          get 'page', to: 'articles#page'
+        end
+
+        member do
+          post 'publish', to: 'articles#publish'
+          post 'unpublish', to: 'articles#unpublish'
+        end
+      end
     end
 
     resources :subcategories, only: [] do
@@ -42,6 +65,7 @@ Rails.application.routes.draw do
         end
       end
     end
+    get 'teams', to: 'teams#all'
 
     resource :"information_architecture", controller: 'info_architecture', only: %i[show]
   end

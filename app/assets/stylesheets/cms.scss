@@ -16,11 +16,17 @@
 @import "utils/variables";
 @import "elements/index";
 @import "components/index";
-@import "cms/components/index";
+@import "cms/articles/index";
 @import "cms/home";
 @import "cms/information_architecture";
+@import "cms/components/index";
 
 .test-tooltip {
   height: 35px;
   background: red;
+}
+
+.cms-wrapper {
+  width: 814px;
+  margin: 42px auto;
 }

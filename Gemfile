@@ -28,18 +28,36 @@ gem 'inline_svg'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'carrierwave', '~> 2.0'
+gem 'carrierwave-base64', '~> 2.10'
 gem 'devise', '~> 4.2'
+gem 'elasticsearch-model', '~> 7.1', '>= 7.1.1'
+gem 'elasticsearch-rails', '~> 7.1', '>= 7.1.1'
+gem 'friendly_id', '~> 5.4.0'
+gem 'kaminari', '~> 0.16.3'
 gem 'ranked-model', '~> 0.4.0'
 gem 'rolify', '~> 6.0'
 gem 'simple_form', '~> 5.0'
 gem 'slim', '~> 4.1.0'
-gem 'view_component', '~> 2.9'
+gem 'view_component', require: 'view_component/engine'
+gem 'sidekiq', '~> 4.1', '>= 4.1.2'
+gem 'pundit', '~> 1.1'
+# Latest stable version has error with Google::Apis::StorageV1::StorageService#copy_object
+gem 'fog-google', git: 'git://github.com/fog/fog-google', branch: "master"
+# Enabled faked and factory_bot_rails in production to seed demo with fake data
+# TODO: move to test group
+gem 'factory_bot_rails'
+gem 'faker'
+# Add possibility for quick login on production demo
+# TODO: move to development group
+gem 'any_login'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'dotenv-rails'
   gem 'rspec-rails'
+  gem 'annotate', '~> 3.1', '>= 3.1.1'
 end
 
 group :development do
@@ -50,9 +68,11 @@ group :development do
   gem 'listen', '~> 3.3'
   gem 'rack-mini-profiler', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'any_login'
   gem 'pry-rails'
   gem 'spring'
+  gem 'nokogiri'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 end
 
 group :test do
@@ -64,9 +84,8 @@ group :test do
   gem 'webdrivers'
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
-  gem 'factory_bot_rails'
-  gem 'faker'
   gem 'rails-controller-testing'
+  gem 'rspec-its'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

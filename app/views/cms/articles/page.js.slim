@@ -1,0 +1,2 @@
+| _context.last_page = JSON.parse('#{raw @articles.fetch(:last_page).to_json}')
+  $('.articles-list').append("#{j render 'cms/articles/partials/page'}")

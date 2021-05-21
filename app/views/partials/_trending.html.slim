@@ -1,0 +1,18 @@
+.trending
+  .trending-popular
+    .aside-divider
+      .aside-divider__content
+        | MOST POPULAR
+      .aside-divider__line
+
+    .trending-section.trending-item-group
+      = render 'partials/trending-article'
+
+  .trending-commented
+    .aside-divider
+      .aside-divider__content
+        | MOST COMMENTED
+      .aside-divider__line
+
+    .trending-section.trending-item-group
+      = render 'partials/trending-article'

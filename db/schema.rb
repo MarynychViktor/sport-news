@@ -10,10 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_27_155404) do
+ActiveRecord::Schema.define(version: 2021_05_19_171702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "articles", force: :cascade do |t|
+    t.string "location"
+    t.string "headline", null: false
+    t.string "alt", null: false
+    t.string "caption", null: false
+    t.text "content", null: false
+    t.string "picture", null: false
+    t.boolean "display_comments", default: true, null: false
+    t.datetime "published_at"
+    t.string "slug", null: false
+    t.bigint "category_id", null: false
+    t.bigint "subcategory_id"
+    t.bigint "team_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_articles_on_category_id"
+    t.index ["slug"], name: "index_articles_on_slug", unique: true
+    t.index ["subcategory_id"], name: "index_articles_on_subcategory_id"
+    t.index ["team_id"], name: "index_articles_on_team_id"
+  end
+
+  create_table "articles_locations", force: :cascade do |t|
+    t.bigint "article_id", null: false
+    t.bigint "location_id", null: false
+    t.index ["article_id", "location_id"], name: "index_articles_locations_on_article_id_and_location_id", unique: true
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
@@ -23,6 +50,91 @@ ActiveRecord::Schema.define(version: 2021_04_27_155404) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content", null: false
+    t.boolean "edited", default: false, null: false
+    t.integer "children_count", default: 0
+    t.bigint "parent_id"
+    t.bigint "thread_id"
+    t.bigint "user_id", null: false
+    t.bigint "commentable_id"
+    t.string "commentable_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["parent_id"], name: "index_comments_on_parent_id"
+    t.index ["thread_id"], name: "index_comments_on_thread_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.boolean "positive", default: true
+    t.bigint "feedbackable_id"
+    t.string "feedbackable_type"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_feedbacks_on_user_id"
+  end
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "home_articles", force: :cascade do |t|
+    t.boolean "show", default: true, null: false
+    t.bigint "article_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["article_id"], name: "index_home_articles_on_article_id"
+  end
+
+  create_table "home_breakdowns", force: :cascade do |t|
+    t.boolean "show", default: true, null: false
+    t.bigint "category_id", null: false
+    t.bigint "subcategory_id"
+    t.bigint "team_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_home_breakdowns_on_category_id"
+    t.index ["subcategory_id"], name: "index_home_breakdowns_on_subcategory_id"
+    t.index ["team_id"], name: "index_home_breakdowns_on_team_id"
+  end
+
+  create_table "home_photo_of_the_days", force: :cascade do |t|
+    t.string "image", null: false
+    t.string "title", null: false
+    t.string "alt", null: false
+    t.string "description", null: false
+    t.string "author", null: false
+    t.boolean "show", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "home_settings", force: :cascade do |t|
+    t.boolean "show_popular_articles", default: true, null: false
+    t.boolean "show_commented_articles", default: true, null: false
+    t.string "popular_articles_period", default: "day", null: false
+    t.string "commented_articles_period", default: "day", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "place_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["place_id"], name: "index_locations_on_place_id", unique: true
   end
 
   create_table "roles", force: :cascade do |t|
@@ -85,6 +197,17 @@ ActiveRecord::Schema.define(version: 2021_04_27_155404) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "articles", "categories"
+  add_foreign_key "articles", "subcategories"
+  add_foreign_key "articles", "teams"
+  add_foreign_key "comments", "comments", column: "parent_id"
+  add_foreign_key "comments", "comments", column: "thread_id"
+  add_foreign_key "comments", "users"
+  add_foreign_key "feedbacks", "users"
+  add_foreign_key "home_articles", "articles"
+  add_foreign_key "home_breakdowns", "categories"
+  add_foreign_key "home_breakdowns", "subcategories"
+  add_foreign_key "home_breakdowns", "teams"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "teams", "subcategories"
 end

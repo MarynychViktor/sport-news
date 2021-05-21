@@ -4,75 +4,59 @@
 
 $columns-gap: 34
 
-.nav-arrow
-  position: absolute
-  bottom: 0
-  right: 12px
-  color: #C63638
-  visibility: hidden
 
-.fillable-image
-  height: 100%
-  width: 100%
-  object-fit: cover
-  object-position: center
-
-.shadow-hover
-  &:hover
-    box-shadow: $shadow
-    transition: 0.15s linear
 
 /** Hero section **/
 .hero
-  &-wrapper
-    position: relative
-    margin-top: 82px
-
-  &__logo
-    @extend .fillable-image
-
-    &-wrapper
-      height: rem(460px)
-      overflow: hidden
-
-  &-info
-    +font-size(16px)
-    background: #F6F6F6
-    padding: 46px 10px 0 0
-
-    &-list
-      box-shadow: $shadow
-
-      &-wrapper
-        position: absolute
-        right: -30.5%
-        bottom: 5.5%
-        width: 51.7%
-
-    &__published,
-    &__title,
-    &__text
-      padding-left: 33px
-
-    &__published
-      font-size: em(14px, 16px)
-      color: #7F7B7B
-
-    &__title
-      font-size: 1em
-      font-weight: 600
-      margin-top: 19px
-      color: #C63638
-
-    &__text
-      font-size: em(22px, 16px)
-      line-height: em(30px, 22px)
-      font-weight: 700
-      margin-top: 10px
-
-    &__action
-      margin-top: 41px
-      width: 175px
+  //&-wrapper
+  //  position: relative
+  //  margin-top: 82px
+  //
+  //&__logo
+  //  @extend .fillable-image
+  //
+  //  &-wrapper
+  //    height: rem(460px)
+  //    overflow: hidden
+  //
+  //&-info
+  //  +font-size(16px)
+  //  background: #F6F6F6
+  //  padding: 46px 10px 0 0
+  //
+  //  &-list
+  //    box-shadow: $shadow
+  //
+  //    &-wrapper
+  //      position: absolute
+  //      right: -30.5%
+  //      bottom: 5.5%
+  //      width: 51.7%
+  //
+  //  &__published,
+  //  &__title,
+  //  &__text
+  //    padding-left: 33px
+  //
+  //  &__published
+  //    font-size: em(14px, 16px)
+  //    color: #7F7B7B
+  //
+  //  &__title
+  //    font-size: 1em
+  //    font-weight: 600
+  //    margin-top: 19px
+  //    color: #C63638
+  //
+  //  &__text
+  //    font-size: em(22px, 16px)
+  //    line-height: em(30px, 22px)
+  //    font-weight: 700
+  //    margin-top: 10px
+  //
+  //  &__action
+  //    margin-top: 41px
+  //    width: 175px
 
 
   &-nav
@@ -132,8 +116,13 @@ $columns-gap: 34
     padding: 12px 12px 58px
     position: relative
     cursor: pointer
+    color: #000
+    text-decoration: none
 
     &:hover
+      color: #000
+      text-decoration: none
+
       .hero-article-preview__nav
         visibility: visible
 
@@ -184,8 +173,13 @@ $columns-gap: 34
   position: relative
   border: 1px solid #EDEDED
   cursor: pointer
+  text-decoration: none
+  color: #000
 
   &:hover
+    text-decoration: none
+    color: #000
+
     .news-preview__footer-arrow
       visibility: visible
 
@@ -209,46 +203,6 @@ $columns-gap: 34
     &-arrow
       @extend .nav-arrow
 
-.block
-  &-group
-    border: 1px solid #EDEDED
-
-  &-item
-    @extend .shadow-hover
-    width: 100%
-    display: flex
-    position: relative
-    cursor: pointer
-
-    &:not(:last-child)
-      border-bottom:  1px solid #EDEDED
-
-    &:hover
-      .block-item__nav
-        visibility: visible
-
-    &__logo
-      height: 100%
-      width: 100%
-      object-fit: cover
-
-      &-wrapper
-        max-height: 100%
-        width: 150px
-        overflow: hidden
-
-    &__content
-      padding: 16px 18px
-      flex: 1
-
-    &__title
-      font-weight: 700
-
-    &__text
-      font-size: 14px
-
-    &__nav
-      @extend .nav-arrow
 
 /** Photo of the day section **/
 .pod
@@ -257,6 +211,10 @@ $columns-gap: 34
 
   &-container
     position: relative
+
+    &:hover
+      .pod-description
+        visibility: visible
 
   &-sign
     position: absolute
@@ -279,6 +237,7 @@ $columns-gap: 34
         border-top: 61px solid transparent
         border-bottom: 61px solid transparent
         z-index: 0
+        top: 2px
         left: -13px
 
 
@@ -298,6 +257,8 @@ $columns-gap: 34
     bottom: 0
     color: white
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, #000000 100%)
+    width: 100%
+    visibility: hidden
 
     &__title
       font-size: 22px
@@ -313,15 +274,21 @@ $columns-gap: 34
       font-style: italic
 
 /** Top data section **/
-.top-data
+.summary
   display: flex
   justify-content: space-between
   margin: 60px 0 48px
 
-  > div
-    width: calc(50% - #{$columns-gap / 2}px)
+  &__most
+    &-popular,
+    &-commented
+      flex-grow: 1
+      min-width: 0
 
-  &-col
+      &:last-child
+        margin-left: 30px
+
+  &__articles-list
     margin-top: 34px
 
   .block-item__logo-wrapper

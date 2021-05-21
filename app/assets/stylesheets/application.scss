@@ -11,13 +11,18 @@
  * It is generally better to create a new file per style scope.
  *
  */
+@import "utils/variables";
 @import "bootstrap/scss/bootstrap.scss";
 @import "slick-carousel/slick/slick";
 @import "simplebar/src/simplebar";
+@import "selectize/dist/css/selectize";
+@import "dropzone/dist/dropzone";
+@import "select2/dist/css/select2";
+@import "perfect-scrollbar/css/perfect-scrollbar";
 
 @import "utils/index";
+@import "customer/index";
 
-@import "utils/variables";
 @import "elements/index";
 @import "components/index";
 
@@ -99,6 +104,7 @@ body {
     flex-grow: 1;
     flex-basis: 0;
     min-width: 0;
+    padding-top: 70px;
   }
 
   .aside {
@@ -128,6 +134,7 @@ body {
     &-right {
       flex-grow: 1;
       min-width: 0;
+      padding-bottom: 50px;
     }
   }
 }

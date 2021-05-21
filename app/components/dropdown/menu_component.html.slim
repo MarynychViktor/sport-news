@@ -1,0 +1,35 @@
+div class="dropdown multi-level-dropdown #{@class_name}" id="#{@id}"
+  = button
+
+  / button#d1.btn.btn-secondary.dropdown-toggle.dropdown-menu-right aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"
+  /   | Dropdown button
+
+  div class="dropdown-menu #{@show ? 'show' : ''}" aria-labelledby="#{@id}"
+    .multi-level-dropdown-item.multi-level-dropdown-toggle
+      .multi-level-dropdown-more-link
+        = inline_svg_tag 'common/more.svg'
+
+    - links.each do |link|
+      = link
+
+    / .multi-level-dropdown-item
+    /   a.multi-level-dropdown-link Action
+    /
+    / .multi-level-dropdown-item.has-submenu
+    /   a.dropdown-item.multi-level-dropdown-link href="#" With nested
+    /
+    /   .dropdown-menu.multi-level-dropdown-submenu aria-labelledby="d2"
+    /     .multi-level-dropdown-item
+    /       a.multi-level-dropdown-link href="#"  Action
+    /
+    /     .multi-level-dropdown-item
+    /       a.multi-level-dropdown-link href="#"  Another action
+    /
+    /     .multi-level-dropdown-item
+    /       a.multi-level-dropdown-link href="#"  Something else here
+    /
+    / .multi-level-dropdown-item
+    /   a.multi-level-dropdown-link href="#"  Another action
+    /
+    / .multi-level-dropdown-item
+    /   a.multi-level-dropdown-link href="#"  Something else here

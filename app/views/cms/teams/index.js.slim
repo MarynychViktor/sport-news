@@ -1,4 +1,5 @@
 | $('#teams-list').html("#{j render('cms/teams/partials/column')}");
-  $.fn.iaRefreshTeamsSortable();
+  enableOrderingForTeams();
   $('#subcategories-list .categorized-item.is-active').removeClass('is-active')
   $('#subcategories-list .categorized-item-wrapper[data-id=#{@subcategory.id}] .categorized-item').addClass('is-active')
+  registerCloseListener();

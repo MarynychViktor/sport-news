@@ -47,7 +47,7 @@ describe 'UserPasswords', type: :request do
 
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:new)
-      expect(response.body).to include('Please provide valid email addres')
+      expect(response.body).to include('Please provide valid email address')
     end
   end
 end

@@ -1,0 +1,23 @@
+// TODO: remove if unused
+- @categories.each do |resource|
+  = render CategorizedItemComponent.new(resource,\
+                                        click_link: cms_category_subcategories_path(resource),\
+                                        class_name: 'categorized-item__dropdown',\
+                                        data_attributes: { id: resource.id, type: resource.class }\
+  ) do |item|
+    = render Dropdown::MenuComponent.new(id: 'menu1', class_name: 'categorized-item__dropdown') do |menu|
+      - menu.button do
+        .categorized-item__more-toggle
+          = inline_svg_tag 'common/more.svg'
+
+      - menu.link do
+        - if category.hidden ?
+          = link_to 'SHOW', show_cms_category_path(category), class: 'multi-level-dropdown-link', method: :post, remote: true
+        - else
+          = link_to 'HIDE', hide_cms_category_path(category), class: 'multi-level-dropdown-link', method: :post, remote: true
+
+      - menu.link do
+        = link_to 'EDIT', edit_cms_category_path(category), class: 'multi-level-dropdown-link', remote: true
+
+      - menu.link do
+        = link_to 'DELETE', cms_category_path(category), class: 'multi-level-dropdown-link', method: :delete, remote: true

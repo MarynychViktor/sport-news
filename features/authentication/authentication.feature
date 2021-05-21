@@ -6,7 +6,7 @@ Feature: Allow users to sign up on the portal using an email
   Scenario Outline: Error messages displayed on invalid input
     Given I go to "/users/sign_up" page
     When on the sign-up page I entered <Value> for <Field>
-    And I click Sign up
+    And I click SIGN UP
     Then I see the error message "Please enter valid email"
 
     Examples:
@@ -19,5 +19,5 @@ Feature: Allow users to sign up on the portal using an email
   Scenario: Redirected to home page on signup
     Given I go to "/users/sign_up" page
     When I complete the sign-up form with valid data
-    And I click Sign up
+    And I click SIGN UP
     Then I redirected to "/' page

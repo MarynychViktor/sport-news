@@ -1,0 +1,35 @@
+.selectize-input
+  border: 1px solid #D4D9E2
+  box-shadow: none
+  height: 35px
+  border-radius: 0
+  padding: 7px 35px 5px 20px
+
+  .item
+    white-space: nowrap
+    text-overflow: ellipsis
+    overflow: hidden
+    max-width: 92%
+
+  &.full
+    input
+      top: -2px
+
+  &.dropdown-active
+    border-radius: 0
+
+  &.focus
+    box-shadow: none
+
+.selectize-dropdown
+  .active
+    color: #D72130
+    background: rgba(215, 33, 48, 0.11)
+    cursor: pointer
+
+
+select
+  &[aria-invalid=true]
+    & + .selectize-control
+      .selectize-input
+        border: 1px solid #d72130

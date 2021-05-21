@@ -1,0 +1,44 @@
+= content_for :admin_page_menu do
+  .admin-page-menu
+    .admin-page-menu__name
+      = @category.name
+    .admin-page-menu__actions
+      = link_to  '+ New Article', new_cms_category_article_path(@category), class: 'button'
+
+.articles-container
+  .articles-index
+    .articles-list-nav
+      .articles-list-nav-header
+        = render 'partials/preview', path: '#'
+        / .articles-list-search
+        /   = inline_svg_tag 'common/search.svg', class: 'articles-list-search__icon'
+
+      .articles-filters#filters
+        = simple_form_for :'', url: request.fullpath, method: :get do |form|
+          - unless @category.subcategories.empty?
+            .articles-filter
+              = form.input :subcategory_id, collection: @subcategory ? [[@subcategory.name, @subcategory.id]] : [], \
+                      selected: params[:subcategory_id],\
+                      input_html: { id: 'subcategory-filter', value: params[:subcategory] }, label: false, include_blank: false
+
+          - unless @category.teams.empty?
+            .articles-filter
+              = form.input :team_id, collection: @team ? [[@team.name, @team.id]] : [], selected: params[:team_id],\
+                        input_html: { id: 'team-filter', value: params[:team] }, label: false, include_blank: false
+
+          .articles-filter
+            = form.input :published, collection: [['All', nil], ['Unpublished', 0], ['Published', 1]], \
+                      selected: params[:published],
+                      input_html: { id: 'published-filter' }, label: false,\
+              include_blank: false
+
+    .articles-list
+      = render 'cms/articles/partials/page'
+
+
+javascript:
+  _context = {
+    category: JSON.parse('#{raw @category.to_json}'),
+    last_page: JSON.parse('#{raw @articles.fetch(:last_page).to_json}')
+  }
+

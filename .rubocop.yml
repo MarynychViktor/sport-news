@@ -1,0 +1,15 @@
+AllCops:
+  Exclude:
+    - db/migrate/**/*
+    - db/schema.rb
+    - config/**/*
+    - script/**/*
+    - bin/**/*
+    - spec/**/*
+    - features/**/*
+    - node_modules/**/*
+    - Gemfile
+    - Rakefile
+    - config.ru
+Style/Documentation:
+  Enabled: false

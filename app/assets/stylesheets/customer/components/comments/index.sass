@@ -1,0 +1,217 @@
+.comments
+  &-container
+    padding: 20px
+    background: #F8F8F8
+
+  &-header
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+  &-sort
+    .dropdown-menu
+      background: #FFFEFE
+      box-shadow: 0px 2px 14px rgba(0, 0, 0, 0.0949246)
+      border: none
+      border-radius: 0
+      padding: 0
+      margin-top: -20px
+
+    .dropdown-item
+      +font-size(12px)
+      +line-height(17px)
+      padding: 5px 10px 5px 16px
+
+      &.is-active,
+      &:hover
+        color: #D72130
+
+      &:hover
+        background: #F2DEDF
+
+
+  &-title
+    +font-size(14px)
+    +line-height(19px)
+    font-weight: 700
+    text-transform: uppercase
+
+  &-content
+    margin-top: 20px
+    background: #fff
+    border: 1px solid #D8D8D8
+    padding-bottom: 15px
+
+  &-list
+    padding-right: 52px
+    border-top: 1px solid #D8D8D8
+
+    &-empty
+      +font-size(14px)
+      margin: 0
+      padding: 25px 25px 0
+      text-align: center
+      color: #757474
+
+  &-form
+    display: flex
+    padding: 15px 0
+
+    &-submit
+      height: initial
+      border: none
+      outline: none
+      padding: 0
+      background: none
+
+  &-input
+    +font-size(14px)
+    +line-height(19px)
+    width: 100%
+    padding: 5px
+    border: none
+
+    &-wrapper
+      width: 100%
+      padding-right: 52px
+
+    &-actions
+      display: none !important
+      justify-content: flex-end
+      align-items: center
+      margin-top: 17px
+
+    &:focus
+      border: none
+      outline: none
+
+    &[placeholder]:empty:before
+      content: attr(placeholder)
+      color: #B2B2B2
+
+    &:not(:empty)
+      & + .comments-input-actions
+        display: flex !important
+
+  &-toggle
+    color: #B2B2B2
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+    &-container
+      display: flex
+      justify-content: center
+      align-items: center
+      margin-top: 16px
+
+    &-icon
+      +font-size(20px)
+      margin-top: -5px
+      color: #B2B2B2
+
+      &.show-less
+        margin-top: 0
+        margin-bottom: -5px
+
+.comment
+  display: flex
+  padding-top: 26px
+
+  &-content
+    flex: 1
+
+  &-user
+    padding: 0 25px 0 20px
+    flex-shrink: 0
+
+    &-avatar
+      width: 100%
+      height: 100%
+
+      &-wrapper
+        width: 32px
+        height: 32px
+        border-radius: 50%
+        overflow: hidden
+
+    &-name
+      +font-size(16px)
+      +line-height(17px)
+      font-weight: 700
+
+  &-date
+    +font-size(12px)
+    +line-height(17px)
+    font-weight: 700
+    margin-top: 7px
+    color: #979797
+
+  &-text
+    +font-size(14px)
+    +line-height(19px)
+    margin-top: 8px
+    white-space: pre
+
+  &-meta
+    display: flex
+    justify-content: space-between
+    border-top: 1px solid #D8D8D8
+    margin-top: 12px
+    padding: 8px 0
+
+    &-feedback
+      display: flex
+      align-items: center
+
+    &-actions
+      display: flex
+
+  &-button
+    +font-size(12px)
+    +line-height(15px)
+    color: #7F8899
+    text-decoration: none
+
+    &:not(:first-child)
+      margin-left: 16px
+
+    &:hover
+      color: #7F8899
+      text-decoration: none
+
+  &-reactions
+    background: none
+    border: none
+    outline: none
+    padding: 0
+    color: inherit
+
+    &-icon
+      font-size: 18px
+      color: inherit
+
+  &-like,
+  &-dislike
+    display: flex
+    color: #7F8899
+
+    &-count
+      +font-size(12px)
+      +line-height(17px)
+      margin-left: 4px
+
+    &:hover,
+    &.is-active
+      color: #d72130
+
+  &-dislike
+    margin-left: 16px
+
+  &-replies
+    padding-left: 72px
+
+  &-dialog
+    &-input
+      min-height: 100px

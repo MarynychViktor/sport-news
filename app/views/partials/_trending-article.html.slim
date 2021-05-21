@@ -1,0 +1,10 @@
+= link_to article_path(article), class: 'trending-item'
+  .trending-item__logo-wrapper
+    = image_tag article.picture.url, class: 'trending-item__logo', alt: 'article logo'
+  .trending-item__content
+    .trending-item__title data-toggle="tooltip" data-placement="top" title="#{article.headline}"
+      = article.headline.truncate(20)
+    .trending-item__text
+      = strip_tags_with_spaces(article.content).truncate(30)
+    .trending-item__nav
+      span.material-icons east

@@ -1,0 +1,28 @@
+.article-hero
+  = render 'partials/article-hero', articles: [@article]
+
+.article-content
+  = raw @article.content
+
+  - if @article.display_comments
+    .article-content-comments#comments commentable='#{@article.to_json(only: :id)}' commentable-type="article"
+
+.article-suggestions
+  = render 'partials/section-divider', content: 'MORE ARTICLES'
+
+  .block-items.article-suggestions-items
+    .block-group
+      - Article.all.take(3).each do |article|
+        = render 'home/partials/block-item', article: article
+    .block-group
+      - Article.all.take(3).each do |article|
+        = render 'home/partials/block-item', article: article
+- if @article.display_comments
+- content_for :scripts do
+  = javascript_pack_tag 'comments'
+
+javascript:
+  $.ajax({
+    url: "/articles/#{@article.id}/comments",
+    dataType: 'script'
+  });

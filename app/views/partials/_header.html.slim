@@ -4,26 +4,28 @@ body
 
     - if not @admin_panel
       /! Search widget
-      .h-search
-        .h-search__icon
-          span.material-icons
-            | search
-        .h-search__input-wrapper
-          input.h-search__input.app-input placeholder=("Search by") type="text" /
+      .h-search-wrapper
+        .h-search-suggestions
+        .h-search
+          .h-search__icon
+            span.material-icons
+              | search
+          .h-search__input-wrapper id="app-search"
+            input.h-search__input.app-input placeholder=("Search by") type="text" /
 
-      /! Share widget
-      .vertical-divider
-      .h-share-wrapper
-        .h-share
-          .h-share__title
-            | Share
-          .h-share__icons
-            a.h-share__link href="#" 
-              = image_tag 'social/facebook.svg', alt: 'facebook icon', class: 'h-share__icon'
-            a.h-share__link href="#" 
-              = image_tag 'social/twitter.svg', alt: 'twitter icon', class: 'h-share__icon'
-            a.h-share__link href="#" 
-              = image_tag 'social/google-plus.svg', alt: 'google plus icon', class: 'h-share__icon'
+        /! Share widget
+        .vertical-divider
+        .h-share-wrapper
+          .h-share
+            .h-share__title
+              | Share
+            .h-share__icons
+              a.h-share__link href="#"
+                = image_tag 'social/facebook.svg', alt: 'facebook icon', class: 'h-share__icon'
+              a.h-share__link href="#"
+                = image_tag 'social/twitter.svg', alt: 'twitter icon', class: 'h-share__icon'
+              a.h-share__link href="#"
+                = image_tag 'social/google-plus.svg', alt: 'google plus icon', class: 'h-share__icon'
     - else
       .flex-grow-1
 
@@ -39,7 +41,7 @@ body
             img.h-profile__avatar alt="profile" src="#{current_user.photo.url}" /
 
           .h-profile-menu
-            #header-profile-dropdown.h-profile-menu__toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+            #header-profile-dropdown.h-profile-menu__toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"
               .h-profile-menu__toggle-name
                 = current_user.full_name
               span.material-icons arrow_drop_down
@@ -50,10 +52,13 @@ body
                 .h-profile-menu__user-email
                   = current_user.email
               .dropdown-divider
-              a.app-dropdown-item.dropdown-item href="#"  View Profile
-              a.app-dropdown-item.dropdown-item href="#"  Change Password
-              a.app-dropdown-item.dropdown-item href="#"  My surveys
-              a.app-dropdown-item.dropdown-item href="#"  Team hub
+              - if current_user.admin?
+                = link_to 'Dashboard', cms_root_path, class: 'app-dropdown-item dropdown-item'
+              - else
+                a.app-dropdown-item.dropdown-item href="#"  View Profile
+                a.app-dropdown-item.dropdown-item href="#"  Change Password
+                a.app-dropdown-item.dropdown-item href="#"  My surveys
+                a.app-dropdown-item.dropdown-item href="#"  Team hub
               .dropdown-divider
               = link_to 'Log out', destroy_user_session_path, class: 'app-dropdown-item dropdown-item', method: :delete
     - else
@@ -61,11 +66,10 @@ body
         .h-signup
           = link_to 'Sign up', new_user_registration_path, class: 'button-plain', method: :get
           = link_to 'Log in', new_user_session_path, class: 'button-outline', method: :get
-          / button.button-outline onclick=("window.location.href = '/admin'")  Log in
 
     .h-lang-wrapper
       .h-lang.btn-group
-        .h-lang__toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" 
+        .h-lang__toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
           | EN
           span.h-lang__toggle-icon.material-icons arrow_drop_down
         .app-dropdown-menu.h-lang__select.dropdown-menu

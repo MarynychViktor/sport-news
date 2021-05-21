@@ -1,0 +1,39 @@
+.articles-item-wrapper
+  .articles-item__more-wrapper
+    .articles-item__more
+      = render Dropdown::MenuComponent.new(id: 'menu1', class_name: 'hoverable-dropdown articles-item-dropdown') do |menu|
+        - menu.button do
+          .articles-item__more-link
+            = inline_svg_tag 'common/more.svg'
+
+        - if article.published?
+          - menu.link do
+            = link_to 'Unpublish', unpublish_cms_category_article_path(category, article), class: 'multi-level-dropdown-link', method: :post
+        - else
+          - menu.link do
+            = link_to 'Publish', publish_cms_category_article_path(category, article), class: 'multi-level-dropdown-link', method: :post
+
+        - menu.link do
+          = link_to 'Delete', cms_category_article_path(category, article), class: 'multi-level-dropdown-link', method: :delete
+
+  = link_to edit_cms_category_article_url(category, article), class: 'articles-item__link more-link' do
+    .articles-item
+      .articles-item__photo-wrapper
+        = image_tag article.picture.url, class: 'articles-item__photo', alt: article.alt
+
+      .articles-item-content
+        .articles-item__title
+          = article.headline.truncate(100)
+
+        .articles-item__description
+          = strip_tags_with_spaces(article.content).truncate(200)
+
+        .articles-item-footer
+          .articles-item__relations
+            | AFC South / Tennessee
+          - if article.published?
+            .articles-item__status.is-published
+              | Published
+          - else
+            .articles-item__status.is-unpublished
+              | Unpublished

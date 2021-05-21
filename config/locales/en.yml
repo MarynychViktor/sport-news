@@ -52,3 +52,36 @@ en:
               confirmation: "does not match"
               too_short: "Password must contain at least 8 characters (letters and numbers)"
               invalid: "Password must contain at least 8 characters (letters and numbers)"
+        article:
+          attributes:
+            headline:
+              blank: "Headline is required"
+              too_short: "Headline must contain at least %{count} characters"
+              too_long: "Headline must not contain more than %{count} characters"
+            alt:
+              blank: "Alt is required"
+              too_short: "Alt must contain at least %{count} characters"
+              too_long: "Alt must not contain more than %{count} characters"
+            content:
+              blank: "Content is required"
+              too_short: "Content must contain at least %{count} characters"
+              too_long: "Content must not contain more than %{count} characters"
+            picture:
+              blank: "Picture is required"
+
+        home/article:
+          attributes:
+            article_id:
+              blank: "Article is required"
+        home/photo_of_the_day:
+          attributes:
+            picture:
+              blank: "Picture is required"
+            alt:
+              blank: "Alt is required"
+            title:
+              blank: "Title is required"
+            description:
+              blank: "Description is required"
+            author:
+              blank: "Author is required"

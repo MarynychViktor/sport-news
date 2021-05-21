@@ -1,0 +1,58 @@
+.categorized-item-wrapper*{ data: @data_attributes }
+  .categorized-item__drag
+    = inline_svg_tag 'common/drag-n-drop.svg', class: 'categorized-item__action-left'
+
+  - item = capture do
+    div class="categorized-item #{@item.hidden? ? 'is-hidden' : ''}"
+      .categorized-item__hidden-label
+        | hidden
+      .categorized-item__container
+        .categorized-item__content
+          = @item.name
+
+  - if @click_link
+    = link_to(@click_link, class: 'categorized-item__link', remote: true) do
+      = item
+  - else
+    .categorized-item__link
+      = item
+
+  .categorized-item__more
+    = content
+    / = render Dropdown::MenuComponent.new(id: 'menu1', class_name: @class_name) do |menu|
+    /   - menu.button do
+    /     .categorized-item__more-toggle
+    /       = inline_svg_tag 'common/more.svg'
+    /
+    / - menu_links.each do |link|
+    /   - menu.link do
+    /     = link
+
+
+
+
+      / - menu.link do
+      /   = link_to 'HIDE', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :post, remote: true
+      /
+      / - menu.link do
+      /   = link_to 'EDIT', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', remote: true
+      /
+      / - menu.link do
+      /   = link_to 'DELETE', 'paths[:hide].(resource)', class: 'multi-level-dropdown-link', method: :delete, remote: true
+
+
+    / .categorized-item-menu__preview
+    /   = inline_svg_tag 'common/more.svg', class: 'categorized-item__action-right'
+    /
+    / - if resource.hidden?
+    /   .categorized-item-menu__link-wrapper
+    /     = link_to 'SHOW', paths[:show].(resource), class: 'categorized-item-menu__link', method: :post, remote: true
+    / - else
+    /   .categorized-item-menu__link-wrapper
+    /     = link_to 'HIDE', paths[:hide].(resource), class: 'categorized-item-menu__link', method: :post, remote: true
+    /
+    / .categorized-item-menu__link-wrapper
+    /   = link_to 'EDIT', paths[:edit].(resource), class: 'categorized-item-menu__link', remote: true
+    /
+    / .categorized-item-menu__link-wrapper
+    /   = link_to 'DELETE', paths[:delete].(resource), class: 'categorized-item-menu__link', method: :delete, remote: true

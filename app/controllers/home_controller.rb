@@ -1,34 +1,19 @@
 class HomeController < ApplicationController
+  # TODO: refactor
   def index
-    @heroes = [
-      {
-        group: "NBA",
-        logo: "https://e0.365dm.com/19/10/2048x1152/skysports-nba-sky-live-live-on-sky_4810101.jpg",
-        published: '10.09.2019',
-        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation',
-      },
-      {
-        group: "NBA",
-        logo: "https://api.time.com/wp-content/uploads/2020/07/nba-restart.jpg",
-        published: '21.03.2010',
-        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation',
-      },
-      {
-        group: "NBA",
-        logo: "https://a.espncdn.com/photo/2020/0813/nba_mega_playoff_orange_HT_16x9.jpg",
-        published: '12.05.2021',
-        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation',
-      },
-      {
-        group: "NBA",
-        logo: "https://www.gannett-cdn.com/presto/2020/03/12/USAT/5746e69e-ed6a-4f4c-b175-f9c9b1d99e63-USP_NBA__Boston_Celtics_at_Utah_Jazz.JPG",
-        published: '12.01.2015',
-        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation',
-      }
-    ]
+    @breakdowns = Home::Breakdown.visible
+    @main_page = MainPages::ResolvePageService.call.result
+
+    @articles = @main_page.articles.select(&:show?).map(&:article)
+    @breakdowns = @main_page.breakdowns.select(&:show?)
+
+    @photo_of_the_day = @main_page.photo_of_the_day
+    @settings = @main_page.settings
+
+    # TODO: remove magic constants ref https://github.com/MarinichViktor/sport-news/pull/4#discussion_r636073537
+    @highlighted_articles = Article.published.offset(5).take(4)
+
+    @popular_articles = Article.most_popular if @settings&.show_popular_articles
+    @commented_articles = Articles::FindMostCommentedQuery.call if @settings&.show_commented_articles
   end
 end

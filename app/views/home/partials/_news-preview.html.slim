@@ -1,10 +1,11 @@
-.news-preview
+= link_to article_path(article), class: 'news-preview'
   .category-name
-    | NBA
+    = article.category.name
   .news-preview__logo-wrapper
-    img alt=("news preview") src="https://stillmed.olympic.org/media/Images/OlympicOrg/News/2019/11/01/SAS/2019-11-01-SAS-thumbnail.jpg" /
+    = image_tag article.picture.url, alt: 'article logo'
+
   .news-preview__footer
     .news-preview__footer-text
-      | Lorem ipsum dolor sit amet, consectetur
+      = strip_tags_with_spaces(article.content).truncate(40)
     .news-preview__footer-arrow
       span.material-icons east

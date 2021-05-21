@@ -6,7 +6,7 @@
     background: white
     width: 100%
     margin: 0 auto
-    z-index: 5
+    z-index: 6
     position: sticky
     top: 0
 
@@ -15,6 +15,11 @@
     @extend .flex-y-center
     flex-grow: 1
     padding-left: 34px
+
+    &-wrapper
+      flex-grow: 1
+      display: flex
+      position: relative
 
     &__input
       +font-size(16px)
@@ -37,7 +42,7 @@
 
     &-wrapper
       @extend .flex-center
-      flex-basis: 22%
+      flex-basis: 38.94%
 
     &__title
       +font-size(14px)

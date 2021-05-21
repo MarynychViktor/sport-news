@@ -1,9 +1,7 @@
 class ApplicationController < ActionController::Base
-  before_action :load_categories
+  include Pundit
+  include Paginable
+  include AuthorizationErrorHandler
 
-  private
-
-  def load_categories
-    @_categories = Category.all
-  end
+  layout 'application'
 end

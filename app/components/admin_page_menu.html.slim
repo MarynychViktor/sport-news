@@ -1,0 +1,19 @@
+.admin-menu-wrapper
+  .admin-menu
+    = content
+
+    .admin-submenu-wrapper
+      .admin-submenu
+        #admin-menu-prev.admin-submenu__nav.is-prev
+          span.material-icons west
+        #admin-menu.admin-submenu__links
+          .admin-submenu__link-wrapper
+            = link_to cms_root_path, class: "admin-submenu__link #{@category.nil? ? 'is-active' : ''}" do
+              | Home
+          - @categories.each.with_index do |category, i|
+            .admin-submenu__link-wrapper
+              = link_to cms_category_articles_path(category), class: "admin-submenu__link #{@category == category && 'is-active'}"
+                = category.name
+        #admin-menu-next.admin-submenu__nav.is-next
+          span.material-icons east
+

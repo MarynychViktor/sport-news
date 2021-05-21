@@ -1,0 +1,48 @@
+.trending-item
+  @extend .shadow-hover
+  width: 100%
+  display: flex
+  position: relative
+  cursor: pointer
+  color: #000
+
+  &:not(:last-child)
+    border-bottom:  1px solid #EDEDED
+
+  &:hover
+    text-decoration: none
+    color: #000
+
+    .trending-item__nav
+      visibility: visible
+
+  &-group
+    border: 1px solid #EDEDED
+
+  &__logo
+    @extend .fillable-image
+
+    &-wrapper
+      max-height: 100%
+      width: 178px
+      height: 97px
+      overflow: hidden
+      flex-shrink: 0
+
+  &__content
+    padding: 16px 18px
+    flex: 1
+
+  &__title
+    @extend .overflow-ellipsis
+    +font-size(16px)
+    +line-height(22px)
+    font-weight: 700
+
+  &__text
+    +font-size(14px)
+    +line-height(19px)
+    color: #7F7B7B
+
+  &__nav
+    @extend .nav-arrow

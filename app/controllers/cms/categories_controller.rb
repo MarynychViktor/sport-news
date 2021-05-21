@@ -1,9 +1,12 @@
 module CMS
   class CategoriesController < ApplicationController
-    before_action :set_category, only: %i[edit update appear hide destroy change_position]
+    before_action :find_category, only: %i[edit update appear hide destroy change_position]
 
     def index
-      @categories = Category.all
+      respond_to do |format|
+        format.json { render json: paginate(Category) }
+        format.js { render :column }
+      end
     end
 
     def new
@@ -47,7 +50,7 @@ module CMS
         @category.destroy!
         render_column
       else
-        head status: 403
+        head :forbidden
       end
     end
 
@@ -58,7 +61,7 @@ module CMS
 
     private
 
-    def set_category
+    def find_category
       @category = Category.find(params[:id])
     end
 

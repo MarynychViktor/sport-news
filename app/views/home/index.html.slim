@@ -1,142 +1,77 @@
 - content_for :styles do
   = stylesheet_link_tag 'home-page', media: 'all', 'data-turbolinks-track': 'reload'
-- content_for :scripts do
-  = javascript_pack_tag 'home-page'
 
 div
-  .hero-wrapper
-    #hero-carousel.hero-list
-      - @heroes.each do |hero|
-        .hero
-          .category-name
-            = hero[:group]
-          .hero__logo-wrapper
-            img.hero__logo alt="" src="#{hero[:logo]}" /
-
-    .hero-info-list-wrapper
-      #hero-info-carousel.hero-info-list
-        - @heroes.each do |hero|
-          .hero-info
-            .hero-info__published
-              | Published / #{hero[:published]}
-            .hero-info__title
-              = hero[:title].truncate(30)
-            .hero-info__text
-              = hero[:text].truncate(75)
-            button.hero-info__action.button-large More
-
-      .hero-nav
-        .hero-nav__before
-          span.material-icons navigate_before
-        .hero-nav__pages
-          - @heroes.count.times do |t|
-            .hero-nav__page data-slide="0"
-              | 0#{t + 1}
-
-        .hero-nav__next
-          span.material-icons navigate_next
+  / TODO: add trending categories here
+  = render 'partials/article-hero', articles: @articles
 
   .hero-articles-preview
-    .hero-article-preview
-      .hero-article-preview__logo-wrapper
-        img.hero-article-preview__logo alt=("article preview") src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmO5OO_bq3z3j__8HpYxph6lM31L3InVcyXA&usqp=CAU" /
-      .hero-article-preview__title
-        | Raiders release
-      .hero-article-preview__text
-        | After a five-year stint with the Oakland Raiders
-      .hero-article-preview__nav
-        span.material-icons east
+    - @highlighted_articles.each do |article|
+      = link_to article_path(article), class: 'hero-article-preview' do
+        .hero-article-preview__logo-wrapper
+          = image_tag article.picture.url, class: 'hero-article-preview__logo', alt: 'article preview'
+        .hero-article-preview__title
+          = article.headline.truncate(17)
+        .hero-article-preview__text
+          = strip_tags_with_spaces(article.content).truncate(40)
+        .hero-article-preview__nav
+          span.material-icons east
 
-    .hero-article-preview
-      .hero-article-preview__logo-wrapper
-        img.hero-article-preview__logo alt=("article preview") src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmO5OO_bq3z3j__8HpYxph6lM31L3InVcyXA&usqp=CAU" /
-      .hero-article-preview__title
-        | Raiders release
-      .hero-article-preview__text
-        | After a five-year stint with the Oakland Raiders
-      .hero-article-preview__nav
-        span.material-icons east
+  - unless @breakdowns.empty?
+    .breakdown
+      .breakdown-divider
+        = render 'partials/section-divider', content: 'BREAKDOWN'
 
-    .hero-article-preview
-      .hero-article-preview__logo-wrapper
-        img.hero-article-preview__logo alt=("article preview") src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmO5OO_bq3z3j__8HpYxph6lM31L3InVcyXA&usqp=CAU" /
-      .hero-article-preview__title
-        | Raiders release
-      .hero-article-preview__text
-        | After a five-year stint with the Oakland Raiders
-      .hero-article-preview__nav
-        span.material-icons east
+      - @breakdowns.each do |breakdown|
+        - unless breakdown.articles.empty?
+          .breakdown-row
+            = render 'home/partials/news-preview', article: breakdown.articles.first
+            .block-group
+              - breakdown.articles[1..].each do |article|
+                = render 'home/partials/block-item', article: article
 
-    .hero-article-preview
-      .hero-article-preview__logo-wrapper
-        img.hero-article-preview__logo alt=("article preview") src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmO5OO_bq3z3j__8HpYxph6lM31L3InVcyXA&usqp=CAU" /
-      .hero-article-preview__title
-        | Raiders release
-      .hero-article-preview__text
-        | After a five-year stint with the Oakland Raiders
-      .hero-article-preview__nav
-        span.material-icons east
+  - if @photo_of_the_day&.show
+    .pod
+      .pod-divider
+        = render 'partials/section-divider', content: 'PHOTO OF THE DAY'
 
-  .breakdown-divider
-    = render 'partials/section-divider', content: 'BREAKDOWN'
+      .pod-container
+        .pod-sign
+          span.pod-sign-decoration
+          div
+            b PHOTO
+            br
+            | OF THE
+            br
+            b DAY
+        .pod__logo-wrapper
+          = image_tag @photo_of_the_day.image.url, alt: @photo_of_the_day.alt, class: 'pod__logo'
+        .pod-description
+          .pod-description__title
+            = @photo_of_the_day.title
+          .pod-description__text
+            = @photo_of_the_day.description
+          .pod-description__source
+            = @photo_of_the_day.author
 
-  .breakdown
-    .breakdown-row
-      = render 'home/partials/news-preview'
-      .block-group
-        = render 'home/partials/block-item'
-        = render 'home/partials/block-item'
-        = render 'home/partials/block-item'
+  .summary
+    - if @popular_articles
+      .summary__most-popular
+        .aside-divider
+          .aside-divider__content
+            | MOST POPULAR
+          .aside-divider__line
+        .summary__articles-list.block-group
+          - @popular_articles.each do |article|
+            = render 'home/partials/block-item', article: article
 
-    .breakdown-row
-      = render 'home/partials/news-preview'
-      .block-group
-        = render 'home/partials/block-item'
-        = render 'home/partials/block-item'
-        = render 'home/partials/block-item'
-
-  .pod-divider
-    = render 'partials/section-divider', content: 'PHOTO OF THE DAY'
-
-  .pod
-    .pod-container
-      .pod-sign
-        span.pod-sign-decoration
-        div
-          b PHOTO
-          br/
-          | OF THE
-          br/
-          b DAY
-      .pod__logo-wrapper
-        img.pod__logo alt=("photo of the day") src="https://www.businessinsider.in/photo/77825377/Lionel-Messi-leaving-Barcelona-would-be-the-biggest-and-most-shocking-transfer-in-football-history-but-it-would-make-perfect-sense-for-everyone.jpg?imgsize=330710" /
-      .pod-description
-        .pod-description__title
-          | Defending The Throne
-        .pod-description__text
-          | Los Angeles Lakes guard Derek Fisher, right, is pressured by the Denver Nuggets Nene during th efirst quarter of NBA exhibition action on Oct 16
-        .pod-description__source
-          | Photo Courtesy MCT
-
-  .top-data
-    .most-popular
-      .aside-divider
-        .aside-divider__content
-          | MOST POPULAR
-        .aside-divider__line
-      .top-data-col.block-group
-        = render 'home/partials/block-item'
-        = render 'home/partials/block-item'
-        = render 'home/partials/block-item'
-
-
-    .most-commented
-      .aside-divider
-        .aside-divider__content
-          | MOST COMMENTED
-        .aside-divider__line
-      .top-data-col.block-group
-        = render 'home/partials/block-item'
-        = render 'home/partials/block-item'
-        = render 'home/partials/block-item'
+    - if @commented_articles
+      .summary__most-popular
+        .aside-divider
+          .aside-divider__content
+            | MOST COMMENTED
+          .aside-divider__line
+        .summary__articles-list.block-group
+          - @commented_articles.each do |article|
+            = render 'home/partials/block-item', article: article
 

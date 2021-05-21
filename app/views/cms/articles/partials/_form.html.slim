@@ -1,0 +1,54 @@
+= simple_form_for [:cms, @category, @article] do |form|
+  input type="hidden" name="category_id" value="#{@category.id}"
+  .articles-new__preview
+    = render 'partials/preview', path: '#'
+
+  .app-form-group
+    label.app-label Picture
+    = render UploaderWidget.new(form, :picture)
+
+  .app-form-group.app-form-group--multi-row
+    .multi-item
+      = form.input :subcategory_id, input_html: {class: 'app-form-select', id: 'article-subcategory-select'},\
+        collection: @article.subcategory ? [[@article.subcategory.name, @article.subcategory.id]] : [],\
+        label_html: { class: "app-label" }, \
+        error_html: { class: 'app-input-error' }
+
+    .multi-item
+      = form.input :team_id, input_html: {class: 'app-form-select', id: 'article-team-select',\
+        data: { value: "#{@article.team_id}", teams: "#{raw @teams_options.to_json}"} },\
+        collection: @article.team ? [[@article.team.name, @article.team.id]] : [],\
+        label_html: { class: "app-label" }, \
+        error_html: { class: 'app-input-error' }
+
+    .multi-item
+      = form.input :location, input_html: { class: 'app-form-select app-form-select--selectize'},\
+        collection: [@article.location ? [@article.location.title.truncate(35), @article.location.place_id] : ['Type location', nil]],\
+        label_html: { class: "app-label" }, \
+        include_blank: false, error_html: { class: 'app-input-error' }
+
+  .app-form-group
+    = form.input :alt, input_html: { class: "app-input", placeholder: 'Email@gmail.com' }, \
+        label_html: { class: "app-label" }, \
+        error_html: { class: 'app-input-error' }
+
+  .app-form-group
+    = form.input :headline, input_html: { class: "app-input", placeholder: 'Email@gmail.com' }, \
+        label_html: { class: "app-label" }, \
+        error_html: { class: 'app-input-error' }
+
+  .app-form-group
+    = form.input :caption, input_html: { class: "app-input", placeholder: 'Email@gmail.com' }, \
+        label_html: { class: "app-label" }, \
+        error_html: { class: 'app-input-error' }
+
+  .app-form-group.app-form-group--with-rich-editor
+    label.app-label Content
+    = form.input :content, as: :hidden, error_html: { class: 'app-input-error' }
+    #content-field
+
+  .app-form-group
+    .app-form-switch
+      .custom-control.custom-switch
+        = form.check_box :display_comments, class: "custom-control-input", id: "displayComments"
+        label.custom-control-label for="displayComments"  Show comments

@@ -1,0 +1,36 @@
+.app-form
+  &-group
+    &:not(:first-child)
+      margin-top: 20px
+
+    &--multi-row
+      display: flex
+
+      .multi-item
+        flex: 1
+        min-width: 0
+
+        &:not(:first-child)
+          margin-left: 38px
+
+    &--with-rich-editor
+      position: relative
+      padding-bottom: 1px
+
+      .app-input-error
+        position: absolute
+        top: calc(100% - 15px)
+
+      .field_with_errors ~ .ck
+        margin-bottom: 15px
+
+        .ck-editor__editable
+          --ck-color-base-border: #d72130
+
+.ck-editor__editable
+  min-height: 330px
+  --ck-color-base-border: #D4D9E2
+
+  &:focus
+    --ck-focus-ring: 1px solid #7F8899
+    box-shadow: none !important
