@@ -1,5 +1,6 @@
 .auth-form-container
-  h2.auth-form__title Please enter your new password.
+  h2.auth-form__title
+    = t("auth.passwords.edit.title")
   = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
     .d-none
       = f.input :reset_password_token, as: :hidden
@@ -10,16 +11,18 @@
       .auth-form__group
         = f.input :password, \
                 input_html: { class: "app-input", placeholder: '' }, \
+                        label: t("auth.fields.password"), \
                 label_html: { class: "app-label" }, \
                 error_html: { class: 'app-input-error' }
       .auth-form__group
         = f.input :password_confirmation, \
                         input_html: { class: "app-input", placeholder: '' }, \
+                        label: t("auth.fields.password_confirmation"), \
                         label_html: { class: "app-label" }, \
                         error_html: { class: 'app-input-error' }
 
     .auth-form__actions
       button.button.auth-form__submit type="submit"
-        | SET NEW PASSWORD
+        = t("auth.passwords.edit.form.button")
 
-      = link_to 'Back to Log In', new_user_session_path, class: 'link--dark'
+      = link_to t("auth.passwords.edit.form.back_to_login"), new_user_session_path, class: 'link--dark'

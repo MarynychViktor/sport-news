@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
-    passwords: 'users/passwords',
-    omniauth_callbacks: 'users/omniauth_callbacks'
-  }
+  devise_for :users, only: :omniauth_callbacks, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
 
   scope '(:locale)', constraints: { locale: Regexp.new(I18n.available_locales.join('|')) } do
     root 'home#index'
+
+    devise_for :users, skip: :omniauth_callbacks, controllers: {
+      passwords: 'users/passwords'
+    }
 
     resources :articles do
       resources :comments, except: %i[new edit] do
