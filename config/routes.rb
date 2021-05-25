@@ -76,6 +76,14 @@ Rails.application.routes.draw do
     get 'teams', to: 'teams#all'
 
     resource :"information_architecture", controller: 'info_architecture', only: %i[show]
+    resources :users, except: %i[show new create edit update] do
+      member do
+        post 'block', to: 'users#block'
+        post 'activate', to: 'users#activate'
+        post 'add-admin', to: 'users#add_admin'
+        post 'remove-admin', to: 'users#remove_admin'
+      end
+    end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
