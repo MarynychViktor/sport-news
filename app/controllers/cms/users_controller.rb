@@ -1,23 +1,21 @@
 # frozen_string_literal: true
 module CMS
   class UsersController < ApplicationController
-    before_action :find_user, except: %i[index]
+    before_action :find_user, except: %i[index stats]
+    before_action :authorize_user, except: %i[index stats]
 
     def index
-      users = case params[:role]
-              when 'admin'
-                User.admins
-              when 'user'
-                User.users
-              else
-                User.all
-              end
-
-      @result = paginate(users)
       respond_to do |format|
-        format.json
+        format.json do
+          users = Users::ListQuery.call(params[:role])
+          @result = paginate(users)
+        end
         format.html
       end
+    end
+
+    def stats
+      render json: { users_count: User.users.count, admins_count: User.admins.count }
     end
 
     def block
@@ -29,11 +27,11 @@ module CMS
     end
 
     def add_admin
-      @user.add_role :admin
+      @user.add_admin_role
     end
 
     def remove_admin
-      @user.remove_role :admin
+      @user.remove_admin_role
     end
 
     def destroy
@@ -44,6 +42,10 @@ module CMS
 
     def find_user
       @user = User.find(params[:id])
+    end
+
+    def authorize_user
+      authorize @user
     end
   end
 end

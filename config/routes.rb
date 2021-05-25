@@ -77,6 +77,10 @@ Rails.application.routes.draw do
 
     resource :"information_architecture", controller: 'info_architecture', only: %i[show]
     resources :users, except: %i[show new create edit update] do
+      collection do
+        get 'stats', to: 'users#stats'
+      end
+
       member do
         post 'block', to: 'users#block'
         post 'activate', to: 'users#activate'

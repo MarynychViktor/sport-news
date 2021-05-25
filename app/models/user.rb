@@ -73,6 +73,18 @@ class User < ApplicationRecord
     super && !blocked?
   end
 
+  def add_admin_role
+    raise 'User already admin' if admin?
+
+    add_role :admin unless admin?
+  end
+
+  def remove_admin_role
+    raise 'User is not in admin role' unless admin?
+
+    remove_role :admin
+  end
+
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
   end

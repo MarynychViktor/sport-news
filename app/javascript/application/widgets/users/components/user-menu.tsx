@@ -25,18 +25,19 @@ export const UserMenu = ({user, onAction}: {user: User, onAction: any}) => {
 
       <Dropdown.Menu className='user-menu-dropdown'>
         {
-          (!user.admin) && (user.blocked ?
+          !user.admin && (user.blocked ?
             <Dropdown.Item className='user-menu-dropdown-item is-primary' href="#"
                            onClick={(e) => emitAction(e, UserAction.Activate)}>Activate</Dropdown.Item> :
             <Dropdown.Item className='user-menu-dropdown-item is-primary' href="#"
                            onClick={(e) => emitAction(e, UserAction.Block)}>Block</Dropdown.Item>)
         }
         {
-          user.admin ?
-            <Dropdown.Item className='user-menu-dropdown-item is-success' href="#"
-                           onClick={(e) => emitAction(e, UserAction.RemoveFromAdmin)}>Remove from admin</Dropdown.Item> :
-            <Dropdown.Item className='user-menu-dropdown-item is-success' href="#"
-                           onClick={(e) => emitAction(e, UserAction.MakeAdmin)}>Make as admin</Dropdown.Item>
+          !user.blocked && ( user.admin ?
+              <Dropdown.Item className='user-menu-dropdown-item is-success' href="#"
+                             onClick={(e) => emitAction(e, UserAction.RemoveFromAdmin)}>Remove from admin</Dropdown.Item> :
+              <Dropdown.Item className='user-menu-dropdown-item is-success' href="#"
+                             onClick={(e) => emitAction(e, UserAction.MakeAdmin)}>Make as admin</Dropdown.Item>
+          )
         }
         <Dropdown.Item className='user-menu-dropdown-item is-danger' href="#"
                        onClick={(e) => emitAction(e, UserAction.Delete)}>Delete</Dropdown.Item>

@@ -7,11 +7,11 @@ export const ListHeader = ({usersCount, adminsCount, activeTab, onTabChange}) =>
       <a href="#" className={`users-header-link ${activeTab == 'user' && 'is-active'}`} onClick={e => {
         e.preventDefault();
         onTabChange(UserRole.User);
-      }}>Users({usersCount})</a>
+      }}>Users ({usersCount})</a>
       <a href="#" className={`users-header-link ${activeTab == 'admin' && 'is-active'}`} onClick={e => {
         e.preventDefault();
         onTabChange(UserRole.Admin);
-      }}>Admins({adminsCount})</a>
+      }}>Admins ({adminsCount})</a>
     </div>
   )
 }

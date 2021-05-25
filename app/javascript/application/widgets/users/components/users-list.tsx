@@ -38,7 +38,7 @@ export class UsersList extends React.Component<any, any>{
   render() {
     const {users, currentUser} = this.props;
     const userItems = users.map(user => (
-      <tr>
+      <tr key={user.id}>
         <td className='user-list-cell'><UserPreview user={user}/></td>
         <td className='user-list-cell'>
           <div className={`user-status ${!user.blocked && 'is-active'}`}>{ user.blocked ? 'Blocked' : 'Active' }</div>

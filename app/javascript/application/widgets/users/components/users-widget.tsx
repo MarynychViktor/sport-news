@@ -34,7 +34,9 @@ export class UsersWidget extends React.Component<any, any>{
       users: [],
       total: 0,
       lastPage: false,
-      query: DEFAULT_QUERY
+      query: DEFAULT_QUERY,
+      usersCount: 0,
+      adminsCount: 0
     }
     this.onTabChange = this.onTabChange.bind(this);
     this.listUsers = this.listUsers.bind(this);
@@ -45,13 +47,16 @@ export class UsersWidget extends React.Component<any, any>{
 
   componentDidMount() {
     this.listUsers();
+    this.api.getStats().subscribe(({users_count: usersCount, admins_count: adminsCount}) => {
+        this.setState({usersCount, adminsCount})
+      });
   }
 
   listUsers() {
     const {query} = this.state;
 
-    this.api.listUsers(query).subscribe(({total, data: users, last_page: lastPage}) =>{
-      this.setState({users, total, lastPage, query: {...query}});
+    this.api.listUsers(query).subscribe(({total, data: users, last_page: lastPage}) => {
+      this.setState({users, total, lastPage, query: {...query}, [`${query.role}sCount`]: total});
     });
   }
 
@@ -79,13 +84,13 @@ export class UsersWidget extends React.Component<any, any>{
 
   render() {
     const {currentUser} = this.props;
-    const {users, total, query: {role, page, limit} ,lastPage} = this.state;
+    const {users, total, query: {role, page, limit} ,lastPage, usersCount, adminsCount} = this.state;
     const from = (page - 1) * limit;
     const offset = users.length;
 
     return (
       <div>
-        <ListHeader adminsCount={0} usersCount={0} activeTab={role} onTabChange={this.onTabChange}/>
+        <ListHeader adminsCount={adminsCount} usersCount={usersCount} activeTab={role} onTabChange={this.onTabChange}/>
         <div className='user-list-wrapper'>
           <UsersList users={users} currentUser={currentUser} api={this.api} onChange={this.onChange}/>
           <div className='user-list-paginator'>

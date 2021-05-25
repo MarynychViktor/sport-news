@@ -6,13 +6,14 @@ export class UsersApi {
 
   listUsers({page, limit, role}: {page: number, limit: number, role: 'admin'|'user'}) {
     return this.wrapIntoObservable(
-      fetch(`/cms/users?page=${page}&role=${role}&limit=${limit}`, {
-        method: 'GET',
-        headers: {
-          "X-CSRF-Token": this.getCsrfToken(),
-        },
-      })
+      fetch(`/cms/users?page=${page}&role=${role}&limit=${limit}`)
     );
+  }
+
+  getStats() {
+    return this.wrapIntoObservable(
+      fetch(`/cms/users/stats`)
+    )
   }
 
   activate(user: User) {
