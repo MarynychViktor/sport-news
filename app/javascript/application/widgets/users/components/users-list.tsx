@@ -4,6 +4,16 @@ import { UserMenu } from "./user-menu";
 import { User } from "../model/user";
 import { UserAction } from "./users-widget";
 import { UserPreview } from "./user-preview";
+import Dropdown from "react-bootstrap/esm/Dropdown";
+
+const ActionsFilterToggle = React.forwardRef<any>(({ children, onClick } : any, ref) => (
+  <a href="" className="user-actions-filter" ref={ref} onClick={(e) => {
+    e.preventDefault();
+    onClick(e);
+  }}>
+    {children}
+  </a>
+));
 
 export class UsersList extends React.Component<any, any>{
   constructor(props) {
@@ -36,7 +46,7 @@ export class UsersList extends React.Component<any, any>{
   }
 
   render() {
-    const {users, currentUser} = this.props;
+    const {users, currentUser, changeOrder} = this.props;
     const userItems = users.map(user => (
       <tr key={user.id}>
         <td className='user-list-cell'><UserPreview user={user}/></td>
@@ -55,7 +65,25 @@ export class UsersList extends React.Component<any, any>{
           <tr>
             <th className='user-list-header-cell'>Name</th>
             <th className='user-list-header-cell'>Status</th>
-            <th className='user-list-header-cell'>Actions</th>
+            <th className='user-list-header-cell'>
+              <div className='user-actions'>
+                <span className='user-actions__title'>Actions</span>
+                <Dropdown>
+                  <Dropdown.Toggle as={ActionsFilterToggle}>
+                    <span className="material-icons">filter_alt</span>
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu className='user-actions-dropdown'>
+                    <Dropdown.Header className='user-actions-dropdown-header'>Sort by</Dropdown.Header>
+                    <Dropdown.Divider className='user-actions-dropdown-divider'></Dropdown.Divider>
+                    <Dropdown.Item className='user-actions-dropdown-item is-danger'>Active</Dropdown.Item>
+                    <Dropdown.Item className='user-actions-dropdown-item is-danger'>Blocked</Dropdown.Item>
+                    <Dropdown.Item className='user-actions-dropdown-item is-danger'>Online</Dropdown.Item>
+                    <Dropdown.Item className='user-actions-dropdown-item is-danger'>Offline</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+            </th>
           </tr>
         </thead>
         <tbody>{ userItems }</tbody>

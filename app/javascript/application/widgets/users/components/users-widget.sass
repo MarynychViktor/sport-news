@@ -161,3 +161,47 @@
         top: 12px
         border: 4px solid transparent
         border-top-color: #000
+
+  &-actions
+    display: flex
+    align-items: center
+    justify-content: center
+
+    &-filter
+      color: #9a9a9a
+      display: block
+      position: relative
+      right: -20px
+      top: 1px
+
+      &:hover
+        color: #000
+
+      > span
+        font-size: 20px
+
+    &-dropdown
+      padding: 0
+      min-width: 89px
+      border-radius: 0
+      box-shadow: 0 0 17px rgba(0, 0, 0, 0.09)
+      border: none
+
+      &-header,
+      &-item
+        font-size: 12px
+        line-height: 16px
+        padding: 5px 16px
+        color: #000000
+        text-transform: none
+
+      &-header
+        font-weight: 600
+
+      &-item
+        &:hover
+          background: rgba(215, 33, 48, 0.11)
+          color: #D72130
+
+      &-divider
+        margin: 0
