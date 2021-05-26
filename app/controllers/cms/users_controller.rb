@@ -39,7 +39,7 @@ module CMS
     end
 
     def destroy
-      @user.destroy
+      @user.destroy!
       head :ok
     end
 

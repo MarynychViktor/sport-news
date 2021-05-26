@@ -1,0 +1,2 @@
+class AppForbiddenException < AppException
+end

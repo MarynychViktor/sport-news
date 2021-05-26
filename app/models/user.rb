@@ -56,14 +56,14 @@ class User < ApplicationRecord
   end
 
   def block!
-    return if blocked?
+    raise AppActionNotAllowedException, 'User already blocked' if blocked?
 
     self.blocked_at = DateTime.current
     save!(validate: false)
   end
 
   def activate!
-    return unless blocked?
+    raise AppActionNotAllowedException, 'User already active' unless blocked?
 
     self.blocked_at = nil
     save!(validate: false)
@@ -74,13 +74,13 @@ class User < ApplicationRecord
   end
 
   def add_admin_role
-    raise 'User already admin' if admin?
+    raise AppActionNotAllowedException, 'User already admin' if admin?
 
     add_role :admin unless admin?
   end
 
   def remove_admin_role
-    raise 'User is not in admin role' unless admin?
+    raise AppActionNotAllowedException, 'User is not in admin role' unless admin?
 
     remove_role :admin
   end
