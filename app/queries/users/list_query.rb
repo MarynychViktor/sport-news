@@ -5,7 +5,7 @@ module Users
     ADMIN_ROLE = :admin
 
     def initialize(in_role)
-      @role = (in_role || '').to_sym
+      @role = in_role&.to_sym
     end
 
     def call

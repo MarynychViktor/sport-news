@@ -20,22 +20,27 @@ module CMS
 
     def block
       @user.block!
+      head :ok
     end
 
     def activate
       @user.activate!
+      head :ok
     end
 
     def add_admin
       @user.add_admin_role
+      head :ok
     end
 
     def remove_admin
       @user.remove_admin_role
+      head :ok
     end
 
     def destroy
       @user.destroy
+      head :ok
     end
 
     private

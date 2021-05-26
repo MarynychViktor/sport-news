@@ -75,7 +75,7 @@ export class UsersList extends React.Component<any, any>{
 
                   <Dropdown.Menu className='user-actions-dropdown'>
                     <Dropdown.Header className='user-actions-dropdown-header'>Sort by</Dropdown.Header>
-                    <Dropdown.Divider className='user-actions-dropdown-divider'></Dropdown.Divider>
+                    <Dropdown.Divider className='user-actions-dropdown-divider'/>
                     <Dropdown.Item className='user-actions-dropdown-item is-danger'>Active</Dropdown.Item>
                     <Dropdown.Item className='user-actions-dropdown-item is-danger'>Blocked</Dropdown.Item>
                     <Dropdown.Item className='user-actions-dropdown-item is-danger'>Online</Dropdown.Item>
