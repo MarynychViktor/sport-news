@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_25_132734) do
+ActiveRecord::Schema.define(version: 2021_05_27_113853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,16 @@ ActiveRecord::Schema.define(version: 2021_05_25_132734) do
     t.string "commented_articles_period", default: "day", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "languages", force: :cascade do |t|
+    t.string "locale", null: false
+    t.text "translation"
+    t.boolean "hidden", default: false
+    t.boolean "system", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["locale"], name: "index_languages_on_locale", unique: true
   end
 
   create_table "locations", force: :cascade do |t|

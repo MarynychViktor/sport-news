@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 #
 #
+Language.create!(locale: :en, system: true)
 ['Lifestyle', 'Dealbook', 'Video', 'Team hub'].each do |name|
   Category.create!(name: name, static: true)
 end
@@ -100,7 +101,7 @@ User.create!(
   password: 'secret123',
   confirmed_at: Date.new,
   remote_photo_url: 'https://us.123rf.com/450wm/vovikmar/vovikmar1505/vovikmar150500085/40674362-beautiful-landscape-in-the-mountains-at-sunshine-.jpg?ver=6'
-)
+).add_role :admin
 
 # 112.times do |i|
 #   user = User.create!(

@@ -1,0 +1,17 @@
+= content_for :admin_page_menu do
+  .admin-page-menu
+    .admin-page-menu__name
+      | Languages
+    .admin-page-menu__actions
+      = link_to  'Cancel', cms_languages_path, class: 'button-outline'
+      = simple_form_for [:cms, @language] do |form|
+        = form.input :translation, as: :hidden
+        button.button#save-language-config type="submit"
+          | Save
+
+#languages
+.languages-editor-wrapper
+  .languages-editor#editor data-translation="#{@language.translation}"
+
+= content_for :scripts do
+  script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"

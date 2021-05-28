@@ -77,5 +77,5 @@ body
           = locale.to_s.upcase
           span.h-lang__toggle-icon.material-icons arrow_drop_down
         .app-dropdown-menu.h-lang__select.dropdown-menu
-          - I18n.available_locales.reject { |l| l == locale}.each do |l|
+          - I18n.available_locales.each do |l|
             = link_to l.to_s.upcase, request.params.merge(locale: l), class: 'h-lang__item dropdown-item'

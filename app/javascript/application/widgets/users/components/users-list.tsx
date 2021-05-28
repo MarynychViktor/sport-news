@@ -60,7 +60,7 @@ export class UsersList extends React.Component<any, any>{
     ));
 
     return (
-      <table style={{width: '100%'}}>
+      <table className='app-table'>
         <thead>
           <tr>
             <th className='user-list-header-cell'>Name</th>

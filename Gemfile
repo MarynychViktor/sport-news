@@ -54,6 +54,7 @@ gem 'omniauth-google-oauth2', '~> 1.0'
 gem 'omniauth', '~> 2.0'
 gem 'omniauth-rails_csrf_protection'
 gem 'mobility', '~> 1.1.2'
+gem 'redis-store', '~> 1.1', '>= 1.1.7'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

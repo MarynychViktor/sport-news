@@ -1,4 +1,4 @@
-const {controller, action} = window.AppContext.request;
+const {action} = window.AppContext.request;
 
 if (['new', 'edit', 'create', 'update'].includes(action)) {
   import('./articles/form');

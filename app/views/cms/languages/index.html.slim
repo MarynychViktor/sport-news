@@ -3,5 +3,59 @@
     .admin-page-menu__name
       | Languages
     .admin-page-menu__actions
-      = link_to  '+ New Language', '#', class: 'button'
-#languages
+      = link_to  '+ New Language', '#', class: 'button', id: 'new-language'
+
+.languages-wrapper
+  table.app-table.languages-table
+    thead
+      tr
+        th Languages
+        th Show/Hide
+        th.action-cell
+        th.action-cell
+    tbody
+      - @languages.each_with_index do |language, index|
+        tr
+          td
+            = locale_name(language.locale)
+          td
+            - if !language.system
+              = simple_form_for [:cms, language] do |form|
+                .custom-control.custom-switch
+                  = form.input :hidden, as: :hidden, input_html: {class: 'language-visibility-input'}
+                  = check_box_tag "languageSwitch#{index}", !language.hidden, !language.hidden, class: 'custom-control-input language-visibility-toggle'
+                  label.custom-control-label for="languageSwitch#{index}" Show
+            - else
+              |-
+
+          td.action-cell
+            = link_to edit_cms_language_path(language), class: 'languages-config button-plain' do
+              .material-icons
+                | settings
+          td.action-cell
+            - if !language.system
+              = link_to cms_language_path(language), class: 'languages-delete', method: :delete  do
+                .material-icons
+                  | delete
+            - else
+              |-
+
+= content_for :body_append
+  #modal.modal.fade aria-hidden="true" aria-labelledby="modal" role="dialog" tabindex="-1"
+    .modal-dialog.modal-dialog-centered  role="document"
+      .modal-content.app-modal-content#modal-content
+        .app-modal-title Add language
+
+        .app-modal-form
+          = simple_form_for [:cms, Language.new] do |form|
+            .language-select
+              = form.input :locale,
+                      collection: supported_languages.reject { |locale| @locales_in_use.include? locale } \
+                                  .map {|locale, name| [name, locale] }, \
+                      input_html: { id: 'lang-select' }, label: false, include_blank: false
+
+            .app-modal-actions
+              button.button-plain data-dismiss="modal" type="button"
+                | Cancel
+              button.button#add-language type="submit"
+                | Add
