@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
     authorize @article, :comment?
     response = Comments::AddService.call(to: @article, user: current_user, content: comment_params[:content],
                                          parent_id: comment_params[:parent_id])
-    @comment = response.result
+    @comment = response.comment
 
     if response.success?
       render :show
@@ -47,8 +47,7 @@ class CommentsController < ApplicationController
     authorize @comment
     @comment.destroy!
 
-    # TODO: add some appropriate response
-    render json: []
+    head :ok
   end
 
   private

@@ -11,9 +11,9 @@ module Places
     def call
       if @query && !@query.empty?
         places = @places_client.find_places(@query)
-        success(places)
+        success(places: places)
       else
-        failed({ error: ':query is required' })
+        failed(error: { error: ':query is required' })
       end
     end
   end

@@ -16,7 +16,7 @@ module MainPages
         builder.photo_of_the_day(@photo)
         builder.settings(@setting)
       end
-      success(@main_page)
+      success(page: @main_page)
     end
 
     private

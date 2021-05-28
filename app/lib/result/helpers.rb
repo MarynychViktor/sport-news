@@ -1,11 +1,11 @@
 module Result
   module Helpers
-    def success(result = nil)
-      Success.new(result)
+    def success(*args)
+      Success.new(*args)
     end
 
-    def failed(result = nil)
-      Failed.new(result)
+    def failed(*args)
+      Failed.new(*args)
     end
   end
 end

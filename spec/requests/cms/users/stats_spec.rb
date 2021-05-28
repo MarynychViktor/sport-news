@@ -14,8 +14,8 @@ describe '/cms/users/stats' do
       get stats_cms_users_path, headers: { 'ACCEPT' => 'application/json' }
 
       body = JSON.parse(response.body)
-      expect(body['users_count']).to be(2)
-      expect(body['admins_count']).to be(3)
+      expect(body['users_count']).to be(User.users.count)
+      expect(body['admins_count']).to be(User.admins.count)
     end
   end
 end

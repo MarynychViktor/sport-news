@@ -1,7 +1,11 @@
 module Result
   class Success < Result
-    def initialize(result)
-      super(result, true)
+    def failed?
+      false
+    end
+
+    def success?
+      true
     end
   end
 end

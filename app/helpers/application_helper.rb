@@ -12,6 +12,6 @@ module ApplicationHelper
   end
 
   def locale_name(locale)
-    supported_languages.fetch(locale.to_sym)
+    supported_languages.fetch(locale.to_sym, locale)
   end
 end

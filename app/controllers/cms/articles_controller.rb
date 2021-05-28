@@ -28,7 +28,7 @@ module CMS
 
     def create
       response = ::Articles::CreateService.call(@category, article_params)
-      @article = response.result
+      @article = response.article
 
       if response.success?
         redirect_to cms_category_articles_url(@category)
@@ -39,7 +39,7 @@ module CMS
 
     def update
       response = ::Articles::UpdateService.call(@category, @article, article_params)
-      @article = response.result
+      @article = response.article
 
       if response.success?
         redirect_to cms_category_articles_url(@category)

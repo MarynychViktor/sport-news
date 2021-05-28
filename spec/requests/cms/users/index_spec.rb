@@ -24,14 +24,14 @@ describe '/cms/users' do
       get cms_users_path, headers: { 'ACCEPT' => 'application/json' }
 
       body = JSON.parse(response.body)
-      expect(body['data'].count).to be(5)
+      expect(body['data'].count).to be(User.all.count)
     end
 
     it 'returns admin users' do
       get cms_users_path, params: {role: 'admin'}, headers: { 'ACCEPT' => 'application/json' }
 
       users = JSON.parse(response.body)['data']
-      expect(users.count).to be(3)
+      expect(users.count).to be(User.admins.count)
       expect(users.map {|u| u['admin'] }).to all(be_truthy)
     end
 
@@ -39,7 +39,7 @@ describe '/cms/users' do
       get cms_users_path, params: {role: 'user'}, headers: { 'ACCEPT' => 'application/json' }
 
       users = JSON.parse(response.body)['data']
-      expect(users.count).to be(2)
+      expect(users.count).to be(User.users.count)
       expect(users.map {|u| u['admin'] }).to all(be_falsy)
     end
   end

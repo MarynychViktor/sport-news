@@ -18,9 +18,9 @@ module Comments
       comment = Comment.new(content: @content, commentable: @commentable, user: @user, thread: @thread, parent: @parent)
 
       if comment.save
-        success(comment)
+        success(comment: comment)
       else
-        failed(comment)
+        failed(comment: comment)
       end
     end
   end

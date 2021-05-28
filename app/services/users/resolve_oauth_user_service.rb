@@ -13,12 +13,12 @@ module Users
         u.first_name = @user_data[:first_name]
         u.last_name = @user_data[:last_name]
         u.email = @user_data[:email]
-        u.password ||= Devise.friendly_token[0, 20]
+        u.password ||= Devise.friendly_token
         u.confirmed_at ||= DateTime.current
       end
       add_user_photo
       @user.save!
-      @user
+      success(user: @user)
     end
 
     private

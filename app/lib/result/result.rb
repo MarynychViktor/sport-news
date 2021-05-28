@@ -1,19 +1,12 @@
 module Result
   # TODO: check OpenStruct
-  class Result
-    attr_reader :result
-
-    def initialize(result, success)
-      @result = result
-      @success = success
-    end
-
+  class Result < OpenStruct
     def success?
-      @success
+      raise 'Not implemented'
     end
 
     def failed?
-      !@success
+      raise 'Not implemented'
     end
   end
 end

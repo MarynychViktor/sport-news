@@ -88,6 +88,7 @@ group :test do
   gem 'webdrivers'
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
+  gem 'database_cleaner-active_record'
   gem 'rails-controller-testing'
   gem 'rspec-its'
 end

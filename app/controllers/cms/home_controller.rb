@@ -3,7 +3,7 @@ module CMS
     layout 'cms'
 
     def index
-      @main_page = MainPages::ResolvePageService.call(prefill_on_empty: true).result
+      @main_page = MainPages::ResolvePageService.call(prefill_on_empty: true).page
       @default_category = Category.first
     end
 
