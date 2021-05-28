@@ -36,6 +36,9 @@ class Article < ApplicationRecord
   extend FriendlyId
   extend Mobility
 
+  MOST_POPULAR_RESULTS_COUNT = 3
+  TRENDING_ARTICLES_COUNT = 4
+
   translates :headline, :alt, :caption, type: :string
   translates :content, type: :text
 
@@ -86,9 +89,19 @@ class Article < ApplicationRecord
     locations.first
   end
 
-  # TODO: refactor to query object and add logic to track popularity
-  def self.most_popular(max: 3)
-    published.take(max)
+  def self.most_popular
+    # TODO: add logic to track popularity
+    published.take(MOST_POPULAR_RESULTS_COUNT)
+  end
+
+  def self.hero
+    # TODO: add logic to select hero article
+    take(1)
+  end
+
+  def self.trending
+    # TODO: add logic to select trending articles
+    take(TRENDING_ARTICLES_COUNT)
   end
 
   private

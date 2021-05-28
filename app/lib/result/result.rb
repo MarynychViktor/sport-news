@@ -1,5 +1,4 @@
 module Result
-  # TODO: check OpenStruct
   class Result < OpenStruct
     def success?
       raise 'Not implemented'

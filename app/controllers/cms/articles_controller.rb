@@ -78,15 +78,11 @@ module CMS
                                       :headline, :content, :display_comments)
     end
 
-    # TODO: review
     def search_params
-      search_query = params.permit(:subcategory_id, :team_id, :published)
-                           .select {|k, v| v && !v.empty? }
+      search_query = params.permit(:subcategory_id, :team_id, :published).compact_blank
       published_param = search_query.delete(:published)
 
-
       return search_query unless published_param
-
 
       case published_param
       when '1'
