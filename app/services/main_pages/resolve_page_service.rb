@@ -16,7 +16,7 @@ module MainPages
         builder.photo_of_the_day(@photo)
         builder.settings(@setting)
       end
-      success(@main_page)
+      success(page: @main_page)
     end
 
     private
@@ -31,7 +31,7 @@ module MainPages
     def process_resources
       if @prefill_on_empty
         @articles = [Home::Article.new] if @articles.empty?
-        @breakdowns = [Home::Article.new] if @breakdowns.empty?
+        @breakdowns = [Home::Breakdown.new] if @breakdowns.empty?
       else
         @photo = nil unless @photo.persisted?
         @setting = nil unless @setting.persisted?

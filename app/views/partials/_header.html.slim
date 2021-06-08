@@ -11,14 +11,14 @@ body
             span.material-icons
               | search
           .h-search__input-wrapper id="app-search"
-            input.h-search__input.app-input placeholder=("Search by") type="text" /
+            input.h-search__input.app-input placeholder=("#{t('header.search')}") type="text" /
 
         /! Share widget
         .vertical-divider
         .h-share-wrapper
           .h-share
             .h-share__title
-              | Share
+              = t('header.share')
             .h-share__icons
               a.h-share__link href="#"
                 = image_tag 'social/facebook.svg', alt: 'facebook icon', class: 'h-share__icon'
@@ -53,25 +53,29 @@ body
                   = current_user.email
               .dropdown-divider
               - if current_user.admin?
-                = link_to 'Dashboard', cms_root_path, class: 'app-dropdown-item dropdown-item'
+                = link_to t('header.links.dashboard'), cms_root_path, class: 'app-dropdown-item dropdown-item'
               - else
-                a.app-dropdown-item.dropdown-item href="#"  View Profile
-                a.app-dropdown-item.dropdown-item href="#"  Change Password
-                a.app-dropdown-item.dropdown-item href="#"  My surveys
-                a.app-dropdown-item.dropdown-item href="#"  Team hub
+                a.app-dropdown-item.dropdown-item href="#"
+                  = t('header.links.profile')
+                a.app-dropdown-item.dropdown-item href="#"
+                  = t('header.links.change_password')
+                a.app-dropdown-item.dropdown-item href="#"
+                  = t('header.links.surveys')
+                a.app-dropdown-item.dropdown-item href="#"
+                  = t('header.links.team_hub')
               .dropdown-divider
-              = link_to 'Log out', destroy_user_session_path, class: 'app-dropdown-item dropdown-item', method: :delete
+              = link_to t('header.links.log_out'), destroy_user_session_path, class: 'app-dropdown-item dropdown-item', method: :delete
     - else
       .h-signup-wrapper
         .h-signup
-          = link_to 'Sign up', new_user_registration_path, class: 'button-plain', method: :get
-          = link_to 'Log in', new_user_session_path, class: 'button-outline', method: :get
+          = link_to t("auth.register.title"), new_user_registration_path, class: 'button-plain', method: :get
+          = link_to t("auth.login.title"), new_user_session_path, class: 'button-outline', method: :get
 
     .h-lang-wrapper
       .h-lang.btn-group
         .h-lang__toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
-          | EN
+          = locale.to_s.upcase
           span.h-lang__toggle-icon.material-icons arrow_drop_down
         .app-dropdown-menu.h-lang__select.dropdown-menu
-          a.h-lang__item.dropdown-item href="#"  UA
-          a.h-lang__item.dropdown-item href="#"  DE
+          - I18n.available_locales.each do |l|
+            = link_to l.to_s.upcase, request.params.merge(locale: l), class: 'h-lang__item dropdown-item'

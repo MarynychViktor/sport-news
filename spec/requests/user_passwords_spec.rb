@@ -19,7 +19,7 @@ describe 'UserPasswords', type: :request do
 
       get new_user_password_path
 
-      expect(response).to redirect_to('/')
+      expect(response).to redirect_to(root_path)
     end
   end
 

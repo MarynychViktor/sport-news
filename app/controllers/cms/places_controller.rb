@@ -4,9 +4,9 @@ module CMS
       response = Places::SearchCitiesService.call(params[:query])
 
       if response.success?
-        render json: response.result
+        render json: response.places
       else
-        render json: response.result, status: 400
+        render json: response.error, status: 400
       end
     end
   end

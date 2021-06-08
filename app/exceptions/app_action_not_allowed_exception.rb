@@ -1,0 +1,2 @@
+class AppActionNotAllowedException < AppException
+end

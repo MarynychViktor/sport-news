@@ -18,7 +18,7 @@ describe 'UserRegistrations', type: :request do
 
       get new_user_registration_path
 
-      expect(response).to redirect_to('/')
+      expect(response).to redirect_to(root_path)
     end
   end
 
@@ -28,7 +28,7 @@ describe 'UserRegistrations', type: :request do
     it 'registers user and send confirmation email' do
       post user_registration_path, params: { user: { first_name: 'John', last_name: 'Smith', email: 'user@email.com', password: 'secret123', password_confirmation: 'secret123', photo: fixture_file_upload('test.jpeg', 'image/jpeg')} }
 
-      expect(response).to redirect_to('/')
+      expect(response).to redirect_to(root_path)
       expect(ActiveJob::Base.queue_adapter.enqueued_jobs.length).to eq 1
     end
 
@@ -45,7 +45,7 @@ describe 'UserRegistrations', type: :request do
 
       post user_registration_path
 
-      expect(response).to redirect_to('/')
+      expect(response).to redirect_to(root_path)
     end
   end
 end

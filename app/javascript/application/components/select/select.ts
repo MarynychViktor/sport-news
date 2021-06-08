@@ -1,7 +1,6 @@
 import 'selectize';
 import 'select2/dist/js/select2.full';
 import { BehaviorSubject, ReplaySubject, Subject } from "rxjs";
-import { buffer } from "rxjs/internal/operators";
 
 const DEFAULT_CONFIG = {
   dropdownCssClass: 'app-select2-dropdown',

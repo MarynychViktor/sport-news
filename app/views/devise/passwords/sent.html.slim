@@ -3,7 +3,8 @@
     .password-resend__icon-wrapper
       = inline_svg_tag 'common/letter.svg', class: 'categorized-item__action-left'
     .password-resend__title
-      | Check your email #{@user.email}
+      | #{t("auth.forgot_password.sent.title")} #{@user.email}
+
     .password-resend__subtitle
-      | If there's Sports Hub account linked to this email address, we'll send over instructions to reset your password.
+      = t("auth.forgot_password.sent.subtitle")
 

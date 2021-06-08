@@ -4,7 +4,7 @@ module CMS
     before_action :find_article, only: %i[edit update publish unpublish destroy]
 
     def index
-      result = Articles::FindQuery.call(search_params, @category.articles)
+      result = ::Articles::FindQuery.call(search_params, @category.articles)
       @articles = paginate(result)
 
       respond_to do |format|
@@ -18,7 +18,7 @@ module CMS
     end
 
     def page
-      result = Articles::FindQuery.call(search_params, @category.articles)
+      result = ::Articles::FindQuery.call(search_params, @category.articles)
       @articles = paginate(result)
     end
 
@@ -27,8 +27,8 @@ module CMS
     end
 
     def create
-      response = Articles::CreateService.call(@category, article_params)
-      @article = response.result
+      response = ::Articles::CreateService.call(@category, article_params)
+      @article = response.article
 
       if response.success?
         redirect_to cms_category_articles_url(@category)
@@ -38,8 +38,8 @@ module CMS
     end
 
     def update
-      response = Articles::UpdateService.call(@category, @article, article_params)
-      @article = response.result
+      response = ::Articles::UpdateService.call(@category, @article, article_params)
+      @article = response.article
 
       if response.success?
         redirect_to cms_category_articles_url(@category)
@@ -78,15 +78,11 @@ module CMS
                                       :headline, :content, :display_comments)
     end
 
-    # TODO: review
     def search_params
-      search_query = params.permit(:subcategory_id, :team_id, :published)
-                           .select {|k, v| v && !v.empty? }
+      search_query = params.permit(:subcategory_id, :team_id, :published).compact_blank
       published_param = search_query.delete(:published)
 
-
       return search_query unless published_param
-
 
       case published_param
       when '1'

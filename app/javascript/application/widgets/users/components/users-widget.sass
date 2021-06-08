@@ -1,0 +1,183 @@
+.users
+  &-header
+    display: flex
+    align-items: center
+
+    &-link
+      font-size: 12px
+      line-height: 15px
+      color: #7F8899
+      text-decoration: none
+      display: block
+      font-weight: bold
+
+      &:not(:first-child)
+        margin-left: 13px
+
+      &.is-active
+        color: #D72130
+        text-decoration: underline
+
+.user
+  &-list
+    &-wrapper
+      width: 708px
+      margin-top: 20px
+
+    &-tile
+      display: flex
+
+    &-header
+      &-cell
+        &:first-child
+          width: 50%
+
+    &-paginator
+      display: flex
+      align-items: center
+      justify-content: flex-end
+
+      &-label
+        font-size: 12px
+        margin-right: 10px
+        font-weight: 600
+
+      &-nav
+        margin: 0
+
+  &-preview
+    display: flex
+    align-items: center
+
+    &__logo
+      width: 100%
+      height: 100%
+      object-fit: cover
+
+      &-wrapper
+        width: 34px
+        height: 34px
+        border-radius: 50%
+        overflow: hidden
+
+    &__name
+      font-size: 12px
+      font-weight: 600
+      line-height: 16px
+      letter-spacing: 0
+      margin-left: 10px
+
+  &-status
+    font-size: 12px
+    font-weight: 400
+    line-height: 19px
+
+    &.is-active
+        color: #229D1F
+
+  &-menu
+    &-toggle,
+    &-dropdown
+      width: 150px
+      min-width: initial
+
+    &-toggle,
+    &-dropdown-item
+      display: flex
+      align-items: center
+      justify-content: center
+      font-size: 12px
+      font-weight: 400
+      line-height: 19px
+      height: 26px
+      background: #D4D9E2
+      color: #2B2F43
+
+      &:hover
+        text-decoration: none
+        background: #D4D9E2
+        color: #2B2F43
+
+    &-toggle
+      margin: 0 auto
+
+    &-dropdown-item
+      &.is-success,
+      &.is-success:hover
+        background: #DFECDD
+        color: #229D1F
+
+      &.is-success,
+      &.is-success:hover
+        background: #DFECDD
+        color: #229D1F
+
+      &.is-danger,
+      &.is-danger:hover
+        color: #D72130
+        background: #FDEAEB
+
+      &.is-primary,
+      &.is-primary:hover
+        color: #245865
+        background: #d4e6f1
+
+    &-dropdown
+      padding: 0
+      border-radius: 0
+      border: none
+
+    &-toggle
+      position: relative
+
+      &:after
+        content: ''
+        position: absolute
+        right: 10px
+        top: 12px
+        border: 4px solid transparent
+        border-top-color: #000
+
+  &-actions
+    display: flex
+    align-items: center
+    justify-content: center
+
+    &-filter
+      color: #9a9a9a
+      display: block
+      position: relative
+      right: -20px
+      top: 1px
+
+      &:hover
+        color: #000
+
+      > span
+        font-size: 20px
+
+    &-dropdown
+      padding: 0
+      min-width: 89px
+      border-radius: 0
+      box-shadow: 0 0 17px rgba(0, 0, 0, 0.09)
+      border: none
+
+      &-header,
+      &-item
+        font-size: 12px
+        line-height: 16px
+        padding: 5px 16px
+        color: #000000
+        text-transform: none
+
+      &-header
+        font-weight: 600
+
+      &-item
+        &:hover
+          background: rgba(215, 33, 48, 0.11)
+          color: #D72130
+
+      &-divider
+        margin: 0

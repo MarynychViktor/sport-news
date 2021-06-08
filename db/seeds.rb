@@ -6,7 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 #
-
+#
+Language.create!(locale: :en, system: true)
 ['Lifestyle', 'Dealbook', 'Video', 'Team hub'].each do |name|
   Category.create!(name: name, static: true)
 end
@@ -85,7 +86,7 @@ categories.each do |category_descriptor|
 
     subcategory_descriptor[:teams].each do |team_descriptor|
       team = subcategory.teams.create!(name: team_descriptor[:name])
-      10.times do
+      2.times do
         FactoryBot.create(:article, category: category, subcategory: subcategory, team: team,
                                     published_at: DateTime.current)
       end
@@ -93,12 +94,25 @@ categories.each do |category_descriptor|
   end
 end
 
-
 User.create!(
-  first_name: 'Admin',
-  last_name: 'Admin',
-  email: 'sportnews@mail.com',
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  email: 'sportnews@gmail.com',
   password: 'secret123',
   confirmed_at: Date.new,
   remote_photo_url: 'https://us.123rf.com/450wm/vovikmar/vovikmar1505/vovikmar150500085/40674362-beautiful-landscape-in-the-mountains-at-sunshine-.jpg?ver=6'
 ).add_role :admin
+
+# 112.times do |i|
+#   user = User.create!(
+#     first_name: Faker::Name.first_name,
+#     last_name: Faker::Name.last_name,
+#     email:  Faker::Internet.unique.email,
+#     password: 'secret123',
+#     confirmed_at: Date.new,
+#     remote_photo_url: 'https://us.123rf.com/450wm/vovikmar/vovikmar1505/vovikmar150500085/40674362-beautiful-landscape-in-the-mountains-at-sunshine-.jpg?ver=6'
+#   )
+#   if i.even?
+#     user.add_role :admin
+#   end
+# end

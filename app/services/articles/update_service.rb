@@ -16,9 +16,9 @@ module Articles
         @article.update!(@params)
         resolve_location
       end
-      success(@article)
+      success(article: @article)
     rescue ActiveRecord::RecordInvalid
-      failed(@article)
+      failed(article: @article)
     end
 
     private
@@ -27,10 +27,10 @@ module Articles
       return if !@location_id || @location_id.empty? || @article.location&.place_id == @location_id
 
       response = Locations::ResolveByPlaceIdService.call(@location_id)
-      raise response.result if response.failed?
+      raise response.error if response.failed?
 
       @article.locations.clear
-      @article.locations << response.result
+      @article.locations << response.location
     end
   end
 end

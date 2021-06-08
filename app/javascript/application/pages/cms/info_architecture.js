@@ -1,4 +1,4 @@
-const {controller, action} = window.AppContext.request;
+const {action} = window.AppContext.request;
 
 if ('show' === action) {
   import('./info_architecture/show');

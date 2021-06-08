@@ -3,11 +3,11 @@
 # Table name: articles
 #
 #  id               :bigint           not null, primary key
-#  alt              :string           not null
-#  caption          :string           not null
-#  content          :text             not null
+#  alt              :string
+#  caption          :string
+#  content          :text
 #  display_comments :boolean          default(TRUE), not null
-#  headline         :string           not null
+#  headline         :string
 #  location         :string
 #  picture          :string           not null
 #  published_at     :datetime
@@ -34,6 +34,13 @@
 class Article < ApplicationRecord
   include Elasticsearch::Model
   extend FriendlyId
+  extend Mobility
+
+  MOST_POPULAR_RESULTS_COUNT = 3
+  TRENDING_ARTICLES_COUNT = 4
+
+  translates :headline, :alt, :caption, type: :string
+  translates :content, type: :text
 
   friendly_id :headline, use: :slugged
   mount_base64_uploader :picture, PhotoUploader
@@ -82,9 +89,19 @@ class Article < ApplicationRecord
     locations.first
   end
 
-  # TODO: refactor to query object and add logic to track popularity
-  def self.most_popular(max: 3)
-    published.take(max)
+  def self.most_popular
+    # TODO: add logic to track popularity
+    published.take(MOST_POPULAR_RESULTS_COUNT)
+  end
+
+  def self.hero
+    # TODO: add logic to select hero article
+    take(1)
+  end
+
+  def self.trending
+    # TODO: add logic to select trending articles
+    take(TRENDING_ARTICLES_COUNT)
   end
 
   private

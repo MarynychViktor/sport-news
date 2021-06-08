@@ -1,7 +1,8 @@
 .auth-form-container
-  h2.auth-form__title Forgot your password?
+  h2.auth-form__title
+    = t("auth.forgot_password.title")
   .auth-form__subtitle
-    | Enter your email address below and we’ll get you back on track.
+    = t("auth.forgot_password.subtitle")
 
   - flash.select {|type, msg| [:notice, :alert].include?(type.to_sym)}.each do |type, msg|
     div class="auth-form__#{type}"
@@ -13,11 +14,12 @@
       .auth-form__group
         = f.input :email,                       \
           input_html: { class: "app-input", placeholder: 'Email@gmail.com' }, \
+          label: t("auth.fields.email"),\
           label_html: { class: "app-label" },                        \
           error_html: { class: 'app-input-error' }
 
     .auth-form__actions
       button.button.auth-form__submit type="submit"
-        | Request reset link
+        = t("auth.forgot_password.form.button")
 
-      = link_to 'Back to Log In', new_user_session_path, class: 'link--dark'
+      = link_to t("auth.forgot_password.form.link_to_login"), new_user_session_path, class: 'link--dark'

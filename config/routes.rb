@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
-    passwords: 'users/passwords'
-  }
+  devise_for :users, only: :omniauth_callbacks, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
 
-  # scope '/:locale' do
+  scope'(:locale)',
+       constraints: ->(r){ !r.params[:locale] || I18n.available_locales.include?(r.params[:locale].to_sym)} do
+
     root 'home#index'
+
+    devise_for :users, skip: :omniauth_callbacks, controllers: {
+      passwords: 'users/passwords'
+    }
 
     resources :articles do
       resources :comments, except: %i[new edit] do
@@ -16,7 +20,7 @@ Rails.application.routes.draw do
     end
 
     resource :search, only: %i[show]
-  # end
+  end
 
   namespace :cms do
     root 'home#index'
@@ -51,6 +55,13 @@ Rails.application.routes.draw do
           post 'publish', to: 'articles#publish'
           post 'unpublish', to: 'articles#unpublish'
         end
+
+      end
+    end
+
+    scope module: :articles do
+      resources :articles do
+        resources :translations, only: %i[edit update]
       end
     end
 
@@ -68,6 +79,20 @@ Rails.application.routes.draw do
     get 'teams', to: 'teams#all'
 
     resource :"information_architecture", controller: 'info_architecture', only: %i[show]
+    resources :users, except: %i[show new create edit update] do
+      collection do
+        get 'stats', to: 'users#stats'
+      end
+
+      member do
+        post 'block', to: 'users#block'
+        post 'activate', to: 'users#activate'
+        post 'add-admin', to: 'users#add_admin'
+        post 'remove-admin', to: 'users#remove_admin'
+      end
+    end
+
+    resources :languages
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

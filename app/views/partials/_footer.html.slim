@@ -2,25 +2,28 @@ footer.app-footer
   .app-footer-content
     .app-footer-column
       .app-footer-column__title
-        | COMPANY INFO
+        = t('footer.info.title')
       ul.app-footer-column__links
-        - links = ['About Sports Hub', 'News / In the Press', 'Advertising / Sports Blogger Ad Network', 'Events', 'Contact Us']
+        - links = %i[about news advertising events contact_us]
         - links.each do |link|
           li.app-footer-column__link-wrapper
-            a.app-footer-column__link href="#" = link
+            = link_to t("footer.info.links.#{link}"), '#', class: 'app-footer-column__link'
+
     .app-footer-column
       .app-footer-column__title
-        | CONTRIBUTORS
+        = t('footer.contributors.title')
       ul.app-footer-column__links
-        - links = ['Featured Writers Program', 'Featured Team Writers Program', 'Internship Program']
+        - links = %i[writers team_writers intership]
         - links.each do |link|
           li.app-footer-column__link-wrapper
-            a.app-footer-column__link href="#" = link
+            = link_to t("footer.contributors.links.#{link}"), '#', class: 'app-footer-column__link'
+
     .app-footer-column
       .app-footer-column__title
-        | NEWSLETTER
+        = t('footer.newsletter.title')
       .app-footer-column__links
-        .app-footer-column__link href="#"  Sign up to receive the latest sports news
+        .app-footer-column__link href="#"
+          = t('footer.newsletter.description')
         .app-footer-newsletter
           input.app-input placeholder=("Your email address") type="text" /
           button.button Subscribe

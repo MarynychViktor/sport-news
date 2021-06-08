@@ -37,6 +37,7 @@ $(async () => {
       // @ts-ignore
       await import(`../application/pages/${controller}`);
     } catch (e) {
+      console.log('error', e);
       console.log(`ooops. ../application/pages/${controller} not found`)
     }
   })().then()
